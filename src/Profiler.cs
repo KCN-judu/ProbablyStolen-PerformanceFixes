@@ -1,0 +1,158 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Reflection;
+using System.Text;
+using HarmonyLib;
+using UnityEngine;
+using Debug = UnityEngine.Debug;
+
+namespace PerformanceFixes
+{
+    // Long-frame profiler, off by default (mod options). While on, every per-frame callback of the game's
+    // MonoBehaviours and every layout pass (Validate) is timed, plus everything StoreUIManager.Update calls four
+    // levels deep, where the shop's stutters were traced to (the lists are generated from the game DLL into
+    // Targets.g.cs and Callees.g.cs, so nothing is looked up by reflection over unknown types). Unity's UI rebuild and rendering is
+    // timed from Canvas.willRenderCanvases to the end of the frame. A frame over the threshold is written to
+    // Player.log as: total, scripts before the UI rebuild, UI rebuild and rendering, and the slowest methods
+    // (inclusive time: a Validate that validates its children includes them).
+    static partial class Profiler
+    {
+        const string HarmonyId = "mod." + PerformanceMod.ModId + ".profiler";
+        const double ThresholdMs = 100.0;
+        const int Top = 12;
+
+        static Harmony harmony;
+        static MonoBehaviour host;
+        static Coroutine loop;
+
+        static readonly Dictionary<MethodBase, int> index = new Dictionary<MethodBase, int>();
+        static readonly List<MethodBase> methods = new List<MethodBase>();
+        static long[] ticks = new long[0];
+        static int[] calls = new int[0];
+
+        static long frameStart, willRender;
+        static double nextLog;
+        static readonly double TickMs = 1000.0 / Stopwatch.Frequency;
+
+        public static bool Running { get { return harmony != null; } }
+
+        // Never lets a failure reach the game: patching stops at the first unexpected error and everything patched so
+        // far is removed again. The timers only count once their arrays exist (see Post).
+        public static void Start(MonoBehaviour owner)
+        {
+            if (harmony != null) return;
+            try
+            {
+                ticks = new long[0];
+                calls = new int[0];
+                harmony = new Harmony(HarmonyId);
+                index.Clear(); methods.Clear();
+                AddTargets();
+                AddCallees();
+                P(() => typeof(PixelWindow).GetMethod("Hide", F, null, Type.EmptyTypes, null));
+                ticks = new long[methods.Count];
+                calls = new int[methods.Count];
+                host = owner;
+                Canvas.willRenderCanvases += OnWillRender;
+                frameStart = Stopwatch.GetTimestamp();
+                loop = host.StartCoroutine(EndOfFrames());
+                Debug.Log("[PerformanceFixes] profiler on: timing " + methods.Count + " methods");
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning("[PerformanceFixes] profiler could not start, so it is off: " + e.GetType().Name + ": " + e.Message);
+                Stop();
+            }
+        }
+
+        public static void Stop()
+        {
+            if (harmony == null) return;
+            Canvas.willRenderCanvases -= OnWillRender;
+            try { if (host != null && loop != null) host.StopCoroutine(loop); } catch (Exception) { }
+            loop = null;
+            try { harmony.UnpatchAll(HarmonyId); } catch (Exception) { }
+            harmony = null;
+            ticks = new long[0];
+            calls = new int[0];
+            Debug.Log("[PerformanceFixes] profiler off");
+        }
+
+        // Every target names its type at the call (typeof(X).GetMethod), so the game's mod scanner sees no reflection
+        // over unknown types and asks for no permission. The lookup runs inside P, so a method that is missing or
+        // overloaded after a game update is skipped instead of throwing.
+        const BindingFlags F = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
+        const BindingFlags FS = F | BindingFlags.Static;
+
+        static void P(Func<MethodInfo> find)
+        {
+            MethodInfo m;
+            try { m = find(); } catch (Exception) { return; }
+            if (m == null || m.IsAbstract || m.GetMethodBody() == null || index.ContainsKey(m)) return;
+            try
+            {
+                harmony.Patch(m, new HarmonyMethod(typeof(Profiler).GetMethod("Pre", PerformanceMod.AnyStatic)),
+                    new HarmonyMethod(typeof(Profiler).GetMethod("Post", PerformanceMod.AnyStatic)));
+                index[m] = methods.Count;
+                methods.Add(m);
+            }
+            catch (Exception) { }
+        }
+
+        static void Pre(out long __state) { __state = Stopwatch.GetTimestamp(); }
+
+        static void Post(long __state, MethodBase __originalMethod)
+        {
+            int i;
+            if (__originalMethod != null && index.TryGetValue(__originalMethod, out i) && i < ticks.Length)
+            {
+                ticks[i] += Stopwatch.GetTimestamp() - __state;
+                calls[i]++;
+            }
+        }
+
+        static void OnWillRender() { if (willRender == 0) willRender = Stopwatch.GetTimestamp(); }
+
+        static IEnumerator EndOfFrames()
+        {
+            var wait = new WaitForEndOfFrame();
+            while (true)
+            {
+                yield return wait;
+                long end = Stopwatch.GetTimestamp();
+                double total = (end - frameStart) * TickMs;
+                if (total > ThresholdMs && Time.realtimeSinceStartup >= nextLog && Time.frameCount > 300)
+                {
+                    nextLog = Time.realtimeSinceStartup + 1.0;
+                    Report(total, willRender != 0 ? (willRender - frameStart) * TickMs : total,
+                        willRender != 0 ? (end - willRender) * TickMs : 0);
+                }
+                Array.Clear(ticks, 0, ticks.Length);
+                Array.Clear(calls, 0, calls.Length);
+                willRender = 0;
+                frameStart = end;
+            }
+        }
+
+        static void Report(double total, double scripts, double ui)
+        {
+            var order = new List<int>();
+            for (int i = 0; i < ticks.Length; i++) if (ticks[i] > 0) order.Add(i);
+            order.Sort((a, b) => ticks[b].CompareTo(ticks[a]));
+            var sb = new StringBuilder();
+            sb.Append("[PerformanceFixes] profile of a ").Append(total.ToString("0")).Append(" ms frame: scripts and engine ")
+              .Append(scripts.ToString("0")).Append(" ms, UI rebuild and rendering ").Append(ui.ToString("0")).Append(" ms");
+            if (order.Count == 0) sb.Append("; no timed game method ran long");
+            for (int k = 0; k < order.Count && k < Top; k++)
+            {
+                int i = order[k];
+                var m = methods[i];
+                sb.Append(k == 0 ? "; slowest: " : ", ").Append(m.DeclaringType.Name).Append('.').Append(m.Name).Append(' ')
+                  .Append((ticks[i] * TickMs).ToString("0.0")).Append(" ms x").Append(calls[i]);
+            }
+            Debug.Log(sb.ToString());
+        }
+    }
+}

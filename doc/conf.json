@@ -1,0 +1,15 @@
+{
+  "title": "Performance Fixes",
+  "summary": "Removes stutters from the base game when working with large, packed storage, without changing how it plays.",
+  "locales": [
+    "zh_CN"
+  ],
+  "order": [
+    "index.md",
+    "windows.md",
+    "inventories.md",
+    "customers.md",
+    "diagnostics.md",
+    "building.md"
+  ]
+}

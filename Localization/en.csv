@@ -1,0 +1,17 @@
+# Performance Fixes - English (en)
+opt_isolate,Separate canvas per window
+opt_isolate_tip,Each container window is drawn on its own canvas so a change in one window no longer redraws every open window. Applies to windows opened afterwards. Needed by Hide closed windows instantly.
+opt_keep,Keep closed windows in place
+opt_keep_tip,A closed window stays in the floating-window layer instead of moving back so reopening it does not move its contents between canvases. Needed by Hide closed windows instantly.
+opt_fasthide,Hide closed windows instantly
+opt_fasthide_tip,A closed container window simply stops being drawn instead of switching off everything inside it. Reopening a full window is then nearly instant. Works together with the two options above.
+opt_stagger,Open preset windows one by one
+opt_stagger_tip,The storage-preset hotkey opens or closes its windows over a few frames (the first at once) so animations keep running.
+opt_batch,Batch inventory layouts
+opt_batch_tip,Each inventory is re-laid out once per frame instead of once per item change. Speeds up loading and changes inside full containers.
+opt_buyer,Fast buyer check
+opt_buyer_tip,Decides whether a customer will buy a container in one pass over its contents instead of rechecking every level. Customers accept and refuse exactly as before.
+opt_log,Log long frames
+opt_log_tip,Writes frames over 100 ms to Player.log with the window opened just before. Costs nothing.
+opt_profile,Profile long frames
+opt_profile_tip,Breaks every frame over 100 ms down in Player.log into script and engine time and UI rebuild and rendering and the slowest game methods. Slows the game slightly while on so leave it off for normal play.

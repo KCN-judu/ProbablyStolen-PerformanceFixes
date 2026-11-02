@@ -1,0 +1,369 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Probably Stolen Mods documentation\n"
+"Report-Msgid-Bugs-To: https://github.com/KCN-judu/ProbablyStolen-Mods/issues\n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: conf.json:summary
+msgid "Removes stutters from the base game when working with large, packed storage, without changing how it plays."
+msgstr "在不改变玩法的前提下，消除游戏本体在处理大型满载仓库时的卡顿。"
+
+#: manual/building.md:1
+msgid "Building"
+msgstr "构建"
+
+#: manual/building.md:4
+msgid "Requirements"
+msgstr "需求"
+
+#: manual/building.md:6
+msgid "*Probably Stolen*, game version 0.46D. The build compiles against the game's own assemblies in `Probably Stolen_Data/Managed`."
+msgstr "《深空当铺：可能是偷的》（*Probably Stolen*）游戏版本 0.46D。构建时会引用 `Probably Stolen_Data/Managed` 中的游戏程序集。"
+
+#: manual/building.md:7
+msgid "Git Bash or another POSIX shell on Windows."
+msgstr "Windows 上的 Git Bash 或其他 POSIX shell。"
+
+#: manual/building.md:8
+msgid "The Roslyn C# compiler from Visual Studio Build Tools. The C# 5 compiler that ships with Windows cannot read some of the game's types."
+msgstr "Visual Studio Build Tools 中的 Roslyn C# 编译器。Windows 自带的 C# 5 编译器无法读取游戏的部分类型。"
+
+#: manual/building.md:10
+msgid "Build"
+msgstr "构建"
+
+#: manual/building.md:17
+msgid "Two environment variables override the defaults:"
+msgstr "可以用两个环境变量覆盖默认值："
+
+#: manual/building.md:19
+msgid "Variable"
+msgstr "变量"
+
+#: manual/building.md:19
+#: manual/index.md:11
+msgid "Default"
+msgstr "默认值"
+
+#: manual/building.md:22
+msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
+msgstr "Visual Studio 18 Build Tools 中的 Roslyn `csc.exe`"
+
+#: manual/building.md:24
+msgid "Install by hand"
+msgstr "手动安装"
+
+#: manual/building.md:26
+msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgstr "把 `out/performance_fixes` 文件夹复制到游戏的 `Mods` 文件夹，启动游戏，在模组菜单中启用它。模组在游戏启动时加载，所以启用或更新后要重启游戏。"
+
+#: manual/building.md:28
+msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
+msgstr "这个模组不声明任何权限，游戏启用它时不会弹出权限确认。"
+
+#: manual/customers.md:1
+#: manual/index.md:18
+msgid "Customers"
+msgstr "顾客"
+
+#: manual/customers.md:3
+#: manual/index.md:18
+msgid "Fast buyer check"
+msgstr "快速收货判定"
+
+#: manual/customers.md:5
+msgid "**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. For nested storage that is quadratic, and every level allocates a new list."
+msgstr "**问题。** 游戏判断顾客是否会收某件物品时（`StoreClient.IsClientBuyingThisItem`），也会检查容器的内容。它列出里面所有层级的每件物品，对每一件做完整检查，而每一件又会列出并检查自己的内容。嵌套存储下这接近平方复杂度，而且每一层都要分配一个新列表。"
+
+#: manual/customers.md:7
+msgid "The game runs this check when an item is placed on the counter, when it decides whether something can be sold, and in the negotiation screen, once for every item in the back inventory."
+msgstr "游戏会在这些时候运行这个检查：把物品放上柜台、判断能否出售，以及讨价还价界面，后者会对后仓中的每件物品各运行一次。"
+
+#: manual/customers.md:9
+msgid "**Fix.** The rule, read from the game's code:"
+msgstr "**修复。** 从游戏代码中读出的规则如下："
+
+#: manual/customers.md:11
+msgid "an item is **bought** when it is acceptable on its own (the game's own check with `ignoreContents`) and, if its contents are checked, everything inside it is bought;"
+msgstr "物品本身可接受（游戏自己带 `ignoreContents` 的检查），并且如果要检查内容，里面的东西全都会被收，这件物品才 **会被收**；"
+
+#: manual/customers.md:12
+msgid "contents are **checked** unless the item is currently locked, has no content window, or is an advanced gun."
+msgstr "除非物品当前上锁、没有内容窗口或是高级枪械，否则都会 **检查内容**。"
+
+#: manual/customers.md:14
+msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that include contents, are patched to evaluate exactly that rule bottom-up, once per item per call. Answers are reused only within that call, never across calls or frames, so the result is always the game's own for the current state. The single-item form runs unchanged."
+msgstr "模组修改了包含内容检查的 `IsClientBuyingThisItem` 和 `IsClientRefusingItem`，让它们自底向上严格按这条规则计算，每次调用中每件物品只算一次。结果只在本次调用内复用，从不跨调用或跨帧，所以结果始终与游戏对当前状态的判断一致。只检查单件物品的版本保持原样。"
+
+#: manual/diagnostics.md:1
+#: manual/index.md:19
+#: manual/index.md:20
+msgid "Diagnostics"
+msgstr "诊断"
+
+#: manual/diagnostics.md:3
+msgid "Long-frame log"
+msgstr "长帧日志"
+
+#: manual/diagnostics.md:5
+msgid "With **Log long frames** on, frames longer than 100 ms are written to the game's `Player.log` as `[PerformanceFixes] long frame: ...`, with the container window opened just before, if any, and counters for each fix. It costs nothing."
+msgstr "打开 **记录长帧** 后，超过 100 毫秒的帧会以 `[PerformanceFixes] long frame: ...` 写入游戏的 `Player.log`，附带刚刚打开的容器窗口（如果有）以及各项修复的计数。没有任何开销。"
+
+#: manual/diagnostics.md:7
+msgid "`Player.log` is in `%USERPROFILE%\\AppData\\LocalLow\\Questing Goose Studio\\Probably Stolen`."
+msgstr "`Player.log` 位于 `%USERPROFILE%\\AppData\\LocalLow\\Questing Goose Studio\\Probably Stolen`。"
+
+#: manual/diagnostics.md:9
+msgid "Long-frame profiler"
+msgstr "长帧分析器"
+
+#: manual/diagnostics.md:11
+msgid "**Profile long frames** goes further. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:"
+msgstr "**分析长帧** 更进一步。开启期间，游戏所有 MonoBehaviour 的每帧回调、每次布局计算（`Validate`），以及店铺主更新往下四层调用的所有方法都会被计时，Unity 的 UI 重建和渲染也会单独计时。每个超过 100 毫秒的帧都会连同最慢的方法一起记录下来："
+
+#: manual/diagnostics.md:17
+msgid "Times are inclusive: a method that calls others includes them. The profiler adds a little overhead, so leave it off for normal play. It never lets a failure reach the game: if it cannot attach to a method, it skips it, and if it cannot start, it removes everything it attached."
+msgstr "时间是包含式的：调用了其他方法的方法，其耗时包含被调用的部分。分析器有少量开销，正常游玩时请关闭。它绝不会让故障影响游戏：挂不上某个方法就跳过，无法启动就撤掉所有已挂上的计时。"
+
+#: manual/diagnostics.md:19
+msgid "Regenerating the method lists"
+msgstr "重新生成方法列表"
+
+#: manual/diagnostics.md:21
+msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
+msgstr "被计时的方法列在自动生成的文件中，这样游戏的模组扫描器能在代码里看到每个被引用的类型，不会请求权限："
+
+#: manual/diagnostics.md:23
+msgid "`tools/GenProbe.cs` writes `src/Targets.g.cs`, the per-frame callbacks and layout passes."
+msgstr "`tools/GenProbe.cs` 生成 `src/Targets.g.cs`，即每帧回调和布局计算。"
+
+#: manual/diagnostics.md:24
+msgid "`tools/GenCallees.cs` writes `src/Callees.g.cs`, everything the given methods call, to a given depth."
+msgstr "`tools/GenCallees.cs` 生成 `src/Callees.g.cs`，即指定方法在指定深度内调用的所有方法。"
+
+#: manual/diagnostics.md:26
+msgid "Both leave out the game's mod loader, mod security and Steam integration, which mods may not patch. Regenerate them after a game update."
+msgstr "两者都会排除游戏的模组加载器、模组安全和 Steam 集成部分，因为模组不允许修改它们。游戏更新后需要重新生成。"
+
+#: manual/index.md:1
+msgid "Performance Fixes"
+msgstr "性能修复"
+
+#: manual/index.md:3
+msgid "Smoother shop, same game. This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and only removes wasted work."
+msgstr "店铺更流畅，玩法不变。这个模组消除游戏本体在处理大型满载仓库时的卡顿。每项修复都保持游戏原有行为，只去掉浪费的计算。"
+
+#: manual/index.md:5
+msgid "![Performance Fixes cover](../attachments/cover.png)"
+msgstr "![性能修复封面](../attachments/cover.png)"
+
+#: manual/index.md:7
+msgid "Options"
+msgstr "选项"
+
+#: manual/index.md:9
+msgid "Every fix has its own switch in the mod's options: open the Mods menu, select Performance Fixes and click the gear icon. All of them are on by default except the profiler."
+msgstr "每项修复在模组设置里都有独立开关：打开模组菜单，选中性能修复，点击齿轮图标。除分析器外，所有修复默认开启。"
+
+#: manual/index.md:11
+msgid "Section"
+msgstr "分组"
+
+#: manual/index.md:11
+msgid "Option"
+msgstr "选项"
+
+#: manual/index.md:11
+msgid "What it does"
+msgstr "作用"
+
+#: manual/index.md:13
+#: manual/index.md:14
+#: manual/index.md:15
+#: manual/index.md:16
+#: manual/windows.md:1
+msgid "Windows"
+msgstr "窗口"
+
+#: manual/index.md:13
+#: manual/windows.md:5
+msgid "Separate canvas per window"
+msgstr "每个窗口独立画布"
+
+#: manual/index.md:13
+#: manual/index.md:14
+#: manual/index.md:15
+#: manual/index.md:16
+#: manual/index.md:17
+#: manual/index.md:18
+#: manual/index.md:19
+msgid "on"
+msgstr "开"
+
+#: manual/index.md:13
+msgid "Each container window is drawn on its own canvas, so a change in one window no longer redraws every open window."
+msgstr "每个容器窗口画在自己的画布上，一个窗口有变化时不再重绘所有打开的窗口。"
+
+#: manual/index.md:14
+#: manual/windows.md:13
+msgid "Keep closed windows in place"
+msgstr "关闭的窗口原地保留"
+
+#: manual/index.md:14
+msgid "A closed window stays in the floating-window layer, so reopening it does not move its contents between canvases."
+msgstr "关闭的窗口留在浮动窗口层，重新打开时不用在画布之间搬动内容。"
+
+#: manual/index.md:15
+#: manual/windows.md:19
+msgid "Hide closed windows instantly"
+msgstr "瞬间隐藏关闭的窗口"
+
+#: manual/index.md:15
+msgid "A closed container window stops being drawn instead of having everything inside switched off, so reopening a full window is nearly instant. Needs the two options above."
+msgstr "关闭的容器窗口只是不再绘制，而不是停用里面的所有内容，所以重新打开满载窗口几乎是瞬间的。需要上面两项。"
+
+#: manual/index.md:16
+#: manual/windows.md:31
+msgid "Open preset windows one by one"
+msgstr "预设窗口逐个打开"
+
+#: manual/index.md:16
+msgid "The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running."
+msgstr "存储预设快捷键分几帧开关窗口（第一个立即开关），动画不会卡住。"
+
+#: manual/index.md:17
+#: manual/inventories.md:1
+msgid "Inventories"
+msgstr "库存"
+
+#: manual/index.md:17
+#: manual/inventories.md:3
+msgid "Batch inventory layouts"
+msgstr "合并库存布局"
+
+#: manual/index.md:17
+msgid "Each inventory is re-laid out once per frame instead of once per item change."
+msgstr "每帧每个库存只重新布局一次，而不是每个物品变动都布局一次。"
+
+#: manual/index.md:18
+msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
+msgstr "顾客对容器的收货判定每件物品只算一次，而不是每层都重查。"
+
+#: manual/index.md:19
+msgid "Log long frames"
+msgstr "记录长帧"
+
+#: manual/index.md:19
+msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
+msgstr "把超过 100 毫秒的帧和刚打开的窗口写入 `Player.log`。"
+
+#: manual/index.md:20
+msgid "Profile long frames"
+msgstr "分析长帧"
+
+#: manual/index.md:20
+msgid "off"
+msgstr "关"
+
+#: manual/index.md:20
+msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
+msgstr "按方法拆解超过 100 毫秒的帧。会让游戏略微变慢。"
+
+#: manual/index.md:22
+msgid "If anything looks wrong, turn off the option for that area and report what you saw."
+msgstr "如果发现异常，先关掉对应部分的选项，再反馈你看到的现象。"
+
+#: manual/index.md:24
+msgid "The fixes"
+msgstr "各项修复"
+
+#: manual/index.md:26
+msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
+msgstr "[窗口](windows.md)：独立画布、窗口原地保留、瞬间隐藏和预设逐个打开。"
+
+#: manual/index.md:27
+msgid "[Inventories](inventories.md): one layout per inventory per frame."
+msgstr "[库存](inventories.md)：每帧每个库存只布局一次。"
+
+#: manual/index.md:28
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr "[顾客](customers.md)：一次遍历完成收货判定。"
+
+#: manual/index.md:29
+msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
+msgstr "[诊断](diagnostics.md)：长帧日志，以及找出以上所有问题的分析器。"
+
+#: manual/inventories.md:5
+msgid "**Problem.** `GameItem.ValidateShapeState` runs whenever an item enters or leaves an inventory and on every tag change (`EnableTag`, `DisableTag`, `ModifyTag`). After laying out the item, it calls `Validate` on the item's whole inventory, which lays out every item in it again. Adding n items costs n × n layouts."
+msgstr "**问题。** 每当物品进出库存，以及每次标签变化（`EnableTag`、`DisableTag`、`ModifyTag`）时，都会运行 `GameItem.ValidateShapeState`。它在布局完这件物品后，会对物品所在的整个库存调用 `Validate`，把里面每件物品重新布局一遍。放入 n 件物品就要 n × n 次布局。"
+
+#: manual/inventories.md:7
+msgid "One save load in a large store ran 161,804 item layouts and 7,000 inventory layouts in a single frame, about 1.8 s. A single tag change on an item in a full storage bay re-lays out the whole bay, and opening a container is one such tag change (`OPENED_TAG`)."
+msgstr "在一个大型店铺里读一次档，单帧内就运行了 161,804 次物品布局和 7,000 次库存布局，约 1.8 秒。满载储物舱里任何一件物品改一个标签，整个储物舱都会重新布局，而打开容器本身就是这样一次标签变化（`OPENED_TAG`）。"
+
+#: manual/inventories.md:9
+msgid "**Fix.** While `ValidateShapeState` runs, the inventory layouts it asks for are only recorded. The item's own layout, and everything else, still happens immediately. The recorded inventories are laid out once, just before Unity renders the frame (`Canvas.willRenderCanvases`). What reaches the screen is the same, but repeated requests in one frame cost one layout."
+msgstr "**修复。** `ValidateShapeState` 运行期间，它请求的库存布局只是被记录下来；物品自己的布局和其他所有事情仍然立即完成。记录下来的库存会在 Unity 渲染这一帧之前（`Canvas.willRenderCanvases`）统一布局一次。屏幕上看到的结果相同，但同一帧内的重复请求只花一次布局。"
+
+#: manual/inventories.md:11
+msgid "An inventory laid out directly in the meantime is dropped from the list, and an inventory whose UI was destroyed since is skipped."
+msgstr "期间被直接布局过的库存会从列表中移除，界面已被销毁的库存会被跳过。"
+
+#: manual/windows.md:3
+msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."
+msgstr "四项修复让满载储物窗口的打开和关闭变得流畅。它们都是用分析器找到的：存储预设快捷键一次打开四个满载窗口，曾让游戏卡住约 300 毫秒。"
+
+#: manual/windows.md:7
+msgid "**Problem.** The game puts every floating window under one canvas, `FloatingWindowCanvas`. Unity rebuilds a canvas as a whole: whenever anything in it changes, every graphic in every open window is re-batched. A window opening, an item moving or a slot lighting up under the mouse is enough. With a few large storage windows open, that is thousands of graphics per change."
+msgstr "**问题。** 游戏把所有浮动窗口都放在同一个画布 `FloatingWindowCanvas` 下。Unity 会整块重建画布：里面任何东西变化，所有打开窗口里的每个图形都要重新合批。打开一个窗口、挪动一件物品、鼠标下的格子亮起，都会触发。同时开着几个大型储物窗口时，每次变化就是成千上万个图形。"
+
+#: manual/windows.md:9
+msgid "**Fix.** Before a container window is shown, it gets a nested canvas, so a change inside it rebuilds only that window. The nested canvas keeps the parent's draw order, copies the root's reference pixels-per-unit and shader channels so sprites and text look the same, and has its own raycaster so its contents still take clicks."
+msgstr "**修复。** 容器窗口显示之前，先给它加一个子画布，这样它内部的变化只会重建这个窗口。子画布保持父级的绘制顺序，复制根画布的像素比例和着色器通道，让贴图和文字外观不变，并带有自己的射线检测器，里面的内容照常可以点击。"
+
+#: manual/windows.md:11
+msgid "The game finds window bounds through `Canvas.rootCanvas` and positions windows with its own window canvas, so placement and dragging are unaffected. Tooltips and menus are left alone."
+msgstr "游戏通过 `Canvas.rootCanvas` 获取窗口边界，并用自己的窗口画布定位窗口，所以位置和拖动都不受影响。提示框和菜单保持原样。"
+
+#: manual/windows.md:15
+msgid "**Problem.** When a window opens, the game moves it from its home, the scene's window canvas, under the floating-window canvas (`UIFamilyLayer.Adopt`). When it closes, the game moves it back (`ReleaseWindow`). Moving a hierarchy between canvases makes every graphic and text in it re-register and rebuild, so a full storage window costs tens of milliseconds each way. This was about 140 ms of the 280 ms preset stutter."
+msgstr "**问题。** 窗口打开时，游戏把它从原处（场景的窗口画布）移到浮动窗口画布下（`UIFamilyLayer.Adopt`）；关闭时再移回去（`ReleaseWindow`）。在画布之间移动一棵对象树，会让里面每个图形和文字都重新登记、重建，一个满载储物窗口每次搬动都要几十毫秒。在 280 毫秒的预设卡顿中，这部分约占 140 毫秒。"
+
+#: manual/windows.md:17
+msgid "**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first as usual."
+msgstr "**修复。** 关闭的窗口留在浮动画布下。下次打开时，游戏发现它已经在正确位置，只需把它调到最前。只有当窗口原处和浮动画布在同一个场景时才保留，所以换场景时它会和原处一起被销毁，与原来完全一样。窗口被销毁时照常先搬回原处。"
+
+#: manual/windows.md:21
+msgid "**Problem.** Hiding a window deactivates its GameObject, and showing it activates it again. For a full storage window that means thousands of components switched off and on again, about 110 ms for one large window each way."
+msgstr "**问题。** 隐藏窗口会停用它的 GameObject，显示时再启用。对满载储物窗口来说，这意味着成千上万个组件被关闭再打开，一个大窗口每次约 110 毫秒。"
+
+#: manual/windows.md:23
+msgid "**Fix.** Switching off the window's own canvas hides it just as well and costs almost nothing: nothing is drawn, and its raycaster is off, so it takes no clicks. The game reads a window's state only through `PixelWindow.IsVisible` and changes it only in `Show` and `Hide`, so for container windows that have their own canvas and stay in place:"
+msgstr "**修复。** 关掉窗口自己的画布同样能隐藏它，而且几乎没有开销：什么都不绘制，射线检测器也关闭，所以点不到它。游戏只通过 `PixelWindow.IsVisible` 读取窗口状态，也只在 `Show` 和 `Hide` 中改变它，因此对于拥有独立画布并原地保留的容器窗口："
+
+#: manual/windows.md:25
+msgid "`Hide` performs the game's own steps in the same order: it remembers the window position, releases the window and removes it from the open-window list. The only difference is that it switches the canvas off instead of deactivating the object."
+msgstr "`Hide` 按原来的顺序执行游戏自己的步骤：记住窗口位置、释放窗口、从打开窗口列表中移除。唯一的区别是关掉画布，而不是停用对象。"
+
+#: manual/windows.md:26
+msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing."
+msgstr "`Show` 先重新打开画布。之后游戏调用 `SetActive(true)` 时，发现对象已经是启用状态，就什么都不做。"
+
+#: manual/windows.md:27
+msgid "`IsVisible` answers false for a window hidden this way."
+msgstr "对以这种方式隐藏的窗口，`IsVisible` 返回 false。"
+
+#: manual/windows.md:29
+msgid "Each window still pays the full cost the first time it opens. Turning the option off restores every such window to an ordinary, deactivated one."
+msgstr "每个窗口第一次打开时仍要付出完整开销。关掉这个选项会把所有以这种方式隐藏的窗口恢复成普通的停用状态。"
+
+#: manual/windows.md:33
+msgid "**Problem.** The storage-preset hotkey opens or closes every window of the preset in one frame, so any remaining cost freezes every animation for its whole length."
+msgstr "**问题。** 存储预设快捷键在同一帧内开关预设中的所有窗口，所以剩下的开销会让所有动画在整个过程中停住。"
+
+#: manual/windows.md:35
+msgid "**Fix.** The first window opens or closes at once, so the key answers immediately, and the others follow on the next frames, one each. Each window's tab selection is applied right after its own opening, as the game does. Pressing the hotkey again while some are still pending finishes them first, so the game always sees a settled state."
+msgstr "**修复。** 第一个窗口立即打开或关闭，按键马上有反应，其余窗口在之后的帧里每帧处理一个。每个窗口的标签页选择紧跟在它自己打开之后应用，和游戏原来的做法一致。如果还有窗口没处理完又按了快捷键，会先把剩下的处理完，保证游戏看到的状态始终一致。"

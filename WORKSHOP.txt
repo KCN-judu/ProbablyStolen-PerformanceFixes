@@ -1,0 +1,32 @@
+[h1]Performance Fixes[/h1]
+Smoother shop, same game. Fixes stutters in the base game when you work with big, packed storage.
+
+[h2]What it fixes[/h2]
+[list]
+[*][b]Opening full containers.[/b] All windows share one canvas, so every change redraws every open window. Each container window now gets its own canvas, so a change only redraws that window.
+[*][b]Loading and full containers.[/b] Every time an item is added or changes, the game re-lays out the whole inventory it is in, which costs n × n work for n items. Inventories are now laid out once per frame. This cuts seconds of layout from loading a large store.
+[*][b]Opening and closing storage windows.[/b] Each time a window opens or closes, the game moves its whole contents between two canvases, which is costly for full storage. Closed windows now stay put, which roughly halves the stutter of the storage-preset hotkey, and a preset's windows now open one per frame so animations keep moving.
+[*][b]Instant reopening.[/b] Closing a window used to switch off every slot and item inside it, and reopening switched them all back on. Closed container windows are now simply not drawn, so reopening a full storage window is nearly instant.
+[*][b]Trading with nested storage.[/b] To decide whether a customer will buy a container, the game re-checks everything inside it, level after level. The same rule now runs once per item.
+[/list]
+
+[h2]What stays the same[/h2]
+[list]
+[*]Customers accept and refuse exactly what they did before.
+[*]Windows look, stack and drag as before.
+[*]Each fix can be turned off in the mod's options.
+[/list]
+
+[h2]Options[/h2]
+Every fix can be switched on or off in the mod's options (gear icon in the Mods menu):
+[list]
+[*][b]Windows:[/b] Separate canvas per window, Keep closed windows in place, Hide closed windows instantly, Open preset windows one by one
+[*][b]Inventories:[/b] Batch inventory layouts
+[*][b]Customers:[/b] Fast buyer check
+[*][b]Diagnostics:[/b] Log long frames (on), Profile long frames (off)
+[/list]
+
+[h2]For troubleshooting[/h2]
+Frames over 100 ms are written to Player.log with the window that was just opened, so slowdowns can be traced.
+
+Needs no special permissions. Works on its own or with Demand Highlight. Built for game version 0.46D.

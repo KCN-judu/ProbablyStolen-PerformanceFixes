@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Manifest>
+  <ID>performance_fixes</ID>
+  <Name>Performance Fixes</Name>
+  <Author>KCN-judu</Author>
+  <ModVersion>1.0.0</ModVersion>
+  <Description>Fixes stutters in the base game without changing how it plays. Opening a full container no longer rebuilds every open window, because each container window gets its own canvas. Inventories are laid out once per frame instead of once per item change, which removes seconds from loading a large store. A customer's buying check on nested storage runs once per item instead of re-checking everything inside, level after level. Customers accept and refuse exactly what they did before.</Description>
+  <GameVersions>
+    <Version>0.46D</Version>
+  </GameVersions>
+  <Prerequisites />
+  <Assemblies>
+    <Assembly>PerformanceFixes.dll</Assembly>
+  </Assemblies>
+  <Capabilities />
+</Manifest>

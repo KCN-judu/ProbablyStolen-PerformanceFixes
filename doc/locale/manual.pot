@@ -1,0 +1,369 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Probably Stolen Mods documentation\n"
+"Report-Msgid-Bugs-To: https://github.com/KCN-judu/ProbablyStolen-Mods/issues\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: conf.json:summary
+msgid "Removes stutters from the base game when working with large, packed storage, without changing how it plays."
+msgstr ""
+
+#: manual/building.md:1
+msgid "Building"
+msgstr ""
+
+#: manual/building.md:4
+msgid "Requirements"
+msgstr ""
+
+#: manual/building.md:6
+msgid "*Probably Stolen*, game version 0.46D. The build compiles against the game's own assemblies in `Probably Stolen_Data/Managed`."
+msgstr ""
+
+#: manual/building.md:7
+msgid "Git Bash or another POSIX shell on Windows."
+msgstr ""
+
+#: manual/building.md:8
+msgid "The Roslyn C# compiler from Visual Studio Build Tools. The C# 5 compiler that ships with Windows cannot read some of the game's types."
+msgstr ""
+
+#: manual/building.md:10
+msgid "Build"
+msgstr ""
+
+#: manual/building.md:17
+msgid "Two environment variables override the defaults:"
+msgstr ""
+
+#: manual/building.md:19
+msgid "Variable"
+msgstr ""
+
+#: manual/building.md:19
+#: manual/index.md:11
+msgid "Default"
+msgstr ""
+
+#: manual/building.md:22
+msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
+msgstr ""
+
+#: manual/building.md:24
+msgid "Install by hand"
+msgstr ""
+
+#: manual/building.md:26
+msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgstr ""
+
+#: manual/building.md:28
+msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
+msgstr ""
+
+#: manual/customers.md:1
+#: manual/index.md:18
+msgid "Customers"
+msgstr ""
+
+#: manual/customers.md:3
+#: manual/index.md:18
+msgid "Fast buyer check"
+msgstr ""
+
+#: manual/customers.md:5
+msgid "**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. For nested storage that is quadratic, and every level allocates a new list."
+msgstr ""
+
+#: manual/customers.md:7
+msgid "The game runs this check when an item is placed on the counter, when it decides whether something can be sold, and in the negotiation screen, once for every item in the back inventory."
+msgstr ""
+
+#: manual/customers.md:9
+msgid "**Fix.** The rule, read from the game's code:"
+msgstr ""
+
+#: manual/customers.md:11
+msgid "an item is **bought** when it is acceptable on its own (the game's own check with `ignoreContents`) and, if its contents are checked, everything inside it is bought;"
+msgstr ""
+
+#: manual/customers.md:12
+msgid "contents are **checked** unless the item is currently locked, has no content window, or is an advanced gun."
+msgstr ""
+
+#: manual/customers.md:14
+msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that include contents, are patched to evaluate exactly that rule bottom-up, once per item per call. Answers are reused only within that call, never across calls or frames, so the result is always the game's own for the current state. The single-item form runs unchanged."
+msgstr ""
+
+#: manual/diagnostics.md:1
+#: manual/index.md:19
+#: manual/index.md:20
+msgid "Diagnostics"
+msgstr ""
+
+#: manual/diagnostics.md:3
+msgid "Long-frame log"
+msgstr ""
+
+#: manual/diagnostics.md:5
+msgid "With **Log long frames** on, frames longer than 100 ms are written to the game's `Player.log` as `[PerformanceFixes] long frame: ...`, with the container window opened just before, if any, and counters for each fix. It costs nothing."
+msgstr ""
+
+#: manual/diagnostics.md:7
+msgid "`Player.log` is in `%USERPROFILE%\\AppData\\LocalLow\\Questing Goose Studio\\Probably Stolen`."
+msgstr ""
+
+#: manual/diagnostics.md:9
+msgid "Long-frame profiler"
+msgstr ""
+
+#: manual/diagnostics.md:11
+msgid "**Profile long frames** goes further. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:"
+msgstr ""
+
+#: manual/diagnostics.md:17
+msgid "Times are inclusive: a method that calls others includes them. The profiler adds a little overhead, so leave it off for normal play. It never lets a failure reach the game: if it cannot attach to a method, it skips it, and if it cannot start, it removes everything it attached."
+msgstr ""
+
+#: manual/diagnostics.md:19
+msgid "Regenerating the method lists"
+msgstr ""
+
+#: manual/diagnostics.md:21
+msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
+msgstr ""
+
+#: manual/diagnostics.md:23
+msgid "`tools/GenProbe.cs` writes `src/Targets.g.cs`, the per-frame callbacks and layout passes."
+msgstr ""
+
+#: manual/diagnostics.md:24
+msgid "`tools/GenCallees.cs` writes `src/Callees.g.cs`, everything the given methods call, to a given depth."
+msgstr ""
+
+#: manual/diagnostics.md:26
+msgid "Both leave out the game's mod loader, mod security and Steam integration, which mods may not patch. Regenerate them after a game update."
+msgstr ""
+
+#: manual/index.md:1
+msgid "Performance Fixes"
+msgstr ""
+
+#: manual/index.md:3
+msgid "Smoother shop, same game. This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and only removes wasted work."
+msgstr ""
+
+#: manual/index.md:5
+msgid "![Performance Fixes cover](../attachments/cover.png)"
+msgstr ""
+
+#: manual/index.md:7
+msgid "Options"
+msgstr ""
+
+#: manual/index.md:9
+msgid "Every fix has its own switch in the mod's options: open the Mods menu, select Performance Fixes and click the gear icon. All of them are on by default except the profiler."
+msgstr ""
+
+#: manual/index.md:11
+msgid "Section"
+msgstr ""
+
+#: manual/index.md:11
+msgid "Option"
+msgstr ""
+
+#: manual/index.md:11
+msgid "What it does"
+msgstr ""
+
+#: manual/index.md:13
+#: manual/index.md:14
+#: manual/index.md:15
+#: manual/index.md:16
+#: manual/windows.md:1
+msgid "Windows"
+msgstr ""
+
+#: manual/index.md:13
+#: manual/windows.md:5
+msgid "Separate canvas per window"
+msgstr ""
+
+#: manual/index.md:13
+#: manual/index.md:14
+#: manual/index.md:15
+#: manual/index.md:16
+#: manual/index.md:17
+#: manual/index.md:18
+#: manual/index.md:19
+msgid "on"
+msgstr ""
+
+#: manual/index.md:13
+msgid "Each container window is drawn on its own canvas, so a change in one window no longer redraws every open window."
+msgstr ""
+
+#: manual/index.md:14
+#: manual/windows.md:13
+msgid "Keep closed windows in place"
+msgstr ""
+
+#: manual/index.md:14
+msgid "A closed window stays in the floating-window layer, so reopening it does not move its contents between canvases."
+msgstr ""
+
+#: manual/index.md:15
+#: manual/windows.md:19
+msgid "Hide closed windows instantly"
+msgstr ""
+
+#: manual/index.md:15
+msgid "A closed container window stops being drawn instead of having everything inside switched off, so reopening a full window is nearly instant. Needs the two options above."
+msgstr ""
+
+#: manual/index.md:16
+#: manual/windows.md:31
+msgid "Open preset windows one by one"
+msgstr ""
+
+#: manual/index.md:16
+msgid "The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running."
+msgstr ""
+
+#: manual/index.md:17
+#: manual/inventories.md:1
+msgid "Inventories"
+msgstr ""
+
+#: manual/index.md:17
+#: manual/inventories.md:3
+msgid "Batch inventory layouts"
+msgstr ""
+
+#: manual/index.md:17
+msgid "Each inventory is re-laid out once per frame instead of once per item change."
+msgstr ""
+
+#: manual/index.md:18
+msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
+msgstr ""
+
+#: manual/index.md:19
+msgid "Log long frames"
+msgstr ""
+
+#: manual/index.md:19
+msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
+msgstr ""
+
+#: manual/index.md:20
+msgid "Profile long frames"
+msgstr ""
+
+#: manual/index.md:20
+msgid "off"
+msgstr ""
+
+#: manual/index.md:20
+msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
+msgstr ""
+
+#: manual/index.md:22
+msgid "If anything looks wrong, turn off the option for that area and report what you saw."
+msgstr ""
+
+#: manual/index.md:24
+msgid "The fixes"
+msgstr ""
+
+#: manual/index.md:26
+msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
+msgstr ""
+
+#: manual/index.md:27
+msgid "[Inventories](inventories.md): one layout per inventory per frame."
+msgstr ""
+
+#: manual/index.md:28
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr ""
+
+#: manual/index.md:29
+msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
+msgstr ""
+
+#: manual/inventories.md:5
+msgid "**Problem.** `GameItem.ValidateShapeState` runs whenever an item enters or leaves an inventory and on every tag change (`EnableTag`, `DisableTag`, `ModifyTag`). After laying out the item, it calls `Validate` on the item's whole inventory, which lays out every item in it again. Adding n items costs n × n layouts."
+msgstr ""
+
+#: manual/inventories.md:7
+msgid "One save load in a large store ran 161,804 item layouts and 7,000 inventory layouts in a single frame, about 1.8 s. A single tag change on an item in a full storage bay re-lays out the whole bay, and opening a container is one such tag change (`OPENED_TAG`)."
+msgstr ""
+
+#: manual/inventories.md:9
+msgid "**Fix.** While `ValidateShapeState` runs, the inventory layouts it asks for are only recorded. The item's own layout, and everything else, still happens immediately. The recorded inventories are laid out once, just before Unity renders the frame (`Canvas.willRenderCanvases`). What reaches the screen is the same, but repeated requests in one frame cost one layout."
+msgstr ""
+
+#: manual/inventories.md:11
+msgid "An inventory laid out directly in the meantime is dropped from the list, and an inventory whose UI was destroyed since is skipped."
+msgstr ""
+
+#: manual/windows.md:3
+msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."
+msgstr ""
+
+#: manual/windows.md:7
+msgid "**Problem.** The game puts every floating window under one canvas, `FloatingWindowCanvas`. Unity rebuilds a canvas as a whole: whenever anything in it changes, every graphic in every open window is re-batched. A window opening, an item moving or a slot lighting up under the mouse is enough. With a few large storage windows open, that is thousands of graphics per change."
+msgstr ""
+
+#: manual/windows.md:9
+msgid "**Fix.** Before a container window is shown, it gets a nested canvas, so a change inside it rebuilds only that window. The nested canvas keeps the parent's draw order, copies the root's reference pixels-per-unit and shader channels so sprites and text look the same, and has its own raycaster so its contents still take clicks."
+msgstr ""
+
+#: manual/windows.md:11
+msgid "The game finds window bounds through `Canvas.rootCanvas` and positions windows with its own window canvas, so placement and dragging are unaffected. Tooltips and menus are left alone."
+msgstr ""
+
+#: manual/windows.md:15
+msgid "**Problem.** When a window opens, the game moves it from its home, the scene's window canvas, under the floating-window canvas (`UIFamilyLayer.Adopt`). When it closes, the game moves it back (`ReleaseWindow`). Moving a hierarchy between canvases makes every graphic and text in it re-register and rebuild, so a full storage window costs tens of milliseconds each way. This was about 140 ms of the 280 ms preset stutter."
+msgstr ""
+
+#: manual/windows.md:17
+msgid "**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first as usual."
+msgstr ""
+
+#: manual/windows.md:21
+msgid "**Problem.** Hiding a window deactivates its GameObject, and showing it activates it again. For a full storage window that means thousands of components switched off and on again, about 110 ms for one large window each way."
+msgstr ""
+
+#: manual/windows.md:23
+msgid "**Fix.** Switching off the window's own canvas hides it just as well and costs almost nothing: nothing is drawn, and its raycaster is off, so it takes no clicks. The game reads a window's state only through `PixelWindow.IsVisible` and changes it only in `Show` and `Hide`, so for container windows that have their own canvas and stay in place:"
+msgstr ""
+
+#: manual/windows.md:25
+msgid "`Hide` performs the game's own steps in the same order: it remembers the window position, releases the window and removes it from the open-window list. The only difference is that it switches the canvas off instead of deactivating the object."
+msgstr ""
+
+#: manual/windows.md:26
+msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing."
+msgstr ""
+
+#: manual/windows.md:27
+msgid "`IsVisible` answers false for a window hidden this way."
+msgstr ""
+
+#: manual/windows.md:29
+msgid "Each window still pays the full cost the first time it opens. Turning the option off restores every such window to an ordinary, deactivated one."
+msgstr ""
+
+#: manual/windows.md:33
+msgid "**Problem.** The storage-preset hotkey opens or closes every window of the preset in one frame, so any remaining cost freezes every animation for its whole length."
+msgstr ""
+
+#: manual/windows.md:35
+msgid "**Fix.** The first window opens or closes at once, so the key answers immediately, and the others follow on the next frames, one each. Each window's tab selection is applied right after its own opening, as the game does. Pressing the hotkey again while some are still pending finishes them first, so the game always sees a settled state."
+msgstr ""
