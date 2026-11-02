@@ -53,24 +53,32 @@ msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
 msgstr ""
 
 #: manual/building.md:24
-msgid "Install by hand"
+msgid "Languages"
 msgstr ""
 
 #: manual/building.md:26
-msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr ""
 
 #: manual/building.md:28
+msgid "Install by hand"
+msgstr ""
+
+#: manual/building.md:30
+msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgstr ""
+
+#: manual/building.md:32
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
 #: manual/customers.md:1
-#: manual/index.md:18
+#: manual/index.md:19
 msgid "Customers"
 msgstr ""
 
 #: manual/customers.md:3
-#: manual/index.md:18
+#: manual/index.md:19
 msgid "Fast buyer check"
 msgstr ""
 
@@ -99,8 +107,8 @@ msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that in
 msgstr ""
 
 #: manual/diagnostics.md:1
-#: manual/index.md:19
 #: manual/index.md:20
+#: manual/index.md:21
 msgid "Diagnostics"
 msgstr ""
 
@@ -200,6 +208,7 @@ msgstr ""
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
+#: manual/index.md:20
 msgid "on"
 msgstr ""
 
@@ -235,6 +244,7 @@ msgid "The storage-preset hotkey opens or closes its windows over a few frames, 
 msgstr ""
 
 #: manual/index.md:17
+#: manual/index.md:18
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr ""
@@ -249,50 +259,59 @@ msgid "Each inventory is re-laid out once per frame instead of once per item cha
 msgstr ""
 
 #: manual/index.md:18
+#: manual/inventories.md:13
+msgid "Fast selection highlight"
+msgstr ""
+
+#: manual/index.md:18
+msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
+msgstr ""
+
+#: manual/index.md:19
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr ""
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Log long frames"
 msgstr ""
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Profile long frames"
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "off"
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr ""
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr ""
 
-#: manual/index.md:24
+#: manual/index.md:25
 msgid "The fixes"
 msgstr ""
 
-#: manual/index.md:26
+#: manual/index.md:27
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr ""
 
-#: manual/index.md:27
-msgid "[Inventories](inventories.md): one layout per inventory per frame."
-msgstr ""
-
 #: manual/index.md:28
-msgid "[Customers](customers.md): the buying check in one pass."
+msgid "[Inventories](inventories.md): one layout per inventory per frame, and the selection highlight updated in place."
 msgstr ""
 
 #: manual/index.md:29
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr ""
+
+#: manual/index.md:30
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr ""
 
@@ -310,6 +329,22 @@ msgstr ""
 
 #: manual/inventories.md:11
 msgid "An inventory laid out directly in the meantime is dropped from the list, and an inventory whose UI was destroyed since is skipped."
+msgstr ""
+
+#: manual/inventories.md:15
+msgid "**Problem.** While items are selected, and all the while they are dragged as a group, the game redraws the highlight under them every frame. It switches off every highlight square it lit the frame before and then lights the squares under each selected item again. Each square that goes off and on is rebuilt and its canvas re-batched, every frame. To find each item's slot, the game also looks the item up in a fresh copy of its inventory's item list, so n selected items in an inventory of m items copy n × m entries per frame. A large selection in a full storage bay stutters the whole time it is held or dragged."
+msgstr ""
+
+#: manual/inventories.md:17
+msgid "Over the items' own container, a group drag is always a precise placement (elsewhere only with Shift held), and the game also redraws the placement preview every frame in the same way. To colour the preview, it checks every selected item against every item in the container, and for each of those it searches the list of selected items, which is n × m × n steps per frame. This is why dragging inside the original container stuttered most."
+msgstr ""
+
+#: manual/inventories.md:19
+msgid "**Fix.** The same squares are lit in the same way, and then only the squares lit the frame before that are not lit now are switched off. A square that stays lit is not touched, so the highlight looks exactly as before and an unchanged selection costs almost nothing. Each item's slot is kept between frames while the item stays in the same inventory with the same shape, so the item list is no longer copied every frame."
+msgstr ""
+
+#: manual/inventories.md:21
+msgid "The placement preview is updated in place in the same way. Whether the group fits is worked out again only when the drop position, the selection, or an item in any inventory changes. Every other condition is still checked each frame, and the drop itself still runs the game's own check."
 msgstr ""
 
 #: manual/windows.md:3

@@ -1,0 +1,19 @@
+# Performance Fixes - Português do Brasil (ptBR)
+opt_isolate,Tela própria por janela
+opt_isolate_tip,Cada janela de contêiner é desenhada na própria tela então uma mudança em uma janela não redesenha mais todas as abertas. Vale para janelas abertas depois. Necessário para “Ocultar janelas fechadas na hora”.
+opt_keep,Manter janelas fechadas no lugar
+opt_keep_tip,Uma janela fechada fica na camada de janelas flutuantes em vez de voltar então ao reabrir o conteúdo não é movido entre telas. Necessário para “Ocultar janelas fechadas na hora”.
+opt_fasthide,Ocultar janelas fechadas na hora
+opt_fasthide_tip,Uma janela de contêiner fechada simplesmente deixa de ser desenhada em vez de desligar tudo dentro dela. Reabrir uma janela cheia fica quase instantâneo. Funciona junto com as duas opções acima.
+opt_stagger,Abrir janelas da predefinição uma a uma
+opt_stagger_tip,O atalho das predefinições de armazenamento abre ou fecha as janelas ao longo de alguns quadros (a primeira na hora) para as animações continuarem.
+opt_batch,Agrupar o layout dos inventários
+opt_batch_tip,Cada inventário é reorganizado uma vez por quadro em vez de a cada mudança de item. Acelera o carregamento e mudanças em contêineres cheios.
+opt_select,Destaque de seleção rápido
+opt_select_tip,O destaque sob os itens selecionados e a prévia de posicionamento são atualizados no lugar em vez de redesenhados a cada quadro. Remove os travamentos ao segurar ou arrastar uma seleção grande.
+opt_buyer,Verificação rápida do comprador
+opt_buyer_tip,Decide em uma única passada pelo conteúdo se um cliente vai comprar um contêiner em vez de reverificar cada nível. Os clientes aceitam e recusam exatamente como antes.
+opt_log,Registrar quadros longos
+opt_log_tip,Grava no Player.log os quadros acima de 100 ms com a janela aberta logo antes. Não custa nada.
+opt_profile,Analisar quadros longos
+opt_profile_tip,Detalha no Player.log cada quadro acima de 100 ms: tempo de scripts e do motor, reconstrução da interface e renderização e os métodos mais lentos do jogo. Deixa o jogo um pouco mais lento enquanto ligado então mantenha desligado no jogo normal.

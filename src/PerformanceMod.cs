@@ -15,6 +15,7 @@ namespace PerformanceFixes
     //     StaggeredPresets  the storage-preset hotkey opens or closes its windows one per frame
     //   Inventories
     //     InventoryBatching an inventory is re-laid out once per frame instead of once per item change
+    //     SelectionHighlight the highlight under selected or group-dragged items is updated in place each frame
     //   Customers
     //     BuyerCheck        the buying check on containers runs once per item instead of quadratically
     //   Diagnostics
@@ -32,7 +33,7 @@ namespace PerformanceFixes
         static string modId = ModId;
         static Harmony harmony;
         static GameObject ticker;
-        static ConfigEntry<bool> isolate, batching, keep, stagger, fastHide, buyer, logFrames, profile;
+        static ConfigEntry<bool> isolate, batching, selection, keep, stagger, fastHide, buyer, logFrames, profile;
         static Ticker tickerBehaviour;
         static bool optionsAdded;
 
@@ -62,6 +63,7 @@ namespace PerformanceFixes
                 TryPatch("buyer check", () => BuyerCheck.Patch(harmony));
                 TryPatch("window canvases", () => WindowCanvases.Patch(harmony));
                 TryPatch("inventory batching", () => InventoryBatching.Patch(harmony));
+                TryPatch("selection highlight", () => SelectionHighlight.Patch(harmony));
                 TryPatch("keep closed windows", () => KeepAdopted.Patch(harmony));
                 TryPatch("staggered presets", () => StaggeredPresets.Patch(harmony));
                 TryPatch("fast hide", () => FastHide.Patch(harmony));
@@ -111,6 +113,9 @@ namespace PerformanceFixes
                 batching = config.Define("batchInventoryLayout", true, "Inventories", () => L("opt_batch"), () => L("opt_batch_tip"), false);
                 InventoryBatching.Enabled = batching.Value;
                 batching.OnChanged += v => InventoryBatching.Enabled = v;
+                selection = config.Define("fastSelectionHighlight", true, "Inventories", () => L("opt_select"), () => L("opt_select_tip"), false);
+                SelectionHighlight.Enabled = selection.Value;
+                selection.OnChanged += v => SelectionHighlight.Enabled = v;
                 buyer = config.Define("fastBuyerCheck", true, "Customers", () => L("opt_buyer"), () => L("opt_buyer_tip"), false);
                 BuyerCheck.Enabled = buyer.Value;
                 buyer.OnChanged += v => BuyerCheck.Enabled = v;

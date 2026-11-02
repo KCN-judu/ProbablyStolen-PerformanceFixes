@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- The highlight under selected items is updated in place instead of being redrawn every frame, removing the stutter while a large selection is held or dragged as a group. The same goes for the placement preview when dragging within the original container, and whether the group fits is worked out again only when the drop position, the selection or an inventory changes. This can be turned off in the options.
+- The options are translated into every language the game supports.
+
 ## 1.0.0 (pre-release)
 
 First public release.

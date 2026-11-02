@@ -7,6 +7,7 @@ Smoother shop, same game. Fixes stutters in the base game when you work with big
 [*][b]Loading and full containers.[/b] Every time an item is added or changes, the game re-lays out the whole inventory it is in, which costs n × n work for n items. Inventories are now laid out once per frame. This cuts seconds of layout from loading a large store.
 [*][b]Opening and closing storage windows.[/b] Each time a window opens or closes, the game moves its whole contents between two canvases, which is costly for full storage. Closed windows now stay put, which roughly halves the stutter of the storage-preset hotkey, and a preset's windows now open one per frame so animations keep moving.
 [*][b]Instant reopening.[/b] Closing a window used to switch off every slot and item inside it, and reopening switched them all back on. Closed container windows are now simply not drawn, so reopening a full storage window is nearly instant.
+[*][b]Selecting and dragging many items.[/b] While items are selected or dragged as a group, the game redraws the highlight under every one of them each frame and copies the whole inventory list once per item to find it. Inside the original container it also re-checks every selected item against every other item each frame. The highlight and the placement preview are now updated in place, and the fit is only re-checked when something changes, so a large selection drags smoothly.
 [*][b]Trading with nested storage.[/b] To decide whether a customer will buy a container, the game re-checks everything inside it, level after level. The same rule now runs once per item.
 [/list]
 
@@ -21,7 +22,7 @@ Smoother shop, same game. Fixes stutters in the base game when you work with big
 Every fix can be switched on or off in the mod's options (gear icon in the Mods menu):
 [list]
 [*][b]Windows:[/b] Separate canvas per window, Keep closed windows in place, Hide closed windows instantly, Open preset windows one by one
-[*][b]Inventories:[/b] Batch inventory layouts
+[*][b]Inventories:[/b] Batch inventory layouts, Fast selection highlight
 [*][b]Customers:[/b] Fast buyer check
 [*][b]Diagnostics:[/b] Log long frames (on), Profile long frames (off)
 [/list]
@@ -50,6 +51,7 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 [*][b]读档和满载容器。[/b]原版每添加或改变一件物品，就把它所在的整个库存重新布局一次，n 件物品要做 n × n 的工作。现在每个库存每帧只布局一次，读取大型店铺时能省下好几秒。
 [*][b]开关存储窗口。[/b]原版每次开关窗口都要把全部内容在两块画布之间搬动，存储越满越慢。现在关闭的窗口原地保留，存储预设快捷键的卡顿大约减半；预设里的窗口改为每帧打开一个，动画不会停住。
 [*][b]瞬间重新打开。[/b]原版关闭窗口会停用里面的每个格子和物品，重新打开时再全部启用。现在关闭的容器窗口只是不再绘制，重新打开满载的存储窗口几乎是瞬间的。
+[*][b]选中和拖动大批物品。[/b]原版在选中或成组拖动物品时，每帧都会重画每件物品下的高亮，并为找到每件物品把整个库存列表复制一遍。在原容器里拖动时，还会每帧把每件选中物品和其他所有物品逐一比对。现在高亮和摆放预览都原地更新，只在有变化时才重新判断能否放下，大批物品也能流畅拖动。
 [*][b]嵌套存储的交易。[/b]判断顾客是否收购一个容器时，原版会一层一层反复检查里面的所有东西。现在同样的规则对每件物品只执行一次。
 [/list]
 
@@ -64,7 +66,7 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 每项修复都可以在模组选项（模组菜单中的齿轮图标）里单独开关：
 [list]
 [*][b]窗口：[/b]每个窗口独立画布、关闭的窗口原地保留、瞬间隐藏关闭的窗口、预设窗口逐个打开
-[*][b]库存：[/b]合并库存布局
+[*][b]库存：[/b]合并库存布局、快速选中高亮
 [*][b]顾客：[/b]快速收货判定
 [*][b]诊断：[/b]记录长帧（默认开）、分析长帧（默认关）
 [/list]

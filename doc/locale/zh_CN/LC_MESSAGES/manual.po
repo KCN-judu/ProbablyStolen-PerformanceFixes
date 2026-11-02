@@ -53,24 +53,32 @@ msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
 msgstr "Visual Studio 18 Build Tools 中的 Roslyn `csc.exe`"
 
 #: manual/building.md:24
+msgid "Languages"
+msgstr "语言"
+
+#: manual/building.md:26
+msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
+msgstr "选项文字在 `Localization/` 里，游戏的每种语言一个文件，以游戏的语言代码命名：`en`、`zh`、`ja`、`ko`、`de`、`fr`、`es`、`it`、`pl`、`ru` 和 `ptBR`。缺少的条目回退为英文。"
+
+#: manual/building.md:28
 msgid "Install by hand"
 msgstr "手动安装"
 
-#: manual/building.md:26
+#: manual/building.md:30
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr "把 `out/performance_fixes` 文件夹复制到游戏的 `Mods` 文件夹，启动游戏，在模组菜单中启用它。模组在游戏启动时加载，所以启用或更新后要重启游戏。"
 
-#: manual/building.md:28
+#: manual/building.md:32
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr "这个模组不声明任何权限，游戏启用它时不会弹出权限确认。"
 
 #: manual/customers.md:1
-#: manual/index.md:18
+#: manual/index.md:19
 msgid "Customers"
 msgstr "顾客"
 
 #: manual/customers.md:3
-#: manual/index.md:18
+#: manual/index.md:19
 msgid "Fast buyer check"
 msgstr "快速收货判定"
 
@@ -99,8 +107,8 @@ msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that in
 msgstr "模组修改了包含内容检查的 `IsClientBuyingThisItem` 和 `IsClientRefusingItem`，让它们自底向上严格按这条规则计算，每次调用中每件物品只算一次。结果只在本次调用内复用，从不跨调用或跨帧，所以结果始终与游戏对当前状态的判断一致。只检查单件物品的版本保持原样。"
 
 #: manual/diagnostics.md:1
-#: manual/index.md:19
 #: manual/index.md:20
+#: manual/index.md:21
 msgid "Diagnostics"
 msgstr "诊断"
 
@@ -200,6 +208,7 @@ msgstr "每个窗口独立画布"
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
+#: manual/index.md:20
 msgid "on"
 msgstr "开"
 
@@ -235,6 +244,7 @@ msgid "The storage-preset hotkey opens or closes its windows over a few frames, 
 msgstr "存储预设快捷键分几帧开关窗口（第一个立即开关），动画不会卡住。"
 
 #: manual/index.md:17
+#: manual/index.md:18
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr "库存"
@@ -249,50 +259,59 @@ msgid "Each inventory is re-laid out once per frame instead of once per item cha
 msgstr "每帧每个库存只重新布局一次，而不是每个物品变动都布局一次。"
 
 #: manual/index.md:18
+#: manual/inventories.md:13
+msgid "Fast selection highlight"
+msgstr "快速选中高亮"
+
+#: manual/index.md:18
+msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
+msgstr "选中物品下的高亮原地更新，不再每帧重画，框选或拖动大批物品时不再卡顿。"
+
+#: manual/index.md:19
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr "顾客对容器的收货判定每件物品只算一次，而不是每层都重查。"
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Log long frames"
 msgstr "记录长帧"
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr "把超过 100 毫秒的帧和刚打开的窗口写入 `Player.log`。"
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Profile long frames"
 msgstr "分析长帧"
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "off"
 msgstr "关"
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr "按方法拆解超过 100 毫秒的帧。会让游戏略微变慢。"
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr "如果发现异常，先关掉对应部分的选项，再反馈你看到的现象。"
 
-#: manual/index.md:24
+#: manual/index.md:25
 msgid "The fixes"
 msgstr "各项修复"
 
-#: manual/index.md:26
+#: manual/index.md:27
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr "[窗口](windows.md)：独立画布、窗口原地保留、瞬间隐藏和预设逐个打开。"
 
-#: manual/index.md:27
-msgid "[Inventories](inventories.md): one layout per inventory per frame."
-msgstr "[库存](inventories.md)：每帧每个库存只布局一次。"
-
 #: manual/index.md:28
+msgid "[Inventories](inventories.md): one layout per inventory per frame, and the selection highlight updated in place."
+msgstr "[库存](inventories.md)：每帧每个库存只布局一次，选中高亮原地更新。"
+
+#: manual/index.md:29
 msgid "[Customers](customers.md): the buying check in one pass."
 msgstr "[顾客](customers.md)：一次遍历完成收货判定。"
 
-#: manual/index.md:29
+#: manual/index.md:30
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr "[诊断](diagnostics.md)：长帧日志，以及找出以上所有问题的分析器。"
 
@@ -311,6 +330,22 @@ msgstr "**修复。** `ValidateShapeState` 运行期间，它请求的库存布�
 #: manual/inventories.md:11
 msgid "An inventory laid out directly in the meantime is dropped from the list, and an inventory whose UI was destroyed since is skipped."
 msgstr "期间被直接布局过的库存会从列表中移除，界面已被销毁的库存会被跳过。"
+
+#: manual/inventories.md:15
+msgid "**Problem.** While items are selected, and all the while they are dragged as a group, the game redraws the highlight under them every frame. It switches off every highlight square it lit the frame before and then lights the squares under each selected item again. Each square that goes off and on is rebuilt and its canvas re-batched, every frame. To find each item's slot, the game also looks the item up in a fresh copy of its inventory's item list, so n selected items in an inventory of m items copy n × m entries per frame. A large selection in a full storage bay stutters the whole time it is held or dragged."
+msgstr "**问题。** 选中物品时，以及成组拖动的整个过程中，游戏每帧都会重画它们下面的高亮：先关掉上一帧点亮的所有高亮格，再把每件选中物品下的格子重新点亮。每个关了又开的格子都要重建，所在画布也要重新合批，每帧如此。为了找到每件物品的位置，游戏还要在其库存物品列表的一份新副本里查找它，于是 m 件物品的库存里选中 n 件，每帧要复制 n × m 项。在满载的存储架里选中一大批物品，按住或拖动期间会一直卡顿。"
+
+#: manual/inventories.md:17
+msgid "Over the items' own container, a group drag is always a precise placement (elsewhere only with Shift held), and the game also redraws the placement preview every frame in the same way. To colour the preview, it checks every selected item against every item in the container, and for each of those it searches the list of selected items, which is n × m × n steps per frame. This is why dragging inside the original container stuttered most."
+msgstr "在物品所在的原容器上方，成组拖动总是精确摆放（在别处要按住 Shift），游戏还会用同样的方式每帧重画摆放预览。为了给预览上色，它把每件选中物品和容器里的每件物品逐一比对，每比一件还要在选中列表里查找一遍，每帧共 n × m × n 步。所以在原容器里拖动卡得最厉害。"
+
+#: manual/inventories.md:19
+msgid "**Fix.** The same squares are lit in the same way, and then only the squares lit the frame before that are not lit now are switched off. A square that stays lit is not touched, so the highlight looks exactly as before and an unchanged selection costs almost nothing. Each item's slot is kept between frames while the item stays in the same inventory with the same shape, so the item list is no longer copied every frame."
+msgstr "**修复。** 以同样的方式点亮同样的格子，然后只关掉上一帧亮着、这一帧不再亮的格子。一直亮着的格子不会被动到，所以高亮看起来和原来完全一样，选中内容不变时几乎没有开销。物品留在同一库存、形状不变时，它的位置在帧与帧之间保留，物品列表不再每帧复制。"
+
+#: manual/inventories.md:21
+msgid "The placement preview is updated in place in the same way. Whether the group fits is worked out again only when the drop position, the selection, or an item in any inventory changes. Every other condition is still checked each frame, and the drop itself still runs the game's own check."
+msgstr "摆放预览也同样原地更新。只有落点、选中内容或任一库存里的物品有变化时，才重新判断整组能否放下。其余条件仍然每帧检查，真正放下时仍由游戏自己的判断执行。"
 
 #: manual/windows.md:3
 msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."

@@ -1,0 +1,19 @@
+# Performance Fixes - Polski (pl)
+opt_isolate,Osobne płótno dla każdego okna
+opt_isolate_tip,Każde okno pojemnika jest rysowane na własnym płótnie, więc zmiana w jednym oknie nie przerysowuje już wszystkich otwartych okien. Dotyczy okien otwartych później. Wymagane przez Natychmiastowe ukrywanie zamkniętych okien.
+opt_keep,Zostawiaj zamknięte okna na miejscu
+opt_keep_tip,Zamknięte okno zostaje w warstwie okien pływających zamiast wracać na miejsce, więc ponowne otwarcie nie przenosi jego zawartości między płótnami. Wymagane przez Natychmiastowe ukrywanie zamkniętych okien.
+opt_fasthide,Natychmiastowe ukrywanie zamkniętych okien
+opt_fasthide_tip,Zamknięte okno pojemnika po prostu przestaje być rysowane zamiast wyłączać wszystko w środku. Ponowne otwarcie pełnego okna jest wtedy niemal natychmiastowe. Działa razem z dwiema opcjami powyżej.
+opt_stagger,Otwieraj okna presetu po kolei
+opt_stagger_tip,Skrót presetów magazynu otwiera lub zamyka swoje okna przez kilka klatek (pierwsze od razu), więc animacje nie stają.
+opt_batch,Łącz układanie ekwipunku
+opt_batch_tip,Każdy ekwipunek jest układany raz na klatkę zamiast przy każdej zmianie przedmiotu. Przyspiesza wczytywanie i zmiany w pełnych pojemnikach.
+opt_select,Szybkie podświetlenie zaznaczenia
+opt_select_tip,Podświetlenie pod zaznaczonymi przedmiotami i podgląd umieszczenia są aktualizowane na miejscu zamiast rysowane od nowa co klatkę. Usuwa przycięcia podczas trzymania lub przeciągania dużego zaznaczenia.
+opt_buyer,Szybkie sprawdzanie kupującego
+opt_buyer_tip,Decyduje, czy klient kupi pojemnik, w jednym przejściu przez zawartość zamiast sprawdzać od nowa każdy poziom. Klienci przyjmują i odrzucają dokładnie to samo co wcześniej.
+opt_log,Zapisuj długie klatki
+opt_log_tip,Zapisuje w Player.log klatki dłuższe niż 100 ms wraz z oknem otwartym tuż przed nimi. Nic nie kosztuje.
+opt_profile,Profiluj długie klatki
+opt_profile_tip,Rozkłada w Player.log każdą klatkę dłuższą niż 100 ms na skrypty i silnik, przebudowę i renderowanie interfejsu oraz najwolniejsze metody gry. Gdy jest włączone, gra lekko zwalnia, więc w zwykłej grze zostaw je wyłączone.

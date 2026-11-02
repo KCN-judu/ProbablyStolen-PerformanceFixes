@@ -9,6 +9,8 @@ opt_stagger,Open preset windows one by one
 opt_stagger_tip,The storage-preset hotkey opens or closes its windows over a few frames (the first at once) so animations keep running.
 opt_batch,Batch inventory layouts
 opt_batch_tip,Each inventory is re-laid out once per frame instead of once per item change. Speeds up loading and changes inside full containers.
+opt_select,Fast selection highlight
+opt_select_tip,The highlight under selected items and the placement preview are updated in place instead of being redrawn every frame. Removes the stutter while a large selection is held or dragged.
 opt_buyer,Fast buyer check
 opt_buyer_tip,Decides whether a customer will buy a container in one pass over its contents instead of rechecking every level. Customers accept and refuse exactly as before.
 opt_log,Log long frames

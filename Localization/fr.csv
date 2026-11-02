@@ -1,0 +1,19 @@
+# Performance Fixes - Français (fr)
+opt_isolate,Un canevas par fenêtre
+opt_isolate_tip,Chaque fenêtre de conteneur est dessinée sur son propre canevas : une modification dans une fenêtre ne redessine plus toutes les fenêtres ouvertes. S'applique aux fenêtres ouvertes ensuite. Requis par Masquer instantanément les fenêtres fermées.
+opt_keep,Garder les fenêtres fermées en place
+opt_keep_tip,Une fenêtre fermée reste dans la couche des fenêtres flottantes au lieu de revenir à sa place : la rouvrir ne déplace plus son contenu d'un canevas à l'autre. Requis par Masquer instantanément les fenêtres fermées.
+opt_fasthide,Masquer instantanément les fenêtres fermées
+opt_fasthide_tip,Une fenêtre de conteneur fermée cesse simplement d'être dessinée au lieu de tout désactiver à l'intérieur. Rouvrir une fenêtre pleine devient presque instantané. Fonctionne avec les deux options ci-dessus.
+opt_stagger,Ouvrir les fenêtres de préréglage une à une
+opt_stagger_tip,Le raccourci des préréglages de stockage ouvre ou ferme ses fenêtres sur quelques images (la première tout de suite) pour que les animations continuent.
+opt_batch,Regrouper les mises en page d'inventaire
+opt_batch_tip,Chaque inventaire est remis en page une fois par image au lieu d'une fois par changement d'objet. Accélère le chargement et les changements dans les conteneurs pleins.
+opt_select,Surbrillance de sélection rapide
+opt_select_tip,La surbrillance sous les objets sélectionnés et l'aperçu de placement sont mis à jour sur place au lieu d'être redessinés à chaque image. Supprime les saccades quand on maintient ou fait glisser une grande sélection.
+opt_buyer,Vérification d'achat rapide
+opt_buyer_tip,Décide si un client achètera un conteneur en un seul passage sur son contenu au lieu de tout revérifier à chaque niveau. Les clients acceptent et refusent exactement comme avant.
+opt_log,Journaliser les images longues
+opt_log_tip,Écrit dans Player.log les images de plus de 100 ms avec la fenêtre ouverte juste avant. Ne coûte rien.
+opt_profile,Profiler les images longues
+opt_profile_tip,Détaille dans Player.log chaque image de plus de 100 ms : scripts et moteur, reconstruction et rendu de l'interface, et les méthodes du jeu les plus lentes. Ralentit légèrement le jeu tant qu'il est actif : laissez-le désactivé en temps normal.

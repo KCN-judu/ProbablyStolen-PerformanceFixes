@@ -1,0 +1,19 @@
+# Performance Fixes - Deutsch (de)
+opt_isolate,Eigene Leinwand pro Fenster
+opt_isolate_tip,Jedes Behälterfenster wird auf einer eigenen Leinwand gezeichnet, sodass eine Änderung in einem Fenster nicht mehr alle offenen Fenster neu zeichnet. Gilt für danach geöffnete Fenster. Wird von „Geschlossene Fenster sofort ausblenden“ benötigt.
+opt_keep,Geschlossene Fenster an Ort und Stelle lassen
+opt_keep_tip,Ein geschlossenes Fenster bleibt in der Ebene der schwebenden Fenster, statt zurückverschoben zu werden. Beim erneuten Öffnen wird sein Inhalt nicht zwischen Leinwänden verschoben. Wird von „Geschlossene Fenster sofort ausblenden“ benötigt.
+opt_fasthide,Geschlossene Fenster sofort ausblenden
+opt_fasthide_tip,Ein geschlossenes Behälterfenster wird einfach nicht mehr gezeichnet, statt alles darin abzuschalten. Ein volles Fenster öffnet sich danach fast sofort wieder. Funktioniert zusammen mit den beiden Optionen darüber.
+opt_stagger,Voreinstellungsfenster nacheinander öffnen
+opt_stagger_tip,Das Tastenkürzel für Lagervoreinstellungen öffnet oder schließt seine Fenster über einige Frames verteilt (das erste sofort), damit Animationen weiterlaufen.
+opt_batch,Inventar-Layouts bündeln
+opt_batch_tip,Jedes Inventar wird einmal pro Frame neu angeordnet statt bei jeder Gegenstandsänderung. Beschleunigt das Laden und Änderungen in vollen Behältern.
+opt_select,Schnelle Auswahlhervorhebung
+opt_select_tip,Die Hervorhebung unter ausgewählten Gegenständen und die Platzierungsvorschau werden an Ort und Stelle aktualisiert, statt jeden Frame neu gezeichnet zu werden. Beseitigt das Ruckeln, während eine große Auswahl gehalten oder gezogen wird.
+opt_buyer,Schnelle Käuferprüfung
+opt_buyer_tip,Entscheidet in einem Durchgang über den Inhalt, ob ein Kunde einen Behälter kauft, statt jede Ebene erneut zu prüfen. Kunden nehmen an und lehnen ab wie zuvor.
+opt_log,Lange Frames protokollieren
+opt_log_tip,Schreibt Frames über 100 ms mit dem kurz davor geöffneten Fenster in Player.log. Kostet nichts.
+opt_profile,Lange Frames analysieren
+opt_profile_tip,Zerlegt jeden Frame über 100 ms in Player.log in Skript- und Engine-Zeit, UI-Neuaufbau und Rendering sowie die langsamsten Spielmethoden. Verlangsamt das Spiel leicht, solange es aktiv ist; im normalen Spiel ausgeschaltet lassen.

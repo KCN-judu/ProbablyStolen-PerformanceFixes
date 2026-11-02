@@ -1,0 +1,19 @@
+# Performance Fixes - Español (es)
+opt_isolate,Lienzo propio para cada ventana
+opt_isolate_tip,Cada ventana de contenedor se dibuja en su propio lienzo, así que un cambio en una ventana ya no vuelve a dibujar todas las ventanas abiertas. Se aplica a las ventanas que se abran después. Lo necesita Ocultar al instante las ventanas cerradas.
+opt_keep,Mantener en su sitio las ventanas cerradas
+opt_keep_tip,Una ventana cerrada se queda en la capa de ventanas flotantes en vez de volver atrás, así que al reabrirla su contenido no se mueve entre lienzos. Lo necesita Ocultar al instante las ventanas cerradas.
+opt_fasthide,Ocultar al instante las ventanas cerradas
+opt_fasthide_tip,Una ventana de contenedor cerrada simplemente deja de dibujarse en vez de desactivar todo lo que contiene. Reabrir una ventana llena pasa a ser casi instantáneo. Funciona junto con las dos opciones de arriba.
+opt_stagger,Abrir las ventanas de preajuste una a una
+opt_stagger_tip,El atajo de preajustes de almacenamiento abre o cierra sus ventanas a lo largo de unos fotogramas (la primera al momento) para que las animaciones sigan en marcha.
+opt_batch,Agrupar la disposición del inventario
+opt_batch_tip,Cada inventario se redistribuye una vez por fotograma en vez de con cada cambio de objeto. Acelera la carga y los cambios dentro de contenedores llenos.
+opt_select,Resaltado de selección rápido
+opt_select_tip,El resaltado bajo los objetos seleccionados y la vista previa de colocación se actualizan en su sitio en vez de redibujarse en cada fotograma. Elimina los tirones al mantener o arrastrar una selección grande.
+opt_buyer,Comprobación de comprador rápida
+opt_buyer_tip,Decide si un cliente comprará un contenedor en una sola pasada por su contenido en vez de volver a comprobar cada nivel. Los clientes aceptan y rechazan exactamente lo mismo que antes.
+opt_log,Registrar fotogramas largos
+opt_log_tip,Escribe en Player.log los fotogramas de más de 100 ms junto con la ventana abierta justo antes. No cuesta nada.
+opt_profile,Perfilar fotogramas largos
+opt_profile_tip,Desglosa en Player.log cada fotograma de más de 100 ms en scripts y motor, reconstrucción y renderizado de la interfaz y los métodos del juego más lentos. Ralentiza un poco el juego mientras está activo, así que déjalo apagado para jugar con normalidad.
