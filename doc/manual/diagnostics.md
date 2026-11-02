@@ -16,6 +16,10 @@ With **Log long frames** on, frames longer than 100 ms are written to the game's
 
 Times are inclusive: a method that calls others includes them. The profiler adds a little overhead, so leave it off for normal play. It never lets a failure reach the game: if it cannot attach to a method, it skips it, and if it cannot start, it removes everything it attached.
 
+## When a fix cannot attach
+
+After a game update, a fix may no longer find a method it patches. It then removes the patches it had already attached, so it is either fully on or fully off, and writes one line to `Player.log`: `[PerformanceFixes] <fix> is off: ...`. The other fixes keep working.
+
 ## Regenerating the method lists
 
 The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:

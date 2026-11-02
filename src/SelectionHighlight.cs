@@ -49,11 +49,8 @@ namespace PerformanceFixes
         // An item's shape moved by (deltaX, deltaY), and the shape it was made from.
         sealed class Moved { public GridShape from, shape; public int deltaX, deltaY; }
 
-        // The last placement check: its inputs and its answer.
-        static readonly List<GameItemElement> fitSelection = new List<GameItemElement>();
-        static GameInventory fitInventory;
-        static int fitDeltaX, fitDeltaY, fitVersion = -1;
-        static bool fits;
+        // The last placement check and when it still holds (its own file, with tests).
+        static readonly FormationFit<GameInventory, GameItemElement> fit = new FormationFit<GameInventory, GameItemElement>();
 
         // Counts item re-layouts; any change in an inventory's contents goes through one.
         static int version;
@@ -151,7 +148,7 @@ namespace PerformanceFixes
         // Switches off what was lit before and is not lit now.
         static void End(List<TreeNodeRender> lit)
         {
-            foreach (var node in lit) previous.Remove(node);
+            HighlightDiff.KeepStale(previous, lit);
             foreach (var node in previous)
                 if (node != null) node.image.enabled = false;
             previous.Clear();
@@ -205,20 +202,13 @@ namespace PerformanceFixes
                 if (foreign && !inventory.MayHaveValidInventorySlot(element)) return false;
             }
 
-            if (fitVersion != version || fitInventory != inventory || fitDeltaX != deltaX || fitDeltaY != deltaY ||
-                !SameSelection(items))
-            {
-                var ignored = new List<GameItem>(items);
-                fits = true;
-                foreach (var element in items)
-                    if (!inventory.CheckShapePlacement(element, MovedShape(element, deltaX, deltaY), ignored)) { fits = false; break; }
-                fitVersion = version;
-                fitInventory = inventory;
-                fitDeltaX = deltaX;
-                fitDeltaY = deltaY;
-                fitSelection.Clear();
-                fitSelection.AddRange(items);
-            }
+            bool fits;
+            if (fit.TryGet(inventory, deltaX, deltaY, version, items, out fits)) return fits;
+            var ignored = new List<GameItem>(items);
+            fits = true;
+            foreach (var element in items)
+                if (!inventory.CheckShapePlacement(element, MovedShape(element, deltaX, deltaY), ignored)) { fits = false; break; }
+            fit.Store(inventory, deltaX, deltaY, version, items, fits);
             return fits;
         }
 
@@ -236,23 +226,13 @@ namespace PerformanceFixes
             return home;
         }
 
-        static bool SameSelection(List<GameItemElement> items)
-        {
-            if (items.Count != fitSelection.Count) return false;
-            for (int i = 0; i < items.Count; i++)
-                if (items[i] != fitSelection[i]) return false;
-            return true;
-        }
-
         static void LayoutPrefix() { version++; }
 
         static void ClearPostfix()
         {
             slots.Clear();
             moved.Clear();
-            fitSelection.Clear();
-            fitInventory = null;
-            fitVersion = -1;
+            fit.Forget();
         }
     }
 }

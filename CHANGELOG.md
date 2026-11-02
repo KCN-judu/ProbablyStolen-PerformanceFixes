@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1
+
+- The buyer check installs only once the player's language is applied. Installing it earlier could leave the water names in English for the session, so water stopped selling in other languages.
+- Containers nested more than 32 levels deep now get the game's own buying check instead of passing unchecked.
+- A fix that cannot attach fully after a game update now removes the patches it attached, so it is either fully on or fully off.
+- Headless tests for the decisions that need no game: `tests/run.sh`.
+
 ## 1.1.0
 
 - The highlight under selected items is updated in place instead of being redrawn every frame, removing the stutter while a large selection is held or dragged as a group. The same goes for the placement preview when dragging within the original container, and whether the group fits is worked out again only when the drop position, the selection or an inventory changes. This can be turned off in the options.

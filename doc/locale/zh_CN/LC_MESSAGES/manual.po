@@ -53,22 +53,66 @@ msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
 msgstr "Visual Studio 18 Build Tools 中的 Roslyn `csc.exe`"
 
 #: manual/building.md:24
+msgid "Tests"
+msgstr "测试"
+
+#: manual/building.md:26
+msgid "The decisions that need neither Unity nor the game live in `src/*.Pure.cs`, and each has a test in `tests/` that compiles with `csc` alone:"
+msgstr "不需要 Unity 也不需要游戏的判断逻辑放在 `src/*.Pure.cs` 里，每个都在 `tests/` 里有一个只用 `csc` 就能编译的测试："
+
+#: manual/building.md:32
+msgid "Test"
+msgstr "测试"
+
+#: manual/building.md:32
+msgid "What it checks"
+msgstr "检查内容"
+
+#: manual/building.md:34
+msgid "The buying rule on small stores, nesting past the depth limit (no answer, so the game's own check runs), refusal, each item asked once, and 2,000 random stores against the rule as it reads"
+msgstr "小型店铺上的收货规则、超过深度上限的嵌套（不给出答案，于是由游戏自己的判定执行）、拒收、每件物品只问一次，以及 2000 个随机店铺与规则原文的对照"
+
+#: manual/building.md:35
+msgid "When an inventory layout waits for the end of the frame and when it runs at once"
+msgstr "库存布局何时等到帧末、何时立即执行"
+
+#: manual/building.md:36
+msgid "When the group-drag fit check must run again"
+msgstr "成组拖动时何时需要重新判断能否放下"
+
+#: manual/building.md:37
+msgid "Which highlight squares are switched off after a refresh"
+msgstr "刷新后关掉哪些高亮格"
+
+#: manual/building.md:38
+msgid "Which patches a fix that fails halfway removes again"
+msgstr "中途失败的修复要撤掉哪些补丁"
+
+#: manual/building.md:39
+msgid "When the buyer check may be installed, given the game's language"
+msgstr "根据游戏语言，何时可以安装收货判定"
+
+#: manual/building.md:41
+msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
+msgstr "每个测试对每个用例输出 `ok` 或 `FAIL`，只要有一个用例失败就以非零代码退出。"
+
+#: manual/building.md:43
 msgid "Languages"
 msgstr "语言"
 
-#: manual/building.md:26
+#: manual/building.md:45
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr "选项文字在 `Localization/` 里，游戏的每种语言一个文件，以游戏的语言代码命名：`en`、`zh`、`ja`、`ko`、`de`、`fr`、`es`、`it`、`pl`、`ru` 和 `ptBR`。缺少的条目回退为英文。"
 
-#: manual/building.md:28
+#: manual/building.md:47
 msgid "Install by hand"
 msgstr "手动安装"
 
-#: manual/building.md:30
+#: manual/building.md:49
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr "把 `out/performance_fixes` 文件夹复制到游戏的 `Mods` 文件夹，启动游戏，在模组菜单中启用它。模组在游戏启动时加载，所以启用或更新后要重启游戏。"
 
-#: manual/building.md:32
+#: manual/building.md:51
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr "这个模组不声明任何权限，游戏启用它时不会弹出权限确认。"
 
@@ -106,6 +150,14 @@ msgstr "除非物品当前上锁、没有内容窗口或是高级枪械，否则
 msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that include contents, are patched to evaluate exactly that rule bottom-up, once per item per call. Answers are reused only within that call, never across calls or frames, so the result is always the game's own for the current state. The single-item form runs unchanged."
 msgstr "模组修改了包含内容检查的 `IsClientBuyingThisItem` 和 `IsClientRefusingItem`，让它们自底向上严格按这条规则计算，每次调用中每件物品只算一次。结果只在本次调用内复用，从不跨调用或跨帧，所以结果始终与游戏对当前状态的判断一致。只检查单件物品的版本保持原样。"
 
+#: manual/customers.md:16
+msgid "Contents nested more than 32 levels deep get no answer from the rule. For such a call the game's own check runs instead, and its checks of the items inside come back through the fix one level down each time, so even then the answer is the game's."
+msgstr "嵌套超过 32 层的内容物，规则不给出答案。这样的调用改由游戏自己的判定执行，它对内部物品的判定又会逐层回到本修复，所以即便如此，答案也是游戏自己的。"
+
+#: manual/customers.md:18
+msgid "**When it starts.** The game's own check uses a list of localized water names that the game fills in the first time it is needed. Installing the fix fills it in too, and mods start before the game applies the player's language. So the fix waits until the language the game chose at startup is applied, and only then installs. If that has not happened within five minutes, the fix stays off for the session and `Player.log` says so. Without this wait, water names would stay in English for the session and water would stop selling in any other language."
+msgstr "**何时启动。** 游戏自己的判定会用到一份本地化的水名列表，游戏在第一次用到时才填写它。安装本修复也会让它被填写，而模组启动时游戏还没有应用玩家的语言。所以本修复会等到游戏启动时选定的语言生效后才安装。如果五分钟内仍未生效，本修复在这次游戏中保持关闭，`Player.log` 里会写明。没有这一步等待，水的名称会在整局里保持英文，在其他语言下水也会卖不出去。"
+
 #: manual/diagnostics.md:1
 #: manual/index.md:20
 #: manual/index.md:21
@@ -137,22 +189,30 @@ msgid "Times are inclusive: a method that calls others includes them. The profil
 msgstr "时间是包含式的：调用了其他方法的方法，其耗时包含被调用的部分。分析器有少量开销，正常游玩时请关闭。它绝不会让故障影响游戏：挂不上某个方法就跳过，无法启动就撤掉所有已挂上的计时。"
 
 #: manual/diagnostics.md:19
+msgid "When a fix cannot attach"
+msgstr "修复无法挂载时"
+
+#: manual/diagnostics.md:21
+msgid "After a game update, a fix may no longer find a method it patches. It then removes the patches it had already attached, so it is either fully on or fully off, and writes one line to `Player.log`: `[PerformanceFixes] <fix> is off: ...`. The other fixes keep working."
+msgstr "游戏更新后，某项修复可能找不到它要打补丁的方法。这时它会撤掉自己已经挂上的补丁，所以要么完全生效，要么完全关闭，并在 `Player.log` 里写一行：`[PerformanceFixes] <fix> is off: ...`。其他修复照常工作。"
+
+#: manual/diagnostics.md:23
 msgid "Regenerating the method lists"
 msgstr "重新生成方法列表"
 
-#: manual/diagnostics.md:21
+#: manual/diagnostics.md:25
 msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
 msgstr "被计时的方法列在自动生成的文件中，这样游戏的模组扫描器能在代码里看到每个被引用的类型，不会请求权限："
 
-#: manual/diagnostics.md:23
+#: manual/diagnostics.md:27
 msgid "`tools/GenProbe.cs` writes `src/Targets.g.cs`, the per-frame callbacks and layout passes."
 msgstr "`tools/GenProbe.cs` 生成 `src/Targets.g.cs`，即每帧回调和布局计算。"
 
-#: manual/diagnostics.md:24
+#: manual/diagnostics.md:28
 msgid "`tools/GenCallees.cs` writes `src/Callees.g.cs`, everything the given methods call, to a given depth."
 msgstr "`tools/GenCallees.cs` 生成 `src/Callees.g.cs`，即指定方法在指定深度内调用的所有方法。"
 
-#: manual/diagnostics.md:26
+#: manual/diagnostics.md:30
 msgid "Both leave out the game's mod loader, mod security and Steam integration, which mods may not patch. Regenerate them after a game update."
 msgstr "两者都会排除游戏的模组加载器、模组安全和 Steam 集成部分，因为模组不允许修改它们。游戏更新后需要重新生成。"
 

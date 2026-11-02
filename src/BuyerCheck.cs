@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using HarmonyLib;
 
 namespace PerformanceFixes
@@ -11,22 +10,23 @@ namespace PerformanceFixes
     // the counter, when it checks whether something can be sold, and in the negotiation screen (once per item in the
     // back inventory).
     //
-    // The rule itself, read from the game:
-    //   bought(x)    = acceptable(x) and (contents not checked(x) or everything inside x is bought)
+    // The rule itself, read from the game, is evaluated bottom-up once per item per call by BuyerRule (its own file,
+    // with tests); this patch only supplies the game's answers for single items:
     //   acceptable(x) = IsClientBuyingThisItem(x, ignoreContents: true)
-    //   checked(x)   = not LockHelper.IsCurrentlyLocked(x) and x has a content window and x is not an ADV_GUN
-    // This patch evaluates exactly that bottom-up, once per item per call. Answers are reused only within one call,
-    // so the result is always the game's own for the current state.
+    //   checked(x)    = not LockHelper.IsCurrentlyLocked(x) and x has a content window and x is not an ADV_GUN
+    // Answers are reused only within one call, so the result is always the game's own for the current state. When the
+    // contents nest deeper than BuyerRule.MaxDepth, the rule gives no answer and the game's own method runs for that
+    // call; its checks of the items inside come back through this patch, one level down each time.
     static class BuyerCheck
     {
-        const int MaxDepth = 32;
-
-        // Per call: bought(item) and "everything inside item is bought".
-        static readonly Dictionary<GameItem, bool> bought = new Dictionary<GameItem, bool>();
-        static readonly Dictionary<GameItem, bool> allInside = new Dictionary<GameItem, bool>();
-        static readonly HashSet<GraphNodeStorage> nodesSeen = new HashSet<GraphNodeStorage>();
         static StoreClient client;
         static bool busy;
+
+        static readonly BuyerRule<GraphNodeStorage> rule = new BuyerRule<GraphNodeStorage>(
+            node => node is GameItem,
+            node => client.IsClientBuyingThisItem((GameItem)node, true),
+            node => ContentsChecked((GameItem)node),
+            node => node.children);
 
         public static bool Enabled = true;
 
@@ -45,81 +45,33 @@ namespace PerformanceFixes
         static bool BuyingPrefix(StoreClient __instance, GameItem gameItem, bool ignoreContents, ref bool __result)
         {
             if (!Enabled || ignoreContents || gameItem == null || busy) return true;
+            bool? answer;
             busy = true;
             client = __instance;
-            try { __result = Bought(gameItem, 0); }
-            finally
-            {
-                bought.Clear(); allInside.Clear(); nodesSeen.Clear();
-                client = null;
-                busy = false;
-            }
+            try { answer = rule.Buying(gameItem); }
+            finally { client = null; busy = false; }
+            if (answer == null) return true;
+            __result = answer.Value;
             return false;
         }
 
-        // The negotiation screen asks the refusal side directly:
-        //   refusing(x) = refusing on its own (ignoreContents) or (contents checked(x) and something inside is not bought)
+        // The negotiation screen asks the refusal side directly.
         static bool RefusingPrefix(StoreClient __instance, GameItem gameItem, bool ignoreContents, ref bool __result)
         {
             if (!Enabled || ignoreContents || gameItem == null || busy) return true;
+            bool? answer;
             busy = true;
             client = __instance;
-            try
-            {
-                __result = __instance.IsClientRefusingItem(gameItem, true) ||
-                    (ContentsChecked(gameItem) && !AllInsideBought(gameItem, 0));
-            }
-            finally
-            {
-                bought.Clear(); allInside.Clear(); nodesSeen.Clear();
-                client = null;
-                busy = false;
-            }
+            try { answer = rule.Refusing(gameItem, __instance.IsClientRefusingItem(gameItem, true)); }
+            finally { client = null; busy = false; }
+            if (answer == null) return true;
+            __result = answer.Value;
             return false;
-        }
-
-        static bool Bought(GameItem item, int depth)
-        {
-            bool result;
-            if (bought.TryGetValue(item, out result)) return result;
-            result = client.IsClientBuyingThisItem(item, true) &&
-                (!ContentsChecked(item) || AllInsideBought(item, depth));
-            bought[item] = result;
-            return result;
         }
 
         static bool ContentsChecked(GameItem item)
         {
             return !LockHelper.IsCurrentlyLocked(item) && item.contentWindow != null && !item.IsTag("ADV_GUN_TAG");
-        }
-
-        // Every item anywhere inside, through inventories and other nodes, as GraphUtils.FindAllChildrenType lists
-        // them; each item visited once.
-        static bool AllInsideBought(GameItem item, int depth)
-        {
-            bool result;
-            if (allInside.TryGetValue(item, out result)) return result;
-            result = depth >= MaxDepth || NodesBought(item.children, depth + 1);
-            allInside[item] = result;
-            return result;
-        }
-
-        static bool NodesBought(List<GraphNodeStorage> nodes, int depth)
-        {
-            if (nodes == null) return true;
-            for (int i = 0; i < nodes.Count; i++)
-            {
-                var node = nodes[i];
-                if (node == null) continue;
-                var item = node as GameItem;
-                if (item != null)
-                {
-                    if (!Bought(item, depth) || !AllInsideBought(item, depth)) return false;
-                }
-                else if (depth < MaxDepth && nodesSeen.Add(node) && !NodesBought(node.children, depth + 1))
-                    return false;
-            }
-            return true;
         }
     }
 }

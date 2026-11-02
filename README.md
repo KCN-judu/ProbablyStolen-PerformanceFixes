@@ -26,6 +26,7 @@ See [Building](doc/manual/building.md) for the requirements and the `GAME` and `
 | Path | Contents |
 | --- | --- |
 | `src/` | The mod's source |
+| `tests/` | Headless tests of the decisions in `src/*.Pure.cs` (`tests/run.sh`) |
 | `doc/manual/` | Documentation, in English (the source of every translation) |
 | `doc/locale/` | Translations of the documentation, as gettext catalogs |
 | `manifest.xml`, `preview.png` | What the game reads, next to the DLL |

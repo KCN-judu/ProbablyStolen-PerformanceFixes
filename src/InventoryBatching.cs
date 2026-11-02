@@ -21,9 +21,8 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
-        static int depth;
-        static bool flushing;
-        static readonly HashSet<GameInventory> pending = new HashSet<GameInventory>();
+        // Which layouts wait for the end of the frame (its own file, with tests).
+        static readonly LayoutBatch<GameInventory> layouts = new LayoutBatch<GameInventory>();
         static readonly List<GameInventory> batch = new List<GameInventory>();
 
         // Statistics for the long-frame log.
@@ -61,33 +60,26 @@ namespace PerformanceFixes
             Flush();
         }
 
-        static void Enter() { if (Enabled) depth++; }
+        static void Enter() { if (Enabled) layouts.Enter(); }
 
         // A finalizer, so an exception inside the game's method cannot leave batching switched on.
         static Exception Leave(Exception __exception)
         {
-            if (depth > 0) depth--;
+            layouts.Leave();
             return __exception;
         }
 
         static bool ValidatePrefix(GameInventory __instance)
         {
-            if (depth > 0 && !flushing)
-            {
-                if (pending.Add(__instance)) Deferred++;
-                return false;
-            }
-            if (!flushing) pending.Remove(__instance);
-            return true;
+            bool newlyDeferred;
+            bool now = layouts.Request(__instance, out newlyDeferred);
+            if (newlyDeferred) Deferred++;
+            return now;
         }
 
         static void Flush()
         {
-            if (pending.Count == 0 || flushing) return;
-            flushing = true;
-            batch.Clear();
-            batch.AddRange(pending);
-            pending.Clear();
+            if (!layouts.Take(batch)) return;
             try
             {
                 foreach (var inventory in batch)
@@ -105,7 +97,7 @@ namespace PerformanceFixes
                     }
                 }
             }
-            finally { flushing = false; batch.Clear(); }
+            finally { layouts.Done(); batch.Clear(); }
         }
     }
 }

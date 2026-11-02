@@ -10,7 +10,7 @@ mkdir -p out/performance_fixes
 
 refs=()
 for r in mscorlib netstandard System System.Core Assembly-CSharp Assembly-CSharp-firstpass 0Harmony \
-         UnityEngine UnityEngine.CoreModule UnityEngine.UI UnityEngine.UIModule UnityEngine.InputLegacyModule UnityEngine.IMGUIModule UnityEngine.PhysicsModule UnityEngine.Physics2DModule UnityEngine.AudioModule UnityEngine.AnimationModule UnityEngine.TextRenderingModule Unity.TextMeshPro DOTween; do
+         UnityEngine UnityEngine.CoreModule UnityEngine.UI UnityEngine.UIModule UnityEngine.InputLegacyModule UnityEngine.IMGUIModule UnityEngine.PhysicsModule UnityEngine.Physics2DModule UnityEngine.AudioModule UnityEngine.AnimationModule UnityEngine.TextRenderingModule Unity.TextMeshPro Unity.Localization Unity.ResourceManager DOTween; do
   [ -f "$M/$r.dll" ] && refs+=("-r:$M/$r.dll")
 done
 

@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 namespace PerformanceFixes
 {
@@ -20,6 +22,15 @@ namespace PerformanceFixes
     //     BuyerCheck        the buying check on containers runs once per item instead of quadratically
     //   Diagnostics
     //     long-frame log (on) and the long-frame profiler (off), to find the next thing worth fixing
+    //
+    // A fix either installs completely or not at all: if one of its patches cannot attach, the ones it already
+    // attached are removed again, the fix is off, and Player.log gets one line.
+    //
+    // BuyerCheck is installed only once the player's language is applied. Patching compiles the patched method, and
+    // StoreClient.IsClientRefusingItem uses WaterFeatureHelper, whose static constructor reads the localized water
+    // names. Mods start before the game applies the player's language, so compiling it then would fix those names
+    // in English for the session, and water would stop selling in any other language. Of all the methods this mod
+    // patches (the profiler's included), it is the only one that uses such a type.
     public sealed class PerformanceMod : IMod
     {
         public const string ModId = "performance_fixes";
@@ -41,6 +52,12 @@ namespace PerformanceFixes
         static string lastWindow;
         static float lastWindowAt, nextLog;
 
+        // BuyerCheck waits for the language the game resolves at startup to be applied (see WaitForLanguage).
+        const float LanguageTimeout = 300f;
+        static string startupLocale;
+        static bool buyerWaiting;
+        static float buyerSince;
+
         public void Init(ModManifest manifest)
         {
             if (manifest != null && !string.IsNullOrEmpty(manifest.ID)) modId = manifest.ID;
@@ -60,9 +77,12 @@ namespace PerformanceFixes
             {
                 // Each fix on its own: one that fails to patch (after a game update, say) leaves the others working.
                 harmony = new Harmony(HarmonyId);
-                TryPatch("buyer check", () => BuyerCheck.Patch(harmony));
+                TryPatch("startup language", () => harmony.Patch(typeof(LocHelper).GetMethod("ResolveStartupLocale", AnyStatic, null, Type.EmptyTypes, null),
+                    null, new HarmonyMethod(typeof(PerformanceMod).GetMethod("NoteStartupLocale", AnyStatic))));
+                buyerWaiting = true;
+                buyerSince = Time.realtimeSinceStartup;
                 TryPatch("window canvases", () => WindowCanvases.Patch(harmony));
-                TryPatch("inventory batching", () => InventoryBatching.Patch(harmony));
+                TryPatch("inventory batching", () => InventoryBatching.Patch(harmony), InventoryBatching.Unpatch);
                 TryPatch("selection highlight", () => SelectionHighlight.Patch(harmony));
                 TryPatch("keep closed windows", () => KeepAdopted.Patch(harmony));
                 TryPatch("staggered presets", () => StaggeredPresets.Patch(harmony));
@@ -77,14 +97,66 @@ namespace PerformanceFixes
         public void OnDisable()
         {
             Profiler.Stop();
+            buyerWaiting = false;
             if (harmony != null) { InventoryBatching.Unpatch(); harmony.UnpatchAll(HarmonyId); harmony = null; }
             if (ticker != null) { UnityEngine.Object.Destroy(ticker); ticker = null; }
         }
 
-        static void TryPatch(string fix, Action patch)
+        // Installs one fix. If it fails, removes the patches it added (PatchRollback, with tests) and runs undo for
+        // anything else it set up, so the fix is fully off and the others keep theirs.
+        static void TryPatch(string fix, Action patch, Action undo = null)
         {
+            var before = harmony != null ? OwnPatches() : null;
             try { patch(); }
-            catch (Exception e) { Debug.LogWarning(Tag + fix + " is off: " + e.GetType().Name + ": " + e.Message); }
+            catch (Exception e)
+            {
+                string rest = "";
+                try
+                {
+                    if (before != null)
+                        foreach (var added in PatchRollback.Added(before, OwnPatches())) harmony.Unpatch(added.Key, added.Value);
+                    if (undo != null) undo();
+                }
+                catch (Exception u) { rest = " (and could not be fully removed: " + u.Message + ")"; }
+                Debug.LogWarning(Tag + fix + " is off: " + e.GetType().Name + ": " + e.Message + rest);
+            }
+        }
+
+        // Every patch this mod has attached, as (patched method, patch method).
+        static HashSet<KeyValuePair<MethodBase, MethodInfo>> OwnPatches()
+        {
+            var patches = new HashSet<KeyValuePair<MethodBase, MethodInfo>>();
+            foreach (var method in harmony.GetPatchedMethods())
+            {
+                var info = Harmony.GetPatchInfo(method);
+                if (info == null) continue;
+                foreach (var list in new[] { info.Prefixes, info.Postfixes, info.Transpilers, info.Finalizers })
+                    foreach (var p in list)
+                        if (p.owner == HarmonyId) patches.Add(new KeyValuePair<MethodBase, MethodInfo>(method, p.PatchMethod));
+            }
+            return patches;
+        }
+
+        // The game resolves the player's language once at startup, then applies it.
+        static void NoteStartupLocale(string __result) { startupLocale = __result; }
+
+        // Installs BuyerCheck once that language is the selected one (LocaleGate, with tests); gives up after
+        // LanguageTimeout, leaving it off for the session.
+        static void WaitForLanguage()
+        {
+            bool initialized = startupLocale != null && LocalizationSettings.InitializationOperation.IsDone;
+            string selected = initialized ? LocHelper.GetCurrentLocaleCode() : null;
+            switch (LocaleGate.Decide(initialized, startupLocale, selected, Time.realtimeSinceStartup - buyerSince, LanguageTimeout))
+            {
+                case LocaleGate.State.Ready:
+                    buyerWaiting = false;
+                    TryPatch("buyer check", () => BuyerCheck.Patch(harmony));
+                    break;
+                case LocaleGate.State.GiveUp:
+                    buyerWaiting = false;
+                    Debug.LogWarning(Tag + "buyer check is off: the game's language was not applied within " + LanguageTimeout + " s");
+                    break;
+            }
         }
 
         static string L(string key) { return ModHelper.GetLocalized(modId, key); }
@@ -137,6 +209,9 @@ namespace PerformanceFixes
         internal static void Tick()
         {
             try { StaggeredPresets.Tick(); } catch (Exception) { }
+            if (buyerWaiting && harmony != null)
+                try { WaitForLanguage(); }
+                catch (Exception e) { buyerWaiting = false; Debug.LogWarning(Tag + "buyer check is off: " + e.Message); }
             float dt = Time.unscaledDeltaTime;
             if (Profiler.Running || (logFrames != null && !logFrames.Value)) return;
             if (dt < LongFrame || Time.unscaledTime < nextLog || Time.frameCount < 300) return;

@@ -53,22 +53,66 @@ msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
 msgstr ""
 
 #: manual/building.md:24
-msgid "Languages"
+msgid "Tests"
 msgstr ""
 
 #: manual/building.md:26
-msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
-msgstr ""
-
-#: manual/building.md:28
-msgid "Install by hand"
-msgstr ""
-
-#: manual/building.md:30
-msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgid "The decisions that need neither Unity nor the game live in `src/*.Pure.cs`, and each has a test in `tests/` that compiles with `csc` alone:"
 msgstr ""
 
 #: manual/building.md:32
+msgid "Test"
+msgstr ""
+
+#: manual/building.md:32
+msgid "What it checks"
+msgstr ""
+
+#: manual/building.md:34
+msgid "The buying rule on small stores, nesting past the depth limit (no answer, so the game's own check runs), refusal, each item asked once, and 2,000 random stores against the rule as it reads"
+msgstr ""
+
+#: manual/building.md:35
+msgid "When an inventory layout waits for the end of the frame and when it runs at once"
+msgstr ""
+
+#: manual/building.md:36
+msgid "When the group-drag fit check must run again"
+msgstr ""
+
+#: manual/building.md:37
+msgid "Which highlight squares are switched off after a refresh"
+msgstr ""
+
+#: manual/building.md:38
+msgid "Which patches a fix that fails halfway removes again"
+msgstr ""
+
+#: manual/building.md:39
+msgid "When the buyer check may be installed, given the game's language"
+msgstr ""
+
+#: manual/building.md:41
+msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
+msgstr ""
+
+#: manual/building.md:43
+msgid "Languages"
+msgstr ""
+
+#: manual/building.md:45
+msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
+msgstr ""
+
+#: manual/building.md:47
+msgid "Install by hand"
+msgstr ""
+
+#: manual/building.md:49
+msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
+msgstr ""
+
+#: manual/building.md:51
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
@@ -106,6 +150,14 @@ msgstr ""
 msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that include contents, are patched to evaluate exactly that rule bottom-up, once per item per call. Answers are reused only within that call, never across calls or frames, so the result is always the game's own for the current state. The single-item form runs unchanged."
 msgstr ""
 
+#: manual/customers.md:16
+msgid "Contents nested more than 32 levels deep get no answer from the rule. For such a call the game's own check runs instead, and its checks of the items inside come back through the fix one level down each time, so even then the answer is the game's."
+msgstr ""
+
+#: manual/customers.md:18
+msgid "**When it starts.** The game's own check uses a list of localized water names that the game fills in the first time it is needed. Installing the fix fills it in too, and mods start before the game applies the player's language. So the fix waits until the language the game chose at startup is applied, and only then installs. If that has not happened within five minutes, the fix stays off for the session and `Player.log` says so. Without this wait, water names would stay in English for the session and water would stop selling in any other language."
+msgstr ""
+
 #: manual/diagnostics.md:1
 #: manual/index.md:20
 #: manual/index.md:21
@@ -137,22 +189,30 @@ msgid "Times are inclusive: a method that calls others includes them. The profil
 msgstr ""
 
 #: manual/diagnostics.md:19
-msgid "Regenerating the method lists"
+msgid "When a fix cannot attach"
 msgstr ""
 
 #: manual/diagnostics.md:21
-msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
+msgid "After a game update, a fix may no longer find a method it patches. It then removes the patches it had already attached, so it is either fully on or fully off, and writes one line to `Player.log`: `[PerformanceFixes] <fix> is off: ...`. The other fixes keep working."
 msgstr ""
 
 #: manual/diagnostics.md:23
+msgid "Regenerating the method lists"
+msgstr ""
+
+#: manual/diagnostics.md:25
+msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
+msgstr ""
+
+#: manual/diagnostics.md:27
 msgid "`tools/GenProbe.cs` writes `src/Targets.g.cs`, the per-frame callbacks and layout passes."
 msgstr ""
 
-#: manual/diagnostics.md:24
+#: manual/diagnostics.md:28
 msgid "`tools/GenCallees.cs` writes `src/Callees.g.cs`, everything the given methods call, to a given depth."
 msgstr ""
 
-#: manual/diagnostics.md:26
+#: manual/diagnostics.md:30
 msgid "Both leave out the game's mod loader, mod security and Steam integration, which mods may not patch. Regenerate them after a game update."
 msgstr ""
 
