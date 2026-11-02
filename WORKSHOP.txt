@@ -30,3 +30,11 @@ Every fix can be switched on or off in the mod's options (gear icon in the Mods 
 Frames over 100 ms are written to Player.log with the window that was just opened, so slowdowns can be traced.
 
 Needs no special permissions. Works on its own or with Demand Highlight. Built for game version 0.46D.
+
+[h2]Source and documentation[/h2]
+[list]
+[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/en/performance-fixes/]Documentation[/url] (English and Chinese)
+[*][url=https://github.com/KCN-judu/ProbablyStolen-PerformanceFixes]Source code on GitHub[/url], Apache License 2.0
+[*][url=https://github.com/KCN-judu/ProbablyStolen-Mods]All mods by KCN-judu[/url]
+[/list]
+Bug reports and suggestions are welcome on GitHub or in the comments.
