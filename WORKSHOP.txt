@@ -38,3 +38,46 @@ Needs no special permissions. Works on its own or with Demand Highlight. Built f
 [*][url=https://github.com/KCN-judu/ProbablyStolen-Mods]All mods by KCN-judu[/url]
 [/list]
 Bug reports and suggestions are welcome on GitHub or in the comments.
+
+[hr][/hr]
+
+[h1]性能修复[/h1]
+店铺更流畅，玩法不变。修复原版游戏在处理大型、塞满的存储时的卡顿。
+
+[h2]修复了什么[/h2]
+[list]
+[*][b]打开满载容器。[/b]原版所有窗口共用一块画布，任何变化都会重绘所有打开的窗口。现在每个容器窗口有自己的画布，变化只重绘那一个窗口。
+[*][b]读档和满载容器。[/b]原版每添加或改变一件物品，就把它所在的整个库存重新布局一次，n 件物品要做 n × n 的工作。现在每个库存每帧只布局一次，读取大型店铺时能省下好几秒。
+[*][b]开关存储窗口。[/b]原版每次开关窗口都要把全部内容在两块画布之间搬动，存储越满越慢。现在关闭的窗口原地保留，存储预设快捷键的卡顿大约减半；预设里的窗口改为每帧打开一个，动画不会停住。
+[*][b]瞬间重新打开。[/b]原版关闭窗口会停用里面的每个格子和物品，重新打开时再全部启用。现在关闭的容器窗口只是不再绘制，重新打开满载的存储窗口几乎是瞬间的。
+[*][b]嵌套存储的交易。[/b]判断顾客是否收购一个容器时，原版会一层一层反复检查里面的所有东西。现在同样的规则对每件物品只执行一次。
+[/list]
+
+[h2]保持不变的[/h2]
+[list]
+[*]顾客收什么、拒什么与原来完全一致。
+[*]窗口的外观、叠放和拖动与原来一样。
+[*]每项修复都可以在模组选项中关闭。
+[/list]
+
+[h2]选项[/h2]
+每项修复都可以在模组选项（模组菜单中的齿轮图标）里单独开关：
+[list]
+[*][b]窗口：[/b]每个窗口独立画布、关闭的窗口原地保留、瞬间隐藏关闭的窗口、预设窗口逐个打开
+[*][b]库存：[/b]合并库存布局
+[*][b]顾客：[/b]快速收货判定
+[*][b]诊断：[/b]记录长帧（默认开）、分析长帧（默认关）
+[/list]
+
+[h2]排查问题[/h2]
+超过 100 毫秒的帧会连同刚打开的窗口一起写入 Player.log，方便追查卡顿。
+
+不需要任何特殊权限。可单独使用，也可与需求高亮一起使用。适用于游戏版本 0.46D。
+
+[h2]源码与文档[/h2]
+[list]
+[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/zh-cn/performance-fixes/]中文文档[/url]
+[*][url=https://github.com/KCN-judu/ProbablyStolen-PerformanceFixes]GitHub 源码[/url]，Apache License 2.0
+[*][url=https://github.com/KCN-judu/ProbablyStolen-Mods]KCN-judu 的全部模组[/url]
+[/list]
+欢迎在 GitHub 或评论区反馈问题和建议。
