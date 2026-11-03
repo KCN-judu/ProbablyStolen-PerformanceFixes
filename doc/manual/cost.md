@@ -89,9 +89,9 @@ Most fixes remove repeated work: the same item, inventory or highlight worked ou
 
 **Fix.** The UI work of one part is combined into a single pass at the end of that same part: each item whose UI was asked for is worked out once, then each container around them once. That is O(N + P) per part. Shapes, states, placement, inventory layouts and every load step still run exactly as often as in the game, so their own cost, O(N · t) shape computations, is unchanged.
 
-**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms.
+**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms. With the other fixes on, the whole load took 3,645 ms with this option off and 2,903 ms with it on, starting the game fresh each time.
 
-**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives.
+**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives. Loading the same save with the option off and on put the same number of items in every inventory.
 
 ### Build item UI in place
 

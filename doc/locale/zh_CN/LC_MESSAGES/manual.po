@@ -488,12 +488,12 @@ msgid "**Fix.** The UI work of one part is combined into a single pass at the en
 msgstr "**修复。** 一部分里的界面工作合并为一次遍历，就在这同一部分结束时：每件请求过界面计算的物品算一次，再把它们外面的每个容器各算一次。每部分是 O(N + P)。形状、状态、摆放、库存布局和每个读档步骤仍然与游戏执行得一样多，所以它们自己的代价，O(N · t) 次形状计算，没有变化。"
 
 #: manual/cost.md:92
-msgid "**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms."
-msgstr "**实测。** 在一个有 1,342 件物品的店铺上：61,551 次界面请求变成 1,343 次执行（另有 11 次是给读档期间被销毁的物品，已跳过）。计算物品界面的时间从 576 毫秒降到 57 毫秒，原本包含它的形状计算从 991 毫秒降到 507 毫秒。"
+msgid "**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms. With the other fixes on, the whole load took 3,645 ms with this option off and 2,903 ms with it on, starting the game fresh each time."
+msgstr "**实测。** 在一个有 1,342 件物品的店铺上：61,551 次界面请求变成 1,343 次执行（另有 11 次是给读档期间被销毁的物品，已跳过）。计算物品界面的时间从 576 毫秒降到 57 毫秒，原本包含它的形状计算从 991 毫秒降到 507 毫秒。在其他修复都开启的情况下，每次都重新启动游戏，关闭此选项时整个读档用了 3,645 毫秒，开启时 2,903 毫秒。"
 
 #: manual/cost.md:94
-msgid "**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives."
-msgstr "**结果。** 相同。物品的界面由它当前的形状、状态和内容物算出，所以最后算一次的结果，与游戏最后一次的结果相同。"
+msgid "**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives. Loading the same save with the option off and on put the same number of items in every inventory."
+msgstr "**结果。** 相同。物品的界面由它当前的形状、状态和内容物算出，所以最后算一次的结果，与游戏最后一次的结果相同。用同一个存档分别在关闭和开启此选项时读取，每个库存里的物品数量都相同。"
 
 #: manual/cost.md:98
 msgid "**Game.** Each item's UI has k = 13 parts. Twelve of them are created in a shared temporary place and then each is moved to where it belongs inside the item. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is 12 moves per item, O(N · k) moves for N items."
