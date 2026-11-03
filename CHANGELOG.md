@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.0
+
+- Loading a save is faster again. On a 1,342-item store, from the click to the first frame, a load takes about 4.7 s, against about 8 s without this mod, starting the game fresh each time.
+- Windows, inventories and machine panels are now built in place too, like items: their parts are created where they belong instead of being moved there. The option is now called Build UI in place.
+- Working out an item's shape and state skips the search for inventories under an item that has nothing under it, which is most items while a save loads. This can be turned off in the options.
+- Before a save loads, the game's early look at the store now reads only the upgrades it checks, instead of the whole store, which is nearly the whole save file. This can be turned off in the options.
+- Entering the store no longer rewrites the settings file about 57 times with the values already in it: a setting is written only when it changed. This took about half a second of every load. This can be turned off in the options.
+- Leaving the store, for the main menu say, now lets go of everything that still pointed at it, so the next load in the same session no longer starts with the old store still in memory. This can be turned off in the options.
+- Every trip into the store writes a load timeline to `Player.log`: the time of the fade, the scene, the save load and the first frame.
+- The documentation has a new Loading page, and the cost analysis covers every new fix. It also corrects the gain of Check items once while loading: measured without the long-frame profiler, it is too small to show.
+
 ## 1.2.0
 
 - While a save loads, the redraws of each inventory are combined into one pass, so each item's look is worked out once instead of every time one of its tags is restored or a container around it is laid out. This removes tens of thousands of redraws from loading a large store. The loaded items are the same. This can be turned off in the options.

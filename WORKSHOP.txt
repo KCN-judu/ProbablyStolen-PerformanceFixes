@@ -9,7 +9,9 @@ Smoother shop, same game. Fixes stutters in the base game when you work with big
 [*][b]Instant reopening.[/b] Closing a window used to switch off every slot and item inside it, and reopening switched them all back on. Closed container windows are now simply not drawn, so reopening a full storage window is nearly instant.
 [*][b]Selecting and dragging many items.[/b] While items are selected or dragged as a group, the game redraws the highlight under every one of them each frame and copies the whole inventory list once per item to find it. Inside the original container it also re-checks every selected item against every other item each frame. The highlight and the placement preview are now updated in place, and the fit is only re-checked when something changes, so a large selection drags smoothly.
 [*][b]Loading a save.[/b] While a save loads, the game redraws every item each time one of its tags is restored, and every container around it with it: tens of thousands of redraws for a large store. The redraws of each inventory are now combined into one pass, each item once, with the same result.
-[*][b]Creating items.[/b] The game builds each part of an item's look in a temporary place and then moves it, and moving is slow. The parts are now created where they belong. A large store loads in less than half the time.
+[*][b]Creating items and windows.[/b] The game builds each part of an item, window, inventory or machine panel in a temporary place and then moves it, and moving is slow. The parts are now created where they belong.
+[*][b]The rest of the load.[/b] Before a save loads, the game reads the whole store just to see which upgrades it has; that look now reads only the upgrades. Entering the store rewrote the settings file about 57 times with the values already in it; now only a changed setting is written. Working out an item's shape no longer searches under items that have nothing under them. On a 1,342-item store a load takes about 4.7 s instead of about 8 s.
+[*][b]Leaving the store.[/b] Going back to the main menu kept the old store in memory until the next load. It is now freed.
 [*][b]Trading with nested storage.[/b] To decide whether a customer will buy a container, the game re-checks everything inside it, level after level. The same rule now runs once per item.
 [/list]
 
@@ -24,13 +26,14 @@ Smoother shop, same game. Fixes stutters in the base game when you work with big
 Every fix can be switched on or off in the mod's options (gear icon in the Mods menu):
 [list]
 [*][b]Windows:[/b] Separate canvas per window, Keep closed windows in place, Hide closed windows instantly, Open preset windows one by one
-[*][b]Inventories:[/b] Batch inventory layouts, Check items once while loading, Build item UI in place, Fast selection highlight
+[*][b]Inventories:[/b] Batch inventory layouts, Check items once while loading, Build UI in place, Lighter shape checks, Fast selection highlight
+[*][b]Loading:[/b] Lighter store preload, Skip unchanged settings, Free the store when leaving
 [*][b]Customers:[/b] Fast buyer check
 [*][b]Diagnostics:[/b] Log long frames (on), Profile long frames (off)
 [/list]
 
 [h2]For troubleshooting[/h2]
-Frames over 100 ms are written to Player.log with the window that was just opened, so slowdowns can be traced.
+Frames over 100 ms are written to Player.log with the window that was just opened, so slowdowns can be traced. Every trip into the store writes the time of each step of the load.
 
 Needs no special permissions. Works on its own or with Demand Highlight. Built for game version 0.46D.
 
@@ -55,7 +58,9 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 [*][b]瞬间重新打开。[/b]原版关闭窗口会停用里面的每个格子和物品，重新打开时再全部启用。现在关闭的容器窗口只是不再绘制，重新打开满载的存储窗口几乎是瞬间的。
 [*][b]选中和拖动大批物品。[/b]原版在选中或成组拖动物品时，每帧都会重画每件物品下的高亮，并为找到每件物品把整个库存列表复制一遍。在原容器里拖动时，还会每帧把每件选中物品和其他所有物品逐一比对。现在高亮和摆放预览都原地更新，只在有变化时才重新判断能否放下，大批物品也能流畅拖动。
 [*][b]读档。[/b]原版读档时，每恢复一个标签就重画一次物品，连同它外面的每个容器，大型店铺要重画几万次。现在每个库存的重画合并为一次遍历，每件物品只重画一次，结果完全相同。
-[*][b]生成物品。[/b]原版把物品外观的每个部件先放在临时位置生成，再移到它该在的地方，而移动很慢。现在部件直接在所属位置生成。大型店铺的读档时间不到原来的一半。
+[*][b]生成物品和窗口。[/b]原版把物品、窗口、库存和机器面板的每个部件先放在临时位置生成，再移到它该在的地方，而移动很慢。现在部件直接在所属位置生成。
+[*][b]读档的其余部分。[/b]原版读档前会把整个商店读一遍，只为看有哪些升级；现在只读这些升级。进入商店时原版要把设置文件重写约 57 次，写的都是文件里已有的值；现在只写改动过的设置。计算物品形状时，下面什么都没有的物品不再查找子库存。1342 件物品的店铺读档约 4.7 秒，原版约 8 秒。
+[*][b]离开商店。[/b]原版回到主菜单后，旧商店一直留在内存里，直到下次读档。现在会被释放。
 [*][b]嵌套存储的交易。[/b]判断顾客是否收购一个容器时，原版会一层一层反复检查里面的所有东西。现在同样的规则对每件物品只执行一次。
 [/list]
 
@@ -70,13 +75,14 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 每项修复都可以在模组选项（模组菜单中的齿轮图标）里单独开关：
 [list]
 [*][b]窗口：[/b]每个窗口独立画布、关闭的窗口原地保留、瞬间隐藏关闭的窗口、预设窗口逐个打开
-[*][b]库存：[/b]合并库存布局、读档时物品只检查一次、物品界面原地生成、快速选中高亮
+[*][b]库存：[/b]合并库存布局、读档时物品只检查一次、界面原地生成、精简形状检查、快速选中高亮
+[*][b]读档：[/b]精简商店预读、跳过未改动的设置、离开商店时释放内存
 [*][b]顾客：[/b]快速收货判定
 [*][b]诊断：[/b]记录长帧（默认开）、分析长帧（默认关）
 [/list]
 
 [h2]排查问题[/h2]
-超过 100 毫秒的帧会连同刚打开的窗口一起写入 Player.log，方便追查卡顿。
+超过 100 毫秒的帧会连同刚打开的窗口一起写入 Player.log，方便追查卡顿。每次进入商店都会记录读档各步骤的耗时。
 
 不需要任何特殊权限。可单独使用，也可与需求高亮一起使用。适用于游戏版本 0.46D。
 
