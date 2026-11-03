@@ -4,6 +4,10 @@ Smoother shop, same game. This mod removes stutters from the base game when you 
 
 ![Performance Fixes cover](../attachments/cover.png)
 
+Loading a save and opening full containers, with this mod off and on, recorded in the game on a real tested large store (the loading part plays at double speed):
+
+![Loading a save and opening containers with Performance Fixes off and on](../attachments/compare.gif)
+
 ## Options
 
 Every fix has its own switch in the mod's options: open the Mods menu, select Performance Fixes and click the gear icon. All of them are on by default except the profiler.
