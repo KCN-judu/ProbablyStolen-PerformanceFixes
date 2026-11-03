@@ -13,7 +13,14 @@ Most fixes remove repeated work: the same item, inventory or highlight worked ou
 | t | tag changes and moves per item while a save loads |
 | d | nesting depth: containers inside containers |
 | P | containers around the items being worked on |
-| k | UI parts per item (13) |
+| k | UI parts per item (13), or per window, inventory or machine panel |
+| E | UI elements built: items, windows, inventories, machine panels |
+| c | collections built for one search under an item (a list, a set, a queue and the result) |
+| S | size of the store's entry in the save: 13 MB for the store measured here |
+| u | the store's upgrades, the part of S the early look needs |
+| K | settings and key bindings written on entering the store (57) |
+| F | size of the settings file (about 8 KB) |
+| R | references to a store that is left: lookup tables, window list, manager fields, caches |
 | m | selected items |
 | s | highlight squares lit |
 | W | open windows |
@@ -29,8 +36,12 @@ Most fixes remove repeated work: the same item, inventory or highlight worked ou
 | Open preset windows one by one | O(g · W) in one frame | the same total, O(g) per frame | yes |
 | Batch inventory layouts | O(n) per change, O(n²) to fill an inventory | O(n) per inventory per frame | yes |
 | Check items once while loading | each item's UI worked out about t times, each time with its containers | each item once, then each container once: O(N + P) per part | yes |
-| Build item UI in place | k creations and k − 1 moves per item | k creations, no moves | yes |
+| Build UI in place | k creations and k − 1 moves per element: O(E · k) moves | k creations, no moves | yes |
+| Lighter shape checks | each shape check of an item with nothing under it searches anyway and builds c collections | no search and nothing built for such an item; the same search as before for any other | yes |
 | Fast selection highlight | O(m · n) list copies and s squares off and on, every frame; inside the original container also O(m² · n) every frame | no list copies, only changed squares touched; the O(m² · n) check only when the drop position or contents change | yes |
+| Lighter store preload | the store read twice in full: 2 · O(S), every string and object of it built twice | the early look passes over S and builds only u: O(S) to pass over, O(u) built | yes |
+| Skip unchanged settings | K full rewrites of the settings file: O(K · F) read and O(K · F) written, K file swaps | K reads, O(K · F); a write only for a setting that changed | yes |
+| Free the store when leaving | the left store stays in memory until the next one replaces it | O(R) to let go, one collection while the menu is idle | yes |
 | Fast buyer check | an item k levels deep checked up to 2^(k−1) times | each item checked once: O(N) | yes |
 
 ## Windows
@@ -89,19 +100,29 @@ Most fixes remove repeated work: the same item, inventory or highlight worked ou
 
 **Fix.** The UI work of one part is combined into a single pass at the end of that same part: each item whose UI was asked for is worked out once, then each container around them once. That is O(N + P) per part. Shapes, states, placement, inventory layouts and every load step still run exactly as often as in the game, so their own cost, O(N · t) shape computations, is unchanged.
 
-**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms. With the other fixes on, the whole load took 3,645 ms with this option off and 2,903 ms with it on, starting the game fresh each time.
+**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). With the long-frame profiler on, the time spent working out item UI fell from 576 ms to 57 ms. Without the profiler, and with the other fixes on, the save load took 2,718 ms and 2,761 ms with the option off and on, a difference within the spread between loads: once the other fixes have made each UI walk cheap, removing the repeated ones no longer shows. An earlier comparison of 3,645 ms against 2,903 ms was made with the profiler on, which made every walk slower, and overstated the gain.
 
 **Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives. Loading the same save with the option off and on put the same number of items in every inventory.
 
-### Build item UI in place
+### Build UI in place
 
-**Game.** Each item's UI has k = 13 parts. Twelve of them are created in a shared temporary place and then each is moved to where it belongs inside the item. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is 12 moves per item, O(N · k) moves for N items.
+**Game.** Each item's UI has k = 13 parts, and windows, inventories and machine panels are built the same way. All but the first part of each element are created in a shared temporary place and then each is moved to where it belongs. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is k − 1 moves per element, O(E · k) moves for E elements.
 
-**Fix.** Each part is created directly where it belongs, so the moves are gone. The creations remain, so **the order of growth is still O(N · k)**; what goes away is one of the two per-part steps, and the more expensive one.
+**Fix.** In 33 builders, 132 kinds of part are created directly where they belong, so their moves are gone. The creations remain, so **the order of growth is still O(E · k)**; what goes away is one of the two per-part steps, and the more expensive one. Moves the game makes for other reasons, such as laying out an inventory's background, are not touched: about 8,000 of them remain while the 1,342-item store loads.
 
-**Measured.** Creating the UI of 1,342 items fell from 2,040 ms to 363 ms. The whole save load went from 4,655 ms to 2,833 ms.
+**Measured.** With items alone, creating the UI of 1,342 items fell from 2,040 ms to 363 ms and the whole save load from 4,655 ms to 2,833 ms. Adding windows, inventories and machine panels raised the parts created in place from 16,236 to 20,053 per load and took about 0.1 s to 0.25 s more off it.
 
 **Result.** Identical: each part ends with the same parent, the same place among its siblings and the same position, rotation and scale, and it starts up the same way.
+
+### Lighter shape checks
+
+**Game.** Every tag change and every move works out the item's shape and state, t times per item, O(N · t) in all: 58,148 times for the 1,342-item store. Each time, the game searches everything under the item for inventories, and for that builds c = 4 collections and walks them, even for an item with nothing under it.
+
+**Fix.** For an item with neither an inventory window nor an examine window the search returns the same empty answer at once, with nothing built. **The number of shape checks is unchanged, O(N · t)**, and so is the rest of each one, including the copy of the item's tags; only the constant of the search goes away for such items. Items with anything under them are searched as before.
+
+**Measured.** 56,211 of the 58,148 searches were skipped. With the load timed method by method, the shape computation's own time fell from 118 ms to 85 ms to 89 ms; part of both is the timing itself.
+
+**Result.** Identical: the empty answer is the one the search gives for an item with nothing under it, and the caller only reads it.
 
 ### Fast selection highlight
 
@@ -112,6 +133,50 @@ Most fixes remove repeated work: the same item, inventory or highlight worked ou
 **Measured.** Not timed. Holding and dragging a large selection no longer stutters, inside the original container as well.
 
 **Result.** Identical: the squares end every frame as the game leaves them, and the drop itself still runs the game's own check.
+
+## Loading
+
+### The whole load
+
+On the 1,342-item store, starting the game fresh before each load and loading the same save each time, click to first frame took about 7.8 s and 8.2 s without this mod and 4.64 s and 4.77 s with it. Without the mod there is no load timeline, so those two times are the main-thread stalls the game's own watchdog logged (7.5 s and 7.9 s) plus 0.3 s, the difference between the watchdog and the timeline on loads where both were written.
+
+| Stage | With this mod | What it is |
+| --- | --- | --- |
+| Fade to black | about 0.2 s | the game's fade and its first frames |
+| Scene set up | about 1.9 s | almost all Unity reading the store's scene; no fix here |
+| Before the save load | about 0.17 s | the early look at the store, among others |
+| Save load | about 2.2 s to 2.3 s | reading the save and making every item, inventory and window |
+| To the first frame | about 0.15 s | the rest of the store's start, the settings among it, and the first frame |
+
+### Lighter store preload
+
+**Game.** Before the save loads, the game reads the store's whole entry, S bytes, into a new store object to look at u of its upgrades, and drops it; the real load then reads the whole entry again. Both reads build every string and object in S, mostly the JSON of every inventory: 2 · O(S) in time and in what is built.
+
+**Fix.** The early look passes over everything but the upgrades. Passing over still reads every character of S, so **the order of growth stays O(S)**; what goes away is building the strings and objects of the rest, O(S) of allocation, leaving O(u). The real load is unchanged.
+
+**Measured.** With the load timed method by method, the early look fell from 131 ms to 147 ms down to 79 ms to 81 ms.
+
+**Result.** Identical: the upgrades are read by Easy Save's own reader exactly as before, and nothing else of the early copy is read by the game.
+
+### Skip unchanged settings
+
+**Game.** Entering the store writes K = 57 settings and key bindings one at a time. Each write reads the settings file, F bytes, merges in its one value, writes a temporary file and swaps it in: O(K · F) read and O(K · F) written, and K file swaps, which cost far more than the bytes. Nearly every value is the one already in the file.
+
+**Fix.** Each value is first read back: still K reads, O(K · F), but **only a setting that changed is written**, so in the usual case nothing is written and nothing is swapped.
+
+**Measured.** With the load timed method by method, the settings step fell from 496 ms to 10 ms: 0 written, 57 left out. The time from the end of the save load to the first frame fell from about 540 ms to about 155 ms.
+
+**Result.** Identical: a write is left out only where the file already holds the same key with the same value, so the file ends the same.
+
+### Free the store when leaving
+
+**Game.** After leaving the store, R references keep pointing at it, and any one of them keeps the whole store, all its items, inventories and windows, in memory until the next store replaces each reference. Each later load in the same session starts with that memory still in use.
+
+**Fix.** When another scene replaces the store, the R references are let go, O(R), and memory is collected once while the menu is idle. **This fix does not make a load faster by itself**: it stops the memory of each store left from staying in use until the next one.
+
+**Measured.** In the store, 237 MB of managed memory were in use; after leaving it and a full collection, 158 MB, with one left-behind holder found, a list of three destroyed cameras in the game's own letterbox manager.
+
+**Result.** Identical: each reference is cleared only where the game no longer reads it.
 
 ## Customers
 

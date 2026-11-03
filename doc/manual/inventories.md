@@ -26,12 +26,18 @@ The placement preview is updated in place in the same way. Whether the group fit
 
 **Fix.** The redraws of one part are combined into a single pass, at the end of that same part of the load: each item that asked to be redrawn is redrawn once, in the order it first asked, then the containers around it once each; items destroyed during the part are skipped. Everything else runs exactly where and as often as in the game: shapes and states, placement, inventory layouts (they also set sizes and slot positions that later shape computations read) and every load step, none of which reads an item's look. An item's look is worked out from its current shape, state and contents, so the one pass gives what the game's last redraw gives.
 
-Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded.
+Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows that the same items were loaded. With the other fixes on, the time it saves is too small to measure: the redraws it removes had already become cheap (see [Cost analysis](cost.md)).
 
-## Build item UI in place
+## Build UI in place
 
-**Problem.** Every item's look is made of thirteen parts. The game creates twelve of them in a shared temporary place and then moves each one to where it belongs inside the item. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s just moving parts, and the same happens whenever many items are created.
+**Problem.** Every item's look is made of thirteen parts, and windows, inventories and machine panels are built the same way. The game creates each part in a shared temporary place and then moves it to where it belongs. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s moving the parts of items, and about 0.9 s more moving the parts of windows, inventories and machine panels. The same happens whenever many of them are created.
 
-**Fix.** Each of those twelve parts is created directly where it belongs, and the game's own move then finds it already in place. The part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the item and is active. The item's first part is created as before. If a game update changes how many parts are made this way, the option does not install and `Player.log` says so.
+**Fix.** In 33 of the game's builders (items, windows, inventories, machine panels and their widgets), 132 kinds of part are created directly where they belong, and the game's own move then finds them already in place. A part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the same builder and is active. The first part of each builder is created as before. If a game update changes how many parts a builder makes this way, that builder is left as it is and `Player.log` names it.
 
-With this and the option above, the same 1,342-item save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory.
+Loading the 1,342-item store creates 20,053 parts in place. With this and the option above, the same save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory.
+
+## Lighter shape checks
+
+**Problem.** Every tag change and every move works out the item's shape and state again: about 58,000 times while the 1,342-item store loads, mostly while each item is being made. Each time, the game searches everything under the item for inventories whose items change its shape or state, and builds a list, a set and a queue for the search. Most items have nothing under them at that point, no inventory window and no examine window, and the search finds nothing.
+
+**Fix.** For an item with nothing under it, the search is skipped and gives the same empty answer. Everything else in the computation runs as before, and an item with anything under it is searched as before. While the store loads, 56,211 of the 58,148 searches are skipped.

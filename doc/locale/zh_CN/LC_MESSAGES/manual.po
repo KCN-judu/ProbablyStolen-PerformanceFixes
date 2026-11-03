@@ -77,8 +77,8 @@ msgid "While a save loads: each item is listed once however often it is redrawn,
 msgstr "读档时：每件物品无论被重画多少次都只记一次，这一部分结束时一次遍历，把它和它的容器各重画一次，已不存在的物品跳过"
 
 #: manual/building.md:36
-msgid "Which UI parts of an item are created in place: exactly the create, load this, getter, move sequence, nothing in between"
-msgstr "物品的哪些界面部件原地生成：严格是“生成、取 this、取父节点、移动”这一连串，中间不能夹别的"
+msgid "Which UI parts are created in place: exactly the create, load this, getter or field of this, move sequence, nothing in between"
+msgstr "哪些界面部件原地生成：恰好是“生成、加载 this、getter 或 this 的字段、移动”这一序列，中间没有别的"
 
 #: manual/building.md:37
 msgid "When an inventory layout waits for the end of the frame and when it runs at once"
@@ -97,30 +97,34 @@ msgid "Which patches a fix that fails halfway removes again"
 msgstr "中途失败的修复要撤掉哪些补丁"
 
 #: manual/building.md:41
+msgid "The steps of the load timeline: in time order with the gap since the step before, each kept at its first time, nothing outside a trip"
+msgstr "读档时间线的各步骤：按时间顺序，记录与上一步的间隔，每步保留首次的时间，一次进店之外不记录"
+
+#: manual/building.md:42
 msgid "When the buyer check may be installed, given the game's language"
 msgstr "根据游戏语言，何时可以安装收货判定"
 
-#: manual/building.md:43
+#: manual/building.md:44
 msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
 msgstr "每个测试对每个用例输出 `ok` 或 `FAIL`，只要有一个用例失败就以非零代码退出。"
 
-#: manual/building.md:45
+#: manual/building.md:46
 msgid "Languages"
 msgstr "语言"
 
-#: manual/building.md:47
+#: manual/building.md:48
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr "选项文字在 `Localization/` 里，游戏的每种语言一个文件，以游戏的语言代码命名：`en`、`zh`、`ja`、`ko`、`de`、`fr`、`es`、`it`、`pl`、`ru` 和 `ptBR`。缺少的条目回退为英文。"
 
-#: manual/building.md:49
+#: manual/building.md:50
 msgid "Install by hand"
 msgstr "手动安装"
 
-#: manual/building.md:51
+#: manual/building.md:52
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr "把 `out/performance_fixes` 文件夹复制到游戏的 `Mods` 文件夹，启动游戏，在模组菜单中启用它。模组在游戏启动时加载，所以启用或更新后要重启游戏。"
 
-#: manual/building.md:53
+#: manual/building.md:54
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr "这个模组不声明任何权限，游戏启用它时不会弹出权限确认。"
 
@@ -193,203 +197,323 @@ msgid "k"
 msgstr "k"
 
 #: manual/cost.md:16
-msgid "UI parts per item (13)"
-msgstr "每件物品的界面部件数（13）"
+msgid "UI parts per item (13), or per window, inventory or machine panel"
+msgstr "每件物品的界面部件数（13），或每个窗口、库存、机器面板的部件数"
 
 #: manual/cost.md:17
+msgid "E"
+msgstr "E"
+
+#: manual/cost.md:17
+msgid "UI elements built: items, windows, inventories, machine panels"
+msgstr "生成的界面元素：物品、窗口、库存、机器面板"
+
+#: manual/cost.md:18
+msgid "c"
+msgstr "c"
+
+#: manual/cost.md:18
+msgid "collections built for one search under an item (a list, a set, a queue and the result)"
+msgstr "在物品下面查找一次所建的集合（一个列表、一个集合、一个队列和结果）"
+
+#: manual/cost.md:19
+msgid "S"
+msgstr "S"
+
+#: manual/cost.md:19
+msgid "size of the store's entry in the save: 13 MB for the store measured here"
+msgstr "存档里商店这一项的大小：这里实测的商店为 13 MB"
+
+#: manual/cost.md:20
+msgid "u"
+msgstr "u"
+
+#: manual/cost.md:20
+msgid "the store's upgrades, the part of S the early look needs"
+msgstr "商店的升级，即提前查看所需的那部分 S"
+
+#: manual/cost.md:21
+msgid "K"
+msgstr "K"
+
+#: manual/cost.md:21
+msgid "settings and key bindings written on entering the store (57)"
+msgstr "进入商店时写入的设置和按键绑定（57 项）"
+
+#: manual/cost.md:22
+msgid "F"
+msgstr "F"
+
+#: manual/cost.md:22
+msgid "size of the settings file (about 8 KB)"
+msgstr "设置文件的大小（约 8 KB）"
+
+#: manual/cost.md:23
+msgid "R"
+msgstr "R"
+
+#: manual/cost.md:23
+msgid "references to a store that is left: lookup tables, window list, manager fields, caches"
+msgstr "离开的商店仍被引用的地方：查找表、窗口列表、管理器字段、缓存"
+
+#: manual/cost.md:24
 msgid "m"
 msgstr "m"
 
-#: manual/cost.md:17
+#: manual/cost.md:24
 msgid "selected items"
 msgstr "选中的物品"
 
-#: manual/cost.md:18
+#: manual/cost.md:25
 msgid "s"
 msgstr "s"
 
-#: manual/cost.md:18
+#: manual/cost.md:25
 msgid "highlight squares lit"
 msgstr "亮着的高亮格"
 
-#: manual/cost.md:19
+#: manual/cost.md:26
 msgid "W"
 msgstr "W"
 
-#: manual/cost.md:19
+#: manual/cost.md:26
 msgid "open windows"
 msgstr "打开的窗口"
 
-#: manual/cost.md:20
+#: manual/cost.md:27
 msgid "g"
 msgstr "g"
 
-#: manual/cost.md:20
+#: manual/cost.md:27
 msgid "graphics and components in one window"
 msgstr "一个窗口里的图形和组件"
 
-#: manual/cost.md:22
+#: manual/cost.md:29
 msgid "At a glance"
 msgstr "一览"
 
-#: manual/cost.md:24
+#: manual/cost.md:31
 msgid "Fix"
 msgstr "修复"
 
-#: manual/cost.md:24
+#: manual/cost.md:31
 msgid "Game"
 msgstr "游戏"
 
-#: manual/cost.md:24
+#: manual/cost.md:31
 msgid "With the fix"
 msgstr "修复后"
 
-#: manual/cost.md:24
+#: manual/cost.md:31
 msgid "Same result"
 msgstr "结果相同"
 
-#: manual/cost.md:26
-#: manual/cost.md:38
+#: manual/cost.md:33
+#: manual/cost.md:49
 #: manual/index.md:13
 #: manual/windows.md:5
 msgid "Separate canvas per window"
 msgstr "每个窗口独立画布"
 
-#: manual/cost.md:26
+#: manual/cost.md:33
 msgid "O(g · W) per change"
 msgstr "每次变化 O(g · W)"
 
-#: manual/cost.md:26
+#: manual/cost.md:33
 msgid "O(g) per change"
 msgstr "每次变化 O(g)"
 
-#: manual/cost.md:26
-#: manual/cost.md:27
-#: manual/cost.md:28
-#: manual/cost.md:29
-#: manual/cost.md:30
-#: manual/cost.md:31
-#: manual/cost.md:32
 #: manual/cost.md:33
 #: manual/cost.md:34
+#: manual/cost.md:35
+#: manual/cost.md:36
+#: manual/cost.md:37
+#: manual/cost.md:38
+#: manual/cost.md:39
+#: manual/cost.md:40
+#: manual/cost.md:41
+#: manual/cost.md:42
+#: manual/cost.md:43
+#: manual/cost.md:44
+#: manual/cost.md:45
 msgid "yes"
 msgstr "是"
 
-#: manual/cost.md:27
-#: manual/cost.md:46
+#: manual/cost.md:34
+#: manual/cost.md:57
 #: manual/index.md:14
 #: manual/windows.md:13
 msgid "Keep closed windows in place"
 msgstr "关闭的窗口原地保留"
 
-#: manual/cost.md:27
-#: manual/cost.md:28
+#: manual/cost.md:34
+#: manual/cost.md:35
 msgid "O(g) per open and per close"
 msgstr "每次打开和关闭 O(g)"
 
-#: manual/cost.md:27
-#: manual/cost.md:28
+#: manual/cost.md:34
+#: manual/cost.md:35
 msgid "O(g) on the first open, then constant"
 msgstr "首次打开 O(g)，之后为常数"
 
-#: manual/cost.md:28
-#: manual/cost.md:56
+#: manual/cost.md:35
+#: manual/cost.md:67
 #: manual/index.md:15
 #: manual/windows.md:19
 msgid "Hide closed windows instantly"
 msgstr "瞬间隐藏关闭的窗口"
 
-#: manual/cost.md:29
-#: manual/cost.md:66
+#: manual/cost.md:36
+#: manual/cost.md:77
 #: manual/index.md:16
 #: manual/windows.md:31
 msgid "Open preset windows one by one"
 msgstr "预设窗口逐个打开"
 
-#: manual/cost.md:29
+#: manual/cost.md:36
 msgid "O(g · W) in one frame"
 msgstr "一帧内 O(g · W)"
 
-#: manual/cost.md:29
+#: manual/cost.md:36
 msgid "the same total, O(g) per frame"
 msgstr "总量相同，每帧 O(g)"
 
-#: manual/cost.md:30
-#: manual/cost.md:76
+#: manual/cost.md:37
+#: manual/cost.md:87
 #: manual/index.md:17
 #: manual/inventories.md:3
 msgid "Batch inventory layouts"
 msgstr "合并库存布局"
 
-#: manual/cost.md:30
+#: manual/cost.md:37
 msgid "O(n) per change, O(n²) to fill an inventory"
 msgstr "每次变化 O(n)，填满一个库存 O(n²)"
 
-#: manual/cost.md:30
+#: manual/cost.md:37
 msgid "O(n) per inventory per frame"
 msgstr "每个库存每帧 O(n)"
 
-#: manual/cost.md:31
-#: manual/cost.md:86
+#: manual/cost.md:38
+#: manual/cost.md:97
 #: manual/index.md:18
 #: manual/inventories.md:23
 msgid "Check items once while loading"
 msgstr "读档时物品只检查一次"
 
-#: manual/cost.md:31
+#: manual/cost.md:38
 msgid "each item's UI worked out about t times, each time with its containers"
 msgstr "每件物品的界面约算 t 次，每次连同它的容器"
 
-#: manual/cost.md:31
+#: manual/cost.md:38
 msgid "each item once, then each container once: O(N + P) per part"
 msgstr "每件物品一次，再每个容器一次：每部分 O(N + P)"
 
-#: manual/cost.md:32
-#: manual/cost.md:96
+#: manual/cost.md:39
+#: manual/cost.md:107
 #: manual/index.md:19
 #: manual/inventories.md:31
-msgid "Build item UI in place"
-msgstr "物品界面原地生成"
+msgid "Build UI in place"
+msgstr "界面原地生成"
 
-#: manual/cost.md:32
-msgid "k creations and k − 1 moves per item"
-msgstr "每件物品 k 次生成、k − 1 次移动"
+#: manual/cost.md:39
+msgid "k creations and k − 1 moves per element: O(E · k) moves"
+msgstr "每个元素 k 次生成和 k − 1 次移动：O(E · k) 次移动"
 
-#: manual/cost.md:32
+#: manual/cost.md:39
 msgid "k creations, no moves"
 msgstr "k 次生成，不移动"
 
-#: manual/cost.md:33
-#: manual/cost.md:106
+#: manual/cost.md:40
+#: manual/cost.md:117
 #: manual/index.md:20
+#: manual/inventories.md:39
+msgid "Lighter shape checks"
+msgstr "精简形状检查"
+
+#: manual/cost.md:40
+msgid "each shape check of an item with nothing under it searches anyway and builds c collections"
+msgstr "下面什么都没有的物品，每次形状检查照样查找，并建 c 个集合"
+
+#: manual/cost.md:40
+msgid "no search and nothing built for such an item; the same search as before for any other"
+msgstr "这类物品不查找，也不建任何东西；其他物品照旧查找"
+
+#: manual/cost.md:41
+#: manual/cost.md:127
+#: manual/index.md:21
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr "快速选中高亮"
 
-#: manual/cost.md:33
+#: manual/cost.md:41
 msgid "O(m · n) list copies and s squares off and on, every frame; inside the original container also O(m² · n) every frame"
 msgstr "每帧 O(m · n) 次列表复制，s 个高亮格关了又开；在原容器里每帧还有 O(m² · n)"
 
-#: manual/cost.md:33
+#: manual/cost.md:41
 msgid "no list copies, only changed squares touched; the O(m² · n) check only when the drop position or contents change"
 msgstr "不复制列表，只动有变化的格子；O(m² · n) 的检查只在落点或内容变化时执行"
 
-#: manual/cost.md:34
-#: manual/cost.md:118
+#: manual/cost.md:42
+#: manual/cost.md:151
+#: manual/index.md:22
+#: manual/loading.md:14
+msgid "Lighter store preload"
+msgstr "精简商店预读"
+
+#: manual/cost.md:42
+msgid "the store read twice in full: 2 · O(S), every string and object of it built twice"
+msgstr "商店被完整读两次：2 · O(S)，其中每个字符串和对象都建两次"
+
+#: manual/cost.md:42
+msgid "the early look passes over S and builds only u: O(S) to pass over, O(u) built"
+msgstr "提前查看时跳过 S，只建 u：跳过 O(S)，建 O(u)"
+
+#: manual/cost.md:43
+#: manual/cost.md:161
+#: manual/index.md:23
+#: manual/loading.md:20
+msgid "Skip unchanged settings"
+msgstr "跳过未改动的设置"
+
+#: manual/cost.md:43
+msgid "K full rewrites of the settings file: O(K · F) read and O(K · F) written, K file swaps"
+msgstr "设置文件被完整重写 K 次：读 O(K · F)、写 O(K · F)，替换文件 K 次"
+
+#: manual/cost.md:43
+msgid "K reads, O(K · F); a write only for a setting that changed"
+msgstr "读 K 次，O(K · F)；只有改动过的设置才写"
+
+#: manual/cost.md:44
+#: manual/cost.md:171
+#: manual/index.md:24
+#: manual/loading.md:26
+msgid "Free the store when leaving"
+msgstr "离开商店时释放内存"
+
+#: manual/cost.md:44
+msgid "the left store stays in memory until the next one replaces it"
+msgstr "离开的商店一直留在内存里，直到下一个商店替换它"
+
+#: manual/cost.md:44
+msgid "O(R) to let go, one collection while the menu is idle"
+msgstr "放开引用 O(R)，菜单空闲时回收一次"
+
+#: manual/cost.md:45
+#: manual/cost.md:183
 #: manual/customers.md:3
-#: manual/index.md:21
+#: manual/index.md:25
 msgid "Fast buyer check"
 msgstr "快速收货判定"
 
-#: manual/cost.md:34
+#: manual/cost.md:45
 msgid "an item k levels deep checked up to 2^(k−1) times"
 msgstr "深 k 层的物品最多被检查 2^(k−1) 次"
 
-#: manual/cost.md:34
+#: manual/cost.md:45
 msgid "each item checked once: O(N)"
 msgstr "每件物品检查一次：O(N)"
 
-#: manual/cost.md:36
+#: manual/cost.md:47
 #: manual/index.md:13
 #: manual/index.md:14
 #: manual/index.md:15
@@ -398,154 +522,308 @@ msgstr "每件物品检查一次：O(N)"
 msgid "Windows"
 msgstr "窗口"
 
-#: manual/cost.md:40
+#: manual/cost.md:51
 msgid "**Game.** Every floating window is under one canvas, and Unity rebuilds a canvas as a whole. Any change in any window, an item moving or a slot lighting up under the mouse, re-batches every graphic of every open window: O(g · W) per change."
 msgstr "**游戏。** 所有浮动窗口都在同一块画布下，而 Unity 是整块重建画布的。任何窗口里的任何变化，一件物品移动或鼠标下一个格子亮起，都会把所有打开窗口的全部图形重新合批：每次变化 O(g · W)。"
 
-#: manual/cost.md:42
+#: manual/cost.md:53
 msgid "**Fix.** Each container window gets its own nested canvas, so a change re-batches only its own window: O(g) per change. The order of growth per window is the same; the factor W, the other open windows, goes away."
 msgstr "**修复。** 每个容器窗口有自己的嵌套画布，一次变化只重新合批它所在的窗口：每次变化 O(g)。单个窗口的增长阶数不变，去掉的是 W 这个因子，也就是其他打开的窗口。"
 
-#: manual/cost.md:44
+#: manual/cost.md:55
 msgid "**Result.** Identical: same draw order, pixels-per-unit and shader channels, and clicks still reach the window."
 msgstr "**结果。** 相同：绘制顺序、每单位像素数和着色器通道都一样，点击仍然能到达窗口。"
 
-#: manual/cost.md:48
+#: manual/cost.md:59
 msgid "**Game.** Opening a window moves it from its home under the floating-window canvas, and closing it moves it back. Each move makes every graphic in the window re-register: O(g) per open and per close."
 msgstr "**游戏。** 打开窗口时，游戏把它从原处移到浮动窗口画布下，关闭时再移回去。每次移动都让窗口里的每个图形重新注册：每次打开和关闭 O(g)。"
 
-#: manual/cost.md:50
+#: manual/cost.md:61
 msgid "**Fix.** A closed window stays where it is. The first open still costs O(g); after that, opening only brings it to the front, a constant amount of work."
 msgstr "**修复。** 关闭的窗口留在原地。首次打开仍是 O(g)；之后打开只需把它移到最前，是常数量的工作。"
 
-#: manual/cost.md:52
+#: manual/cost.md:63
 msgid "**Measured.** About 140 ms of the 280 ms stutter of the storage-preset hotkey, which opens four full windows at once."
 msgstr "**实测。** 存储预设快捷键一次打开四个满载窗口，280 毫秒的卡顿里约 140 毫秒来自这里。"
 
-#: manual/cost.md:54
+#: manual/cost.md:65
 msgid "**Result.** Identical. A window is kept only within its own scene and goes home before it is destroyed."
 msgstr "**结果。** 相同。窗口只在它自己的场景里保留，销毁前会先回到原处。"
 
-#: manual/cost.md:58
+#: manual/cost.md:69
 msgid "**Game.** Hiding a window deactivates it, and showing it activates it again: every component in it is switched off and on, O(g) each way."
 msgstr "**游戏。** 隐藏窗口会停用它，显示时再启用：里面的每个组件都要关了又开，每次 O(g)。"
 
-#: manual/cost.md:60
+#: manual/cost.md:71
 msgid "**Fix.** The window's own canvas and raycaster are switched off instead: constant work per hide and per show. The first open of each window still costs O(g)."
 msgstr "**修复。** 改为关掉窗口自己的画布和射线检测器：每次隐藏和显示都是常数量的工作。每个窗口首次打开仍是 O(g)。"
 
-#: manual/cost.md:62
+#: manual/cost.md:73
 msgid "**Measured.** About 110 ms each way for one large storage window before; nearly instant after its first open."
 msgstr "**实测。** 修复前，一个大型存储窗口每次开或关约 110 毫秒；首次打开之后几乎瞬间完成。"
 
-#: manual/cost.md:64
+#: manual/cost.md:75
 msgid "**Result.** Identical: the game's own hide steps run in the same order, and the window answers \"not visible\" as before."
 msgstr "**结果。** 相同：游戏自己的隐藏步骤按同样的顺序执行，窗口照旧回答「不可见」。"
 
-#: manual/cost.md:68
+#: manual/cost.md:79
 msgid "**Game.** The storage-preset hotkey opens or closes all W windows of a preset in one frame: O(g · W) in that frame."
 msgstr "**游戏。** 存储预设快捷键在一帧内打开或关闭预设的全部 W 个窗口：这一帧 O(g · W)。"
 
-#: manual/cost.md:70
+#: manual/cost.md:81
 msgid "**Fix.** The same windows open or close one per frame, the first at once. **This fix does not reduce the work**: the total stays O(g · W). It spreads it over W frames, so no single frame does more than O(g) and animations keep moving."
 msgstr "**修复。** 同样的窗口改为每帧打开或关闭一个，第一个立即处理。**这项修复并不减少工作量**：总量仍是 O(g · W)。它只是把工作分摊到 W 帧里，每帧不超过 O(g)，动画不会停住。"
 
-#: manual/cost.md:72
+#: manual/cost.md:83
 msgid "**Result.** Identical: each window's tab selection is applied right after its own opening, and pressing the hotkey again finishes any pending windows first."
 msgstr "**结果。** 相同：每个窗口的标签页选择紧接在它自己打开之后应用，再次按下快捷键会先处理完尚未打开的窗口。"
 
-#: manual/cost.md:74
+#: manual/cost.md:85
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
 #: manual/index.md:20
+#: manual/index.md:21
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr "库存"
 
-#: manual/cost.md:78
+#: manual/cost.md:89
 msgid "**Game.** Every item that enters or leaves an inventory, and every tag change on an item, lays the item out and then lays out its whole inventory again: O(n) per change. Filling an inventory of n items costs n inventory layouts of growing size, O(n²); a tag change on one item in a full storage bay lays out the whole bay."
 msgstr "**游戏。** 每件物品进出库存、每次改一件物品的标签，都会先布局这件物品，再把它所在的整个库存重新布局一次：每次变化 O(n)。填满一个有 n 件物品的库存，要做 n 次越来越大的库存布局，O(n²)；满载存储架里一件物品改个标签，就要重新布局整个存储架。"
 
-#: manual/cost.md:80
+#: manual/cost.md:91
 msgid "**Fix.** The inventory layouts asked for while an item is laid out are collected, and each inventory is laid out once, just before the frame is drawn: O(n) per inventory per frame however many changes it had. The item's own layout and everything else still run at once."
 msgstr "**修复。** 布局一件物品时请求的库存布局先记下来，每个库存在这一帧绘制之前只布局一次：无论变化多少次，每个库存每帧 O(n)。物品自己的布局和其他一切仍然立即执行。"
 
-#: manual/cost.md:82
+#: manual/cost.md:93
 msgid "**Measured.** One save load ran 161,804 item layouts and 7,000 inventory layouts in a single frame, about 1.8 s."
 msgstr "**实测。** 一次读档在同一帧里做了 161,804 次物品布局和 7,000 次库存布局，约 1.8 秒。"
 
-#: manual/cost.md:84
+#: manual/cost.md:95
 msgid "**Result.** Identical on screen, because the layout happens before the frame is drawn. This is the one fix that moves work to a later point in the frame rather than combining it in the same call, because in the game's design the inventory layout is triggered from inside every item change and cannot be combined there."
 msgstr "**结果。** 画面上相同，因为布局在这一帧绘制之前完成。这是唯一一项把工作挪到同一帧稍后、而不是在同一次调用里合并的修复，因为按游戏的设计，库存布局是从每次物品变化内部触发的，在那里无法合并。"
 
-#: manual/cost.md:88
+#: manual/cost.md:99
 msgid "**Game.** A save loads in parts, one per inventory. While a part loads, every tag change and every move of an item recomputes its shape and state and then works out its UI again, about t times per item. Working out an item's UI also works out the UI of every container around it, and every inventory layout works out the UI of all its items again. With a container nesting depth of d, an item's UI is worked out O(t · d) times, the same inputs nearly every time but the last."
 msgstr "**游戏。** 存档分几部分读取，每个库存一部分。读取一部分时，物品每次改标签、每次移动，都会重新计算它的形状和状态，再重新计算它的界面，每件物品约 t 次。计算一件物品的界面还会连带计算它外面每个容器的界面，而每次库存布局又会把其中所有物品的界面再算一遍。容器嵌套深度为 d 时，一件物品的界面要算 O(t · d) 次，除了最后一次，几乎每次的输入都一样。"
 
-#: manual/cost.md:90
+#: manual/cost.md:101
 msgid "**Fix.** The UI work of one part is combined into a single pass at the end of that same part: each item whose UI was asked for is worked out once, then each container around them once. That is O(N + P) per part. Shapes, states, placement, inventory layouts and every load step still run exactly as often as in the game, so their own cost, O(N · t) shape computations, is unchanged."
 msgstr "**修复。** 一部分里的界面工作合并为一次遍历，就在这同一部分结束时：每件请求过界面计算的物品算一次，再把它们外面的每个容器各算一次。每部分是 O(N + P)。形状、状态、摆放、库存布局和每个读档步骤仍然与游戏执行得一样多，所以它们自己的代价，O(N · t) 次形状计算，没有变化。"
 
-#: manual/cost.md:92
-msgid "**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms. With the other fixes on, the whole load took 3,645 ms with this option off and 2,903 ms with it on, starting the game fresh each time."
-msgstr "**实测。** 在一个有 1,342 件物品的店铺上：61,551 次界面请求变成 1,343 次执行（另有 11 次是给读档期间被销毁的物品，已跳过）。计算物品界面的时间从 576 毫秒降到 57 毫秒，原本包含它的形状计算从 991 毫秒降到 507 毫秒。在其他修复都开启的情况下，每次都重新启动游戏，关闭此选项时整个读档用了 3,645 毫秒，开启时 2,903 毫秒。"
+#: manual/cost.md:103
+msgid "**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). With the long-frame profiler on, the time spent working out item UI fell from 576 ms to 57 ms. Without the profiler, and with the other fixes on, the save load took 2,718 ms and 2,761 ms with the option off and on, a difference within the spread between loads: once the other fixes have made each UI walk cheap, removing the repeated ones no longer shows. An earlier comparison of 3,645 ms against 2,903 ms was made with the profiler on, which made every walk slower, and overstated the gain."
+msgstr "**实测。** 在 1,342 件物品的店铺上：61,551 次界面请求变成 1,343 次执行（另有 11 次是读档中被销毁的物品，已跳过）。开着长帧分析器时，计算物品界面的时间从 576 毫秒降到 57 毫秒。关掉分析器、其他修复都开着时，读档在关闭和开启此选项下分别用了 2,718 毫秒和 2,761 毫秒，差异在两次读档的正常波动之内：其他修复已经让每次界面遍历变得很便宜，去掉重复的遍历就看不出来了。之前 3,645 毫秒对 2,903 毫秒的对比是开着分析器测的，分析器让每次遍历都变慢，夸大了收益。"
 
-#: manual/cost.md:94
+#: manual/cost.md:105
 msgid "**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives. Loading the same save with the option off and on put the same number of items in every inventory."
 msgstr "**结果。** 相同。物品的界面由它当前的形状、状态和内容物算出，所以最后算一次的结果，与游戏最后一次的结果相同。用同一个存档分别在关闭和开启此选项时读取，每个库存里的物品数量都相同。"
 
-#: manual/cost.md:98
-msgid "**Game.** Each item's UI has k = 13 parts. Twelve of them are created in a shared temporary place and then each is moved to where it belongs inside the item. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is 12 moves per item, O(N · k) moves for N items."
-msgstr "**游戏。** 每件物品的界面有 k = 13 个部件。其中十二个先在共用的临时位置生成，再逐个移到它在物品里该在的地方。生成是免不了的；而移动每次有一个固定代价，无论部件里有什么，在游戏界面里移动一个空部件约 73 微秒，界面外约 28 微秒。每件物品 12 次移动，N 件物品就是 O(N · k) 次移动。"
+#: manual/cost.md:109
+msgid "**Game.** Each item's UI has k = 13 parts, and windows, inventories and machine panels are built the same way. All but the first part of each element are created in a shared temporary place and then each is moved to where it belongs. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is k − 1 moves per element, O(E · k) moves for E elements."
+msgstr "**游戏。** 每件物品的界面有 k = 13 个部件，窗口、库存和机器面板也是这样构建的。每个元素除第一个部件外，都先在一个共用的临时位置生成，再逐个移到所属位置。生成是免不了的；移动每次是一个常数，在游戏界面里一个空部件约 73 µs，在界面外约 28 µs，与部件里装了什么无关。即每个元素 k − 1 次移动，E 个元素共 O(E · k) 次。"
 
-#: manual/cost.md:100
-msgid "**Fix.** Each part is created directly where it belongs, so the moves are gone. The creations remain, so **the order of growth is still O(N · k)**; what goes away is one of the two per-part steps, and the more expensive one."
-msgstr "**修复。** 每个部件直接在所属位置生成，移动就没有了。生成仍然保留，所以**增长阶数仍是 O(N · k)**；去掉的是每个部件两步中的一步，而且是更贵的那一步。"
+#: manual/cost.md:111
+msgid "**Fix.** In 33 builders, 132 kinds of part are created directly where they belong, so their moves are gone. The creations remain, so **the order of growth is still O(E · k)**; what goes away is one of the two per-part steps, and the more expensive one. Moves the game makes for other reasons, such as laying out an inventory's background, are not touched: about 8,000 of them remain while the 1,342-item store loads."
+msgstr "**修复。** 在 33 个构建函数里，132 种部件直接在所属位置生成，它们的移动就没有了。生成仍在，所以**增长阶数仍是 O(E · k)**；去掉的是每个部件两步中的一步，而且是更贵的那步。游戏因为别的原因做的移动，比如给库存铺背景，不受影响：读取 1,342 件物品的店铺时还剩约 8,000 次。"
 
-#: manual/cost.md:102
-msgid "**Measured.** Creating the UI of 1,342 items fell from 2,040 ms to 363 ms. The whole save load went from 4,655 ms to 2,833 ms."
-msgstr "**实测。** 生成 1,342 件物品界面的时间从 2,040 毫秒降到 363 毫秒。整个读档从 4,655 毫秒降到 2,833 毫秒。"
+#: manual/cost.md:113
+msgid "**Measured.** With items alone, creating the UI of 1,342 items fell from 2,040 ms to 363 ms and the whole save load from 4,655 ms to 2,833 ms. Adding windows, inventories and machine panels raised the parts created in place from 16,236 to 20,053 per load and took about 0.1 s to 0.25 s more off it."
+msgstr "**实测。** 只做物品时，生成 1,342 件物品的界面从 2,040 毫秒降到 363 毫秒，整个读档从 4,655 毫秒降到 2,833 毫秒。加上窗口、库存和机器面板后，每次读档原地生成的部件从 16,236 个增加到 20,053 个，读档又快了约 0.1 秒到 0.25 秒。"
 
-#: manual/cost.md:104
+#: manual/cost.md:115
 msgid "**Result.** Identical: each part ends with the same parent, the same place among its siblings and the same position, rotation and scale, and it starts up the same way."
 msgstr "**结果。** 相同：每个部件最终的父节点、在兄弟节点中的位置，以及位置、旋转和缩放都与原来相同，启动方式也一样。"
 
-#: manual/cost.md:108
+#: manual/cost.md:119
+msgid "**Game.** Every tag change and every move works out the item's shape and state, t times per item, O(N · t) in all: 58,148 times for the 1,342-item store. Each time, the game searches everything under the item for inventories, and for that builds c = 4 collections and walks them, even for an item with nothing under it."
+msgstr "**游戏。** 每次标签变化和每次移动都要计算物品的形状和状态，每件物品 t 次，共 O(N · t)：1,342 件物品的店铺共 58,148 次。每次游戏都会在物品下面查找库存，为此建 c = 4 个集合并遍历，即使物品下面什么都没有。"
+
+#: manual/cost.md:121
+msgid "**Fix.** For an item with neither an inventory window nor an examine window the search returns the same empty answer at once, with nothing built. **The number of shape checks is unchanged, O(N · t)**, and so is the rest of each one, including the copy of the item's tags; only the constant of the search goes away for such items. Items with anything under them are searched as before."
+msgstr "**修复。** 既没有库存窗口也没有查看窗口的物品，查找立刻返回同样的空结果，不建任何东西。**形状检查的次数不变，O(N · t)**，每次检查的其余部分也不变，包括复制物品的标签；去掉的只是这类物品查找的常数。下面有东西的物品照旧查找。"
+
+#: manual/cost.md:123
+msgid "**Measured.** 56,211 of the 58,148 searches were skipped. With the load timed method by method, the shape computation's own time fell from 118 ms to 85 ms to 89 ms; part of both is the timing itself."
+msgstr "**实测。** 58,148 次查找中跳过了 56,211 次。逐个方法计时读档时，形状计算自身的时间从 118 毫秒降到 85 到 89 毫秒；两者都有一部分是计时本身的开销。"
+
+#: manual/cost.md:125
+msgid "**Result.** Identical: the empty answer is the one the search gives for an item with nothing under it, and the caller only reads it."
+msgstr "**结果。** 相同：这个空结果正是查找在下面什么都没有的物品上给出的结果，调用方也只读取它。"
+
+#: manual/cost.md:129
 msgid "**Game.** While items are selected, and while they are dragged, the game every frame switches off all s lit highlight squares and lights them again, so each one rebuilds and its canvas is re-batched. To find each item's slot it searches a fresh copy of the inventory's item list: O(m · n) per frame. Over the items' own container, a group drag also checks every selected item against every item in the inventory, and for each of those searches the list of selected items: O(m² · n) per frame."
 msgstr "**游戏。** 选中物品时，以及拖动它们的过程中，游戏每帧都把 s 个亮着的高亮格全部关掉再重新点亮，于是每个格子都要重建，所在画布也要重新合批。为了找到每件物品的位置，它要在库存物品列表的一份新副本里查找：每帧 O(m · n)。在物品所在的原容器上方，成组拖动还要把每件选中物品和库存里的每件物品比对，每比一件还要在选中列表里查找一遍：每帧 O(m² · n)。"
 
-#: manual/cost.md:110
+#: manual/cost.md:131
 msgid "**Fix.** The same squares are lit, but only squares whose state changes are touched, and each item's slot is kept while the item stays put, so no lists are copied. The fit check itself is not made faster: **it still costs O(m² · n) when it runs**, but it runs again only when the drop position, the selection or an inventory's contents change, instead of every frame. Every other condition of the check still runs every frame."
 msgstr "**修复。** 点亮的格子相同，但只动状态有变化的格子；物品不动时保留它的位置，所以不再复制列表。能否放下的检查本身并没有变快：**它执行时仍是 O(m² · n)**，但只在落点、选中内容或库存内容变化时才重新执行，而不是每帧都执行。检查的其余条件仍然每帧检查。"
 
-#: manual/cost.md:112
+#: manual/cost.md:133
 msgid "**Measured.** Not timed. Holding and dragging a large selection no longer stutters, inside the original container as well."
 msgstr "**实测。** 没有计时。按住或拖动大批选中物品时不再卡顿，在原容器里也是如此。"
 
-#: manual/cost.md:114
+#: manual/cost.md:135
 msgid "**Result.** Identical: the squares end every frame as the game leaves them, and the drop itself still runs the game's own check."
 msgstr "**结果。** 相同：每帧结束时的格子与游戏留下的一样，真正放下时仍由游戏自己的检查执行。"
 
-#: manual/cost.md:116
+#: manual/cost.md:137
+#: manual/index.md:22
+#: manual/index.md:23
+#: manual/index.md:24
+#: manual/loading.md:1
+msgid "Loading"
+msgstr "读档"
+
+#: manual/cost.md:139
+msgid "The whole load"
+msgstr "整个读档"
+
+#: manual/cost.md:141
+msgid "On the 1,342-item store, starting the game fresh before each load and loading the same save each time, click to first frame took about 7.8 s and 8.2 s without this mod and 4.64 s and 4.77 s with it. Without the mod there is no load timeline, so those two times are the main-thread stalls the game's own watchdog logged (7.5 s and 7.9 s) plus 0.3 s, the difference between the watchdog and the timeline on loads where both were written."
+msgstr "在 1,342 件物品的店铺上，每次读档前都重启游戏、每次读同一个存档，从点击到首帧，不用此模组约 7.8 秒和 8.2 秒，用此模组 4.64 秒和 4.77 秒。不用此模组时没有读档时间线，所以这两个时间是游戏自己的卡顿监视器记录的主线程卡住时长（7.5 秒和 7.9 秒）加上 0.3 秒，即两者都有记录的读档中监视器与时间线的差值。"
+
+#: manual/cost.md:143
+msgid "Stage"
+msgstr "阶段"
+
+#: manual/cost.md:143
+#: manual/loading.md:10
+msgid "With this mod"
+msgstr "用此模组"
+
+#: manual/cost.md:143
+msgid "What it is"
+msgstr "内容"
+
+#: manual/cost.md:145
+msgid "Fade to black"
+msgstr "淡出到黑屏"
+
+#: manual/cost.md:145
+msgid "about 0.2 s"
+msgstr "约 0.2 秒"
+
+#: manual/cost.md:145
+msgid "the game's fade and its first frames"
+msgstr "游戏的淡出和它的前几帧"
+
+#: manual/cost.md:146
+msgid "Scene set up"
+msgstr "场景搭建"
+
+#: manual/cost.md:146
+msgid "about 1.9 s"
+msgstr "约 1.9 秒"
+
+#: manual/cost.md:146
+msgid "almost all Unity reading the store's scene; no fix here"
+msgstr "几乎全是 Unity 在读取商店场景；这里没有修复"
+
+#: manual/cost.md:147
+msgid "Before the save load"
+msgstr "读档之前"
+
+#: manual/cost.md:147
+msgid "about 0.17 s"
+msgstr "约 0.17 秒"
+
+#: manual/cost.md:147
+msgid "the early look at the store, among others"
+msgstr "提前查看商店等"
+
+#: manual/cost.md:148
+msgid "Save load"
+msgstr "读档"
+
+#: manual/cost.md:148
+msgid "about 2.2 s to 2.3 s"
+msgstr "约 2.2 到 2.3 秒"
+
+#: manual/cost.md:148
+msgid "reading the save and making every item, inventory and window"
+msgstr "读取存档，生成每件物品、每个库存和窗口"
+
+#: manual/cost.md:149
+msgid "To the first frame"
+msgstr "到首帧"
+
+#: manual/cost.md:149
+msgid "about 0.15 s"
+msgstr "约 0.15 秒"
+
+#: manual/cost.md:149
+msgid "the rest of the store's start, the settings among it, and the first frame"
+msgstr "商店启动的剩余部分（其中包括设置）和首帧"
+
+#: manual/cost.md:153
+msgid "**Game.** Before the save loads, the game reads the store's whole entry, S bytes, into a new store object to look at u of its upgrades, and drops it; the real load then reads the whole entry again. Both reads build every string and object in S, mostly the JSON of every inventory: 2 · O(S) in time and in what is built."
+msgstr "**游戏。** 读档之前，游戏把商店这一整项，S 字节，读进一个新的商店对象，只为查看其中 u 个升级，然后丢掉；真正读档时再把整项读一遍。两次读取都会建出 S 里的每个字符串和对象，主要是每个库存的 JSON：时间和建出的东西都是 2 · O(S)。"
+
+#: manual/cost.md:155
+msgid "**Fix.** The early look passes over everything but the upgrades. Passing over still reads every character of S, so **the order of growth stays O(S)**; what goes away is building the strings and objects of the rest, O(S) of allocation, leaving O(u). The real load is unchanged."
+msgstr "**修复。** 提前查看时只读升级，其余都跳过。跳过仍要读 S 的每个字符，所以**增长阶数仍是 O(S)**；去掉的是为其余部分建字符串和对象，即 O(S) 的分配，只剩 O(u)。真正的读档不变。"
+
+#: manual/cost.md:157
+msgid "**Measured.** With the load timed method by method, the early look fell from 131 ms to 147 ms down to 79 ms to 81 ms."
+msgstr "**实测。** 逐个方法计时读档时，提前查看从 131 到 147 毫秒降到 79 到 81 毫秒。"
+
+#: manual/cost.md:159
+msgid "**Result.** Identical: the upgrades are read by Easy Save's own reader exactly as before, and nothing else of the early copy is read by the game."
+msgstr "**结果。** 相同：升级由 Easy Save 自己的读取器照原样读出，提前读出的副本里其他内容游戏都不读。"
+
+#: manual/cost.md:163
+msgid "**Game.** Entering the store writes K = 57 settings and key bindings one at a time. Each write reads the settings file, F bytes, merges in its one value, writes a temporary file and swaps it in: O(K · F) read and O(K · F) written, and K file swaps, which cost far more than the bytes. Nearly every value is the one already in the file."
+msgstr "**游戏。** 进入商店时，游戏把 K = 57 项设置和按键绑定逐个写入。每次写入都要读设置文件（F 字节），合并进这一个值，写一个临时文件再替换：读 O(K · F)、写 O(K · F)，替换文件 K 次，而替换文件比读写这些字节贵得多。写入的几乎都是文件里已有的值。"
+
+#: manual/cost.md:165
+msgid "**Fix.** Each value is first read back: still K reads, O(K · F), but **only a setting that changed is written**, so in the usual case nothing is written and nothing is swapped."
+msgstr "**修复。** 每个值先读回来：仍是读 K 次，O(K · F)，但**只有改动过的设置才写入**，所以通常什么都不写，也不替换文件。"
+
+#: manual/cost.md:167
+msgid "**Measured.** With the load timed method by method, the settings step fell from 496 ms to 10 ms: 0 written, 57 left out. The time from the end of the save load to the first frame fell from about 540 ms to about 155 ms."
+msgstr "**实测。** 逐个方法计时读档时，写设置这一步从 496 毫秒降到 10 毫秒：写入 0 项，跳过 57 项。从读档结束到首帧的时间从约 540 毫秒降到约 155 毫秒。"
+
+#: manual/cost.md:169
+msgid "**Result.** Identical: a write is left out only where the file already holds the same key with the same value, so the file ends the same."
+msgstr "**结果。** 相同：只有文件里已经有相同的键和相同的值时才不写，所以文件最后完全一样。"
+
+#: manual/cost.md:173
+msgid "**Game.** After leaving the store, R references keep pointing at it, and any one of them keeps the whole store, all its items, inventories and windows, in memory until the next store replaces each reference. Each later load in the same session starts with that memory still in use."
+msgstr "**游戏。** 离开商店后，有 R 处引用仍指向它，其中任何一处都会让整个商店，包括它所有的物品、库存和窗口，一直留在内存里，直到下一个商店把每处引用都替换掉。同一局游戏里之后的每次读档开始时，这些内存都还占着。"
+
+#: manual/cost.md:175
+msgid "**Fix.** When another scene replaces the store, the R references are let go, O(R), and memory is collected once while the menu is idle. **This fix does not make a load faster by itself**: it stops the memory of each store left from staying in use until the next one."
+msgstr "**修复。** 当别的场景替换商店时，放开这 R 处引用，O(R)，并在菜单空闲时回收一次内存。**这项修复本身不会让读档变快**：它让每个离开的商店不再一直占着内存，直到下一个商店出现。"
+
+#: manual/cost.md:177
+msgid "**Measured.** In the store, 237 MB of managed memory were in use; after leaving it and a full collection, 158 MB, with one left-behind holder found, a list of three destroyed cameras in the game's own letterbox manager."
+msgstr "**实测。** 在商店里，托管内存用了 237 MB；离开后完整回收一次，是 158 MB，只找到一处残留的引用：游戏自己的黑边管理器里一个装着三个已销毁摄像机的列表。"
+
+#: manual/cost.md:179
+msgid "**Result.** Identical: each reference is cleared only where the game no longer reads it."
+msgstr "**结果。** 相同：每处引用只在游戏不再读取它的地方才清掉。"
+
+#: manual/cost.md:181
 #: manual/customers.md:1
-#: manual/index.md:21
+#: manual/index.md:25
 msgid "Customers"
 msgstr "顾客"
 
-#: manual/cost.md:120
+#: manual/cost.md:185
 msgid "**Game.** To decide whether a customer buys a container, the game lists every item anywhere inside it and runs the full check on each one, and each of those lists and checks everything inside itself again. An item k levels below the container is reached once for every combination of the containers between them, so it can be checked up to 2^(k−1) times, and every listing builds a new list. For the shallow nesting of most stores this looks roughly quadratic; it grows much faster with depth."
 msgstr "**游戏。** 为了判断顾客是否收购一个容器，游戏列出里面任何位置的每件物品，对每件执行完整的检查，而每件又会把自己里面的一切再列出、再检查一遍。容器下方 k 层的一件物品，对它们之间容器的每一种组合都会被走到一次，所以最多会被检查 2^(k−1) 次，而且每次列举都要新建一个列表。大多数店铺嵌套很浅，看起来大致是平方级；嵌套越深，增长得快得多。"
 
-#: manual/cost.md:122
+#: manual/cost.md:187
 msgid "**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep get no answer from this rule, and the game's own check runs for that call instead."
 msgstr "**修复。** 同一条规则自下而上求值，每次调用中每件物品一次：里面有 N 件物品就是 O(N)，再加一次遍历内容物。答案只在这一次调用里保留。嵌套超过 32 层的内容物，这条规则不给答案，这次调用改由游戏自己的检查执行。"
 
-#: manual/cost.md:124
+#: manual/cost.md:189
 msgid "**Measured.** Not timed separately. The rule is checked outside the game against a plain version of the game's rule on 2,000 random stores, with the same answer every time (see [Building](building.md))."
 msgstr "**实测。** 没有单独计时。这条规则在游戏外与一个照原文实现的游戏规则在 2,000 个随机店铺上对照，答案每次都相同（见[构建](building.md)）。"
 
-#: manual/cost.md:126
+#: manual/cost.md:191
 msgid "**Result.** Identical: the same answers for the current state."
 msgstr "**结果。** 相同：对当前状态给出同样的答案。"
 
@@ -582,8 +860,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr "**何时启动。** 游戏自己的判定会用到一份本地化的水名列表，游戏在第一次用到时才填写它。安装本修复也会让它被填写，而模组启动时游戏还没有应用玩家的语言。所以本修复会等到游戏启动时选定的语言生效后才安装。如果五分钟内仍未生效，本修复在这次游戏中保持关闭，`Player.log` 里会写明。没有这一步等待，水的名称会在整局里保持英文，在其他语言下水也会卖不出去。"
 
 #: manual/diagnostics.md:1
-#: manual/index.md:22
-#: manual/index.md:23
+#: manual/index.md:26
+#: manual/index.md:27
 msgid "Diagnostics"
 msgstr "诊断"
 
@@ -600,42 +878,54 @@ msgid "`Player.log` is in `%USERPROFILE%\\AppData\\LocalLow\\Questing Goose Stud
 msgstr "`Player.log` 位于 `%USERPROFILE%\\AppData\\LocalLow\\Questing Goose Studio\\Probably Stolen`。"
 
 #: manual/diagnostics.md:9
+msgid "Load timeline"
+msgstr "读档时间线"
+
+#: manual/diagnostics.md:11
+msgid "Every trip from the main menu into the store writes one line to `Player.log`, with every option on or off:"
+msgstr "每次从主菜单进入商店，都会向 `Player.log` 写一行，无论各选项开关如何："
+
+#: manual/diagnostics.md:17
+msgid "Each step is the time since the one before, starting from the button press: the fade reaching black, the store's scene set up, the save starting and finishing to load, and the first frame drawn after it. Loading a save also writes a line with the items in each inventory and the counts of the loading fixes, and entering the store writes how many settings were written and how many were left out. Leaving the store writes the memory before and after it is freed."
+msgstr "每一步是距上一步的时间，从按下按钮开始：淡出到黑屏、商店场景搭建完成、存档开始读取和读取完成、之后画出的首帧。读档时还会写一行，列出每个库存的物品数和各项读档修复的计数；进入商店时会写出写入了多少项设置、跳过了多少项。离开商店时会写出释放前后的内存。"
+
+#: manual/diagnostics.md:19
 msgid "Long-frame profiler"
 msgstr "长帧分析器"
 
-#: manual/diagnostics.md:11
+#: manual/diagnostics.md:21
 msgid "**Profile long frames** goes further. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:"
 msgstr "**分析长帧** 更进一步。开启期间，游戏所有 MonoBehaviour 的每帧回调、每次布局计算（`Validate`），以及店铺主更新往下四层调用的所有方法都会被计时，Unity 的 UI 重建和渲染也会单独计时。每个超过 100 毫秒的帧都会连同最慢的方法一起记录下来："
 
-#: manual/diagnostics.md:17
+#: manual/diagnostics.md:27
 msgid "Times are inclusive: a method that calls others includes them. The profiler adds a little overhead, so leave it off for normal play. It never lets a failure reach the game: if it cannot attach to a method, it skips it, and if it cannot start, it removes everything it attached."
 msgstr "时间是包含式的：调用了其他方法的方法，其耗时包含被调用的部分。分析器有少量开销，正常游玩时请关闭。它绝不会让故障影响游戏：挂不上某个方法就跳过，无法启动就撤掉所有已挂上的计时。"
 
-#: manual/diagnostics.md:19
+#: manual/diagnostics.md:29
 msgid "When a fix cannot attach"
 msgstr "修复无法挂载时"
 
-#: manual/diagnostics.md:21
+#: manual/diagnostics.md:31
 msgid "After a game update, a fix may no longer find a method it patches. It then removes the patches it had already attached, so it is either fully on or fully off, and writes one line to `Player.log`: `[PerformanceFixes] <fix> is off: ...`. The other fixes keep working."
 msgstr "游戏更新后，某项修复可能找不到它要打补丁的方法。这时它会撤掉自己已经挂上的补丁，所以要么完全生效，要么完全关闭，并在 `Player.log` 里写一行：`[PerformanceFixes] <fix> is off: ...`。其他修复照常工作。"
 
-#: manual/diagnostics.md:23
+#: manual/diagnostics.md:33
 msgid "Regenerating the method lists"
 msgstr "重新生成方法列表"
 
-#: manual/diagnostics.md:25
+#: manual/diagnostics.md:35
 msgid "The timed methods are listed in generated files, so the game's mod scanner sees every type named in code and asks for no permission:"
 msgstr "被计时的方法列在自动生成的文件中，这样游戏的模组扫描器能在代码里看到每个被引用的类型，不会请求权限："
 
-#: manual/diagnostics.md:27
+#: manual/diagnostics.md:37
 msgid "`tools/GenProbe.cs` writes `src/Targets.g.cs`, the per-frame callbacks and layout passes."
 msgstr "`tools/GenProbe.cs` 生成 `src/Targets.g.cs`，即每帧回调和布局计算。"
 
-#: manual/diagnostics.md:28
+#: manual/diagnostics.md:38
 msgid "`tools/GenCallees.cs` writes `src/Callees.g.cs`, everything the given methods call, to a given depth."
 msgstr "`tools/GenCallees.cs` 生成 `src/Callees.g.cs`，即指定方法在指定深度内调用的所有方法。"
 
-#: manual/diagnostics.md:30
+#: manual/diagnostics.md:40
 msgid "Both leave out the game's mod loader, mod security and Steam integration, which mods may not patch. Regenerate them after a game update."
 msgstr "两者都会排除游戏的模组加载器、模组安全和 Steam 集成部分，因为模组不允许修改它们。游戏更新后需要重新生成。"
 
@@ -681,6 +971,10 @@ msgstr "作用"
 #: manual/index.md:20
 #: manual/index.md:21
 #: manual/index.md:22
+#: manual/index.md:23
+#: manual/index.md:24
+#: manual/index.md:25
+#: manual/index.md:26
 msgid "on"
 msgstr "开"
 
@@ -709,64 +1003,84 @@ msgid "While a save loads, each item's look is worked out once per inventory ins
 msgstr "读档时，每件物品的外观在每个库存里只计算一次，而不是几十次。"
 
 #: manual/index.md:19
-msgid "Each part of an item's look is created where it belongs instead of being created elsewhere and moved."
-msgstr "物品外观的每个部件直接在所属位置生成，而不是先在别处生成再移过去。"
+msgid "The parts of items, windows, inventories and machine panels are created where they belong instead of being created elsewhere and moved."
+msgstr "物品、窗口、库存和机器面板的部件直接在所属位置生成，而不是先在别处生成再移过去。"
 
 #: manual/index.md:20
+msgid "Working out an item's shape and state skips the search under an item that has nothing under it."
+msgstr "计算物品的形状和状态时，下面什么都没有的物品跳过查找。"
+
+#: manual/index.md:21
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr "选中物品下的高亮原地更新，不再每帧重画，框选或拖动大批物品时不再卡顿。"
 
-#: manual/index.md:21
+#: manual/index.md:22
+msgid "The early look at a save's store reads only the upgrades it checks instead of the whole store."
+msgstr "读档前提前查看商店时，只读要检查的升级，而不是整个商店。"
+
+#: manual/index.md:23
+msgid "Entering the store no longer rewrites the settings file for settings that already hold the same value."
+msgstr "进入商店时，已经是相同值的设置不再重写设置文件。"
+
+#: manual/index.md:24
+msgid "Leaving the store lets go of everything that still pointed at it, so the next load does not start with the old store in memory."
+msgstr "离开商店时放开所有仍指向它的引用，下次读档不会带着旧商店的内存开始。"
+
+#: manual/index.md:25
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr "顾客对容器的收货判定每件物品只算一次，而不是每层都重查。"
 
-#: manual/index.md:22
+#: manual/index.md:26
 msgid "Log long frames"
 msgstr "记录长帧"
 
-#: manual/index.md:22
+#: manual/index.md:26
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr "把超过 100 毫秒的帧和刚打开的窗口写入 `Player.log`。"
 
-#: manual/index.md:23
+#: manual/index.md:27
 msgid "Profile long frames"
 msgstr "分析长帧"
 
-#: manual/index.md:23
+#: manual/index.md:27
 msgid "off"
 msgstr "关"
 
-#: manual/index.md:23
+#: manual/index.md:27
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr "按方法拆解超过 100 毫秒的帧。会让游戏略微变慢。"
 
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr "如果发现异常，先关掉对应部分的选项，再反馈你看到的现象。"
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "The fixes"
 msgstr "各项修复"
 
-#: manual/index.md:29
+#: manual/index.md:33
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr "[窗口](windows.md)：独立画布、窗口原地保留、瞬间隐藏和预设逐个打开。"
 
-#: manual/index.md:30
-msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, and item UI built in place."
-msgstr "[库存](inventories.md)：每帧每个库存只布局一次，选中高亮原地更新，读档时每件物品只检查一次，物品界面原地生成。"
+#: manual/index.md:34
+msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, UI built in place and lighter shape checks."
+msgstr "[库存](inventories.md)：每个库存每帧只布局一次，选中高亮原地更新，读档时每件物品只检查一次，界面原地生成，以及精简形状检查。"
 
-#: manual/index.md:31
+#: manual/index.md:35
+msgid "[Loading](loading.md): the whole load with and without this mod, the lighter store preload, unchanged settings left unwritten, and the store freed when you leave it."
+msgstr "[读档](loading.md)：用与不用此模组时的整个读档，精简商店预读，跳过未改动的设置，以及离开商店时释放它。"
+
+#: manual/index.md:36
 msgid "[Customers](customers.md): the buying check in one pass."
 msgstr "[顾客](customers.md)：一次遍历完成收货判定。"
 
-#: manual/index.md:32
+#: manual/index.md:37
 msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
 msgstr "[成本分析](cost.md)：每项修复省去了多少工作，用所涉及的规模来表示。"
 
-#: manual/index.md:33
-msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
-msgstr "[诊断](diagnostics.md)：长帧日志，以及找出以上所有问题的分析器。"
+#: manual/index.md:38
+msgid "[Diagnostics](diagnostics.md): the long-frame log, the load timeline and the profiler that found all of the above."
+msgstr "[诊断](diagnostics.md)：长帧日志、读档时间线，以及找出以上所有问题的分析器。"
 
 #: manual/inventories.md:5
 msgid "**Problem.** `GameItem.ValidateShapeState` runs whenever an item enters or leaves an inventory and on every tag change (`EnableTag`, `DisableTag`, `ModifyTag`). After laying out the item, it calls `Validate` on the item's whole inventory, which lays out every item in it again. Adding n items costs n × n layouts."
@@ -809,20 +1123,80 @@ msgid "**Fix.** The redraws of one part are combined into a single pass, at the 
 msgstr "**修复。** 每一部分的重画合并为一次遍历，就在读档的这一部分结束时：每件请求过重画的物品按最先请求的顺序重画一次，再把它外面的容器各重画一次；这一部分期间被销毁的物品跳过。其余一切都与游戏完全一样地执行，位置和次数都不变：形状和状态、摆放、库存布局（它们还会设置尺寸和槽位位置，之后的形状计算会读取），以及每个读档步骤，而它们都不读取物品的外观。物品的外观由它当前的形状、状态和内容物算出，所以这一次遍历的结果，与游戏最后一次重画相同。"
 
 #: manual/inventories.md:29
-msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded."
-msgstr "无论是否开启此选项，每次读档都会在 `Player.log` 里写一行：`[PerformanceFixes] save load: ... ms`、请求和实际执行的重画次数，以及每部分库存里的物品数量。用同一个存档分别在开启和关闭此选项时读取，就能看到省下的时间，并确认读出的物品相同。"
+msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows that the same items were loaded. With the other fixes on, the time it saves is too small to measure: the redraws it removes had already become cheap (see [Cost analysis](cost.md))."
+msgstr "每次读档都会向 `Player.log` 写一行，无论此选项开关：`[PerformanceFixes] save load: ... ms`、请求和实际执行的重画次数，以及每部分所在库存的物品数。同一个存档在选项开和关时各读一次，可以看出读出的物品相同。其他修复都开着时，它省下的时间小到测不出来：它去掉的重画已经变得很便宜（见[成本分析](cost.md)）。"
 
 #: manual/inventories.md:33
-msgid "**Problem.** Every item's look is made of thirteen parts. The game creates twelve of them in a shared temporary place and then moves each one to where it belongs inside the item. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s just moving parts, and the same happens whenever many items are created."
-msgstr "**问题。** 每件物品的外观由十三个部件组成。游戏把其中十二个先放在一个共用的临时位置生成，再逐个移到它在物品里该在的地方。在游戏界面里移动一个部件很慢，无论部件里有什么，每次约 80 微秒，所以一个有 1,342 件物品的存档，2.3 秒里大部分时间都花在移动部件上；任何大量生成物品的时候也一样。"
+msgid "**Problem.** Every item's look is made of thirteen parts, and windows, inventories and machine panels are built the same way. The game creates each part in a shared temporary place and then moves it to where it belongs. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s moving the parts of items, and about 0.9 s more moving the parts of windows, inventories and machine panels. The same happens whenever many of them are created."
+msgstr "**问题。** 每件物品的外观由十三个部件组成，窗口、库存和机器面板也是这样构建的。游戏先在一个共用的临时位置生成每个部件，再把它移到所属位置。在游戏界面里移动一个部件很慢，无论部件里装了什么，每次约 80 µs，所以一个 1,342 件物品的存档，2.3 秒里大部分时间花在移动物品的部件上，另外还有约 0.9 秒花在移动窗口、库存和机器面板的部件上。每当大量生成这些东西时都是如此。"
 
 #: manual/inventories.md:35
-msgid "**Fix.** Each of those twelve parts is created directly where it belongs, and the game's own move then finds it already in place. The part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the item and is active. The item's first part is created as before. If a game update changes how many parts are made this way, the option does not install and `Player.log` says so."
-msgstr "**修复。** 这十二个部件都直接在所属位置生成，游戏自己的移动随后发现它已经就位。部件最终的父节点、在兄弟节点中的位置，以及位置、旋转和缩放都与原来相同；它的启动方式也一样，因为它所在的每个父节点都是这件物品刚刚生成的，而且处于激活状态。物品的第一个部件照原样生成。如果游戏更新改变了以这种方式生成的部件数量，此选项不会安装，`Player.log` 里会写明。"
+msgid "**Fix.** In 33 of the game's builders (items, windows, inventories, machine panels and their widgets), 132 kinds of part are created directly where they belong, and the game's own move then finds them already in place. A part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the same builder and is active. The first part of each builder is created as before. If a game update changes how many parts a builder makes this way, that builder is left as it is and `Player.log` names it."
+msgstr "**修复。** 在游戏的 33 个构建函数里（物品、窗口、库存、机器面板及其小部件），132 种部件直接在所属位置生成，游戏自己的移动随后发现它们已经在位。部件最终的父节点、在兄弟节点中的位置，以及位置、旋转和缩放都和以前一样，启动方式也一样，因为它所在的一切都是同一个构建函数刚生成的，而且都处于激活状态。每个构建函数的第一个部件照旧生成。如果游戏更新改变了某个构建函数以这种方式生成的部件数，该构建函数保持原样，`Player.log` 会写出它的名字。"
 
 #: manual/inventories.md:37
-msgid "With this and the option above, the same 1,342-item save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory."
-msgstr "加上这一项和上面的选项，同一个 1,342 件物品的存档读档约 2.8 秒，原来约 6 秒，每个库存里的物品都相同。"
+msgid "Loading the 1,342-item store creates 20,053 parts in place. With this and the option above, the same save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory."
+msgstr "读取 1,342 件物品的店铺时，原地生成 20,053 个部件。加上上面的选项，同一个存档的读档从约 6 秒降到约 2.8 秒，每个库存里的物品都相同。"
+
+#: manual/inventories.md:41
+msgid "**Problem.** Every tag change and every move works out the item's shape and state again: about 58,000 times while the 1,342-item store loads, mostly while each item is being made. Each time, the game searches everything under the item for inventories whose items change its shape or state, and builds a list, a set and a queue for the search. Most items have nothing under them at that point, no inventory window and no examine window, and the search finds nothing."
+msgstr "**问题。** 每次标签变化和每次移动都会重新计算物品的形状和状态：读取 1,342 件物品的店铺时约 58,000 次，大多发生在生成每件物品的过程中。每次游戏都会在物品下面查找会改变它形状或状态的库存，并为此建一个列表、一个集合和一个队列。这时大多数物品下面什么都没有，既没有库存窗口也没有查看窗口，查找什么也找不到。"
+
+#: manual/inventories.md:43
+msgid "**Fix.** For an item with nothing under it, the search is skipped and gives the same empty answer. Everything else in the computation runs as before, and an item with anything under it is searched as before. While the store loads, 56,211 of the 58,148 searches are skipped."
+msgstr "**修复。** 对下面什么都没有的物品，跳过查找，给出同样的空结果。计算中的其他部分照旧运行，下面有东西的物品照旧查找。读取店铺时，58,148 次查找中跳过了 56,211 次。"
+
+#: manual/loading.md:3
+msgid "Loading a save goes through three stages: the store's scene is set up, the save is read and its items are made, and the first frame is drawn. The fixes on this page and in [Inventories](inventories.md) remove work from the last two. Setting up the scene is almost all Unity's own work and is left as it is."
+msgstr "读档分三个阶段：搭建商店场景、读取存档并生成其中的物品、画出首帧。本页和[库存](inventories.md)中的修复去掉的是后两个阶段的工作。搭建场景几乎全是 Unity 自己的工作，保持原样。"
+
+#: manual/loading.md:5
+msgid "On a store of 1,342 items, starting the game fresh before each load and loading the same save each time:"
+msgstr "在 1,342 件物品的店铺上，每次读档前都重启游戏、每次读同一个存档："
+
+#: manual/loading.md:7
+msgid "Click to first frame"
+msgstr "从点击到首帧"
+
+#: manual/loading.md:9
+msgid "Without this mod"
+msgstr "不用此模组"
+
+#: manual/loading.md:9
+msgid "about 7.8 s and 8.2 s"
+msgstr "约 7.8 秒和 8.2 秒"
+
+#: manual/loading.md:10
+msgid "4.64 s and 4.77 s"
+msgstr "4.64 秒和 4.77 秒"
+
+#: manual/loading.md:12
+msgid "The times with this mod come from its own load timeline (see [Diagnostics](diagnostics.md)). Without the mod there is no timeline, so those times come from the game's stall watchdog, which logged the main thread blocked for 7.5 s and 7.9 s, plus the 0.3 s that the two logs differ by on loads where both were written."
+msgstr "用此模组时的时间来自它自己的读档时间线（见[诊断](diagnostics.md)）。不用此模组时没有时间线，所以这些时间来自游戏的卡顿监视器：它记录主线程卡住了 7.5 秒和 7.9 秒，再加上 0.3 秒，即两者都有记录的读档中两份日志的差值。"
+
+#: manual/loading.md:16
+msgid "**Problem.** Almost all of a save is one entry, the store, which holds the contents of every inventory: 13 MB for this store. Before the save loads, the game reads that whole entry once just to see whether the display case and the fixtures are upgraded, and then drops it. The real load reads it again."
+msgstr "**问题。** 存档几乎全是一项：商店，里面装着每个库存的内容，这个商店有 13 MB。读档之前，游戏会把这一整项读一遍，只为看展示柜和陈设是否升级过，然后就丢掉。真正读档时再读一遍。"
+
+#: manual/loading.md:18
+msgid "**Fix.** That early look now reads only the store's upgrades. Easy Save, the game's save system, is told for the moment that the store has only that one field, so it reads the upgrades exactly as before and passes over the rest, as it does with any field it does not know. Nothing else of the early copy was ever read. The real load is not changed."
+msgstr "**修复。** 这次提前查看现在只读商店的升级。暂时告诉游戏的存档系统 Easy Save，商店只有这一个字段，于是它照原样读出升级，跳过其余部分，就像对待任何它不认识的字段一样。提前读出的副本里，其他内容从来没有被读过。真正的读档不变。"
+
+#: manual/loading.md:22
+msgid "**Problem.** Each time you enter the store, the game writes each of its settings and each key binding to its settings file one at a time: 57 writes. Each write reads the whole file, puts in the one value, writes a new file and swaps it in, and nearly every value written is the one already in the file. This took about half a second of every load."
+msgstr "**问题。** 每次进入商店，游戏都把每项设置和每个按键绑定逐个写入设置文件：共 57 次。每次写入都要读整个文件、放进这一个值、写一个新文件再替换，而写入的几乎都是文件里已有的值。每次读档这要花约半秒。"
+
+#: manual/loading.md:24
+msgid "**Fix.** Before each of those writes, the value is read back from the file with the same settings the game writes it with. If the file already holds that value, the write is left out, since it would give the same file. A setting that is missing, different or cannot be read back is written exactly as before. Writes anywhere else, including rebinding a key in the options, are not changed."
+msgstr "**修复。** 每次写入之前，先用游戏写入时同样的设置把值从文件里读回来。如果文件里已经是这个值，就不写，因为写了文件也一样。缺少、不同或读不回来的设置照原样写入。其他地方的写入，包括在选项里重新绑定按键，都不变。"
+
+#: manual/loading.md:28
+msgid "**Problem.** A store's items, inventories and windows all point at each other, so one reference to any of them kept anywhere keeps the whole store in memory. After leaving the store, for the main menu say, several such references stayed: the lookup tables of the last save, the list of window roots, the game's `current` and `Instance` fields of the store's managers, and some caches. Each load in the same session then started with the previous store still in memory."
+msgstr "**问题。** 商店里的物品、库存和窗口彼此相互引用，所以任何地方保留了其中任何一个的引用，都会让整个商店留在内存里。离开商店后（例如回到主菜单），有几处这样的引用一直留着：上次存档的查找表、窗口根节点列表、游戏里商店各管理器的 `current` 和 `Instance` 字段，以及一些缓存。于是同一局游戏里的每次读档开始时，上一个商店都还在内存里。"
+
+#: manual/loading.md:30
+msgid "**Fix.** When another scene replaces the store, these are let go and memory is collected once while the menu is idle. Each reference is cleared only where the game no longer reads it: the save tables are replaced as at the start of every save and load, only windows already destroyed are taken off the list, and a manager field is cleared only while it points at a destroyed manager, which Unity already treats as nothing. `Player.log` gets one line with the memory before and after."
+msgstr "**修复。** 当别的场景替换商店时，放开这些引用，并在菜单空闲时回收一次内存。每处引用只在游戏不再读取它的地方才清掉：存档查找表照每次存档和读档开始时那样替换，只把已经销毁的窗口移出列表，管理器字段只在它指向已销毁的管理器时才清掉，而 Unity 本来就把这种情况视为空。`Player.log` 会写一行释放前后的内存。"
 
 #: manual/windows.md:3
 msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."
@@ -879,3 +1253,12 @@ msgstr "**问题。** 存储预设快捷键在同一帧内开关预设中的所�
 #: manual/windows.md:35
 msgid "**Fix.** The first window opens or closes at once, so the key answers immediately, and the others follow on the next frames, one each. Each window's tab selection is applied right after its own opening, as the game does. Pressing the hotkey again while some are still pending finishes them first, so the game always sees a settled state."
 msgstr "**修复。** 第一个窗口立即打开或关闭，按键马上有反应，其余窗口在之后的帧里每帧处理一个。每个窗口的标签页选择紧跟在它自己打开之后应用，和游戏原来的做法一致。如果还有窗口没处理完又按了快捷键，会先把剩下的处理完，保证游戏看到的状态始终一致。"
+
+#~ msgid "UI parts per item (13)"
+#~ msgstr "每件物品的界面部件数（13）"
+
+#~ msgid "**Measured.** Creating the UI of 1,342 items fell from 2,040 ms to 363 ms. The whole save load went from 4,655 ms to 2,833 ms."
+#~ msgstr "**实测。** 生成 1,342 件物品界面的时间从 2,040 毫秒降到 363 毫秒。整个读档从 4,655 毫秒降到 2,833 毫秒。"
+
+#~ msgid "Each part of an item's look is created where it belongs instead of being created elsewhere and moved."
+#~ msgstr "物品外观的每个部件直接在所属位置生成，而不是先在别处生成再移过去。"
