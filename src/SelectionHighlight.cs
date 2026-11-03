@@ -228,6 +228,15 @@ namespace PerformanceFixes
 
         static void LayoutPrefix() { version++; }
 
+        // The store has been left: drop every kept slot, moved shape and fit answer, which still point at its items.
+        public static void Forget()
+        {
+            ClearPostfix();
+            nextSlots.Clear();
+            nextMoved.Clear();
+            previous.Clear();
+        }
+
         static void ClearPostfix()
         {
             slots.Clear();

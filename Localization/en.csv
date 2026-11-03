@@ -13,8 +13,16 @@ opt_select,Fast selection highlight
 opt_select_tip,The highlight under selected items and the placement preview are updated in place instead of being redrawn every frame. Removes the stutter while a large selection is held or dragged.
 opt_load,Check items once while loading
 opt_load_tip,While a save loads, each item's look is worked out once per inventory instead of dozens of times as its tags are restored. Speeds up loading a large store. The loaded items are the same.
-opt_nodes,Build item UI in place
-opt_nodes_tip,Each part of an item's look is created directly where it belongs instead of being created elsewhere and moved, which is the slow part. Speeds up loading a save and anything that creates many items. Items look the same.
+opt_nodes,Build UI in place
+opt_nodes_tip,The parts of items, windows, inventories and machine panels are created directly where they belong instead of being created elsewhere and moved, which is the slow part. Speeds up loading a save and opening many windows. Everything looks the same.
+opt_shape,Lighter shape checks
+opt_shape_tip,When an item's shape and state are worked out (dozens of times per item while a save loads), the search for inventories under an item that has nothing under it is skipped. Speeds up loading a save. Every result is the same.
+opt_storeread,Lighter store preload
+opt_storeread_tip,Before a save loads, the game takes an early look at the store (nearly the whole save file) to see which upgrades it has. That look now reads only those upgrades instead of the whole store. Speeds up loading a save. Everything loads the same.
+opt_settings,Skip unchanged settings
+opt_settings_tip,When you enter the store, the game writes each of its settings and key bindings to the settings file one at a time, rewriting the whole file about 57 times, nearly always with the values already in it. A setting the file already holds with the same value is now left out. Speeds up entering the store. The file ends up the same.
+opt_release,Free the store when leaving
+opt_release_tip,When you leave the store, for the main menu say, everything that still pointed at it is let go and its memory is freed, so the next load does not start with the old store still in memory.
 opt_buyer,Fast buyer check
 opt_buyer_tip,Decides whether a customer will buy a container in one pass over its contents instead of rechecking every level. Customers accept and refuse exactly as before.
 opt_log,Log long frames

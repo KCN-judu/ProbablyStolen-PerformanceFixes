@@ -13,8 +13,16 @@ opt_select,Destaque de seleção rápido
 opt_select_tip,O destaque sob os itens selecionados e a prévia de posicionamento são atualizados no lugar em vez de redesenhados a cada quadro. Remove os travamentos ao segurar ou arrastar uma seleção grande.
 opt_load,Verificar os itens uma vez ao carregar
 opt_load_tip,Ao carregar um jogo salvo, a aparência de cada item é calculada uma vez por inventário em vez de dezenas de vezes enquanto as etiquetas são restauradas. Acelera o carregamento de uma loja grande. Os itens carregados são os mesmos.
-opt_nodes,Criar a interface dos itens no lugar
-opt_nodes_tip,Cada parte da aparência de um item é criada direto no lugar onde fica em vez de ser criada em outro lugar e movida, que é a parte lenta. Acelera o carregamento de um jogo salvo e tudo o que cria muitos itens. Os itens ficam iguais.
+opt_nodes,Criar a interface no lugar
+opt_nodes_tip,As partes de itens, janelas, inventários e painéis de máquinas são criadas direto no lugar onde ficam em vez de serem criadas em outro lugar e movidas, que é a parte lenta. Acelera o carregamento de um jogo salvo e a abertura de muitas janelas. Tudo fica igual.
+opt_shape,Verificações de forma mais leves
+opt_shape_tip,Quando a forma e o estado de um item são calculados (dezenas de vezes por item ao carregar um jogo salvo), a busca por inventários sob um item que não tem nada embaixo é pulada. Acelera o carregamento de um jogo salvo. Todos os resultados são iguais.
+opt_storeread,Prévia da loja mais leve
+opt_storeread_tip,Antes de carregar um jogo salvo, o jogo dá uma primeira olhada na loja (quase todo o arquivo salvo) para ver quais melhorias ela tem. Agora essa olhada lê só essas melhorias em vez da loja inteira. Acelera o carregamento de um jogo salvo. Tudo carrega igual.
+opt_settings,Pular configurações sem mudança
+opt_settings_tip,Ao entrar na loja, o jogo grava cada configuração e cada atalho de tecla um por vez no arquivo de configurações, regravando o arquivo inteiro cerca de 57 vezes, quase sempre com os valores que já estão nele. Agora uma configuração que o arquivo já tem com o mesmo valor é pulada. Acelera a entrada na loja. O arquivo fica igual.
+opt_release,Liberar a loja ao sair
+opt_release_tip,Ao sair da loja, para o menu principal por exemplo, tudo o que ainda apontava para ela é solto e a memória dela é liberada, para que o próximo carregamento não comece com a loja antiga na memória.
 opt_buyer,Verificação rápida do comprador
 opt_buyer_tip,Decide em uma única passada pelo conteúdo se um cliente vai comprar um contêiner em vez de reverificar cada nível. Os clientes aceitam e recusam exatamente como antes.
 opt_log,Registrar quadros longos

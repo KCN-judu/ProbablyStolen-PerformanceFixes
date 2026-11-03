@@ -13,8 +13,16 @@ opt_select,Surbrillance de sélection rapide
 opt_select_tip,La surbrillance sous les objets sélectionnés et l'aperçu de placement sont mis à jour sur place au lieu d'être redessinés à chaque image. Supprime les saccades quand on maintient ou fait glisser une grande sélection.
 opt_load,Vérifier les objets une fois au chargement
 opt_load_tip,Pendant le chargement d'une partie, l'apparence de chaque objet est calculée une fois par inventaire au lieu de dizaines de fois pendant la restauration de ses étiquettes. Accélère le chargement d'une grande boutique. Les objets chargés sont les mêmes.
-opt_nodes,Construire l'interface des objets sur place
-opt_nodes_tip,Chaque partie de l'apparence d'un objet est créée directement à sa place au lieu d'être créée ailleurs puis déplacée, ce qui est la partie lente. Accélère le chargement d'une partie et tout ce qui crée beaucoup d'objets. Les objets ont le même aspect.
+opt_nodes,Construire l'interface sur place
+opt_nodes_tip,Les parties des objets, fenêtres, inventaires et panneaux de machines sont créées directement à leur place au lieu d'être créées ailleurs puis déplacées, ce qui est la partie lente. Accélère le chargement d'une partie et l'ouverture de nombreuses fenêtres. Tout a le même aspect.
+opt_shape,Vérifications de forme allégées
+opt_shape_tip,Quand la forme et l'état d'un objet sont calculés (des dizaines de fois par objet pendant le chargement d'une partie), la recherche d'inventaires sous un objet sous lequel il n'y a rien est sautée. Accélère le chargement d'une partie. Tous les résultats sont identiques.
+opt_storeread,Aperçu de la boutique allégé
+opt_storeread_tip,Avant le chargement d'une partie, le jeu jette un premier coup d'œil à la boutique (presque tout le fichier de sauvegarde) pour voir quelles améliorations elle a. Ce coup d'œil ne lit plus que ces améliorations au lieu de toute la boutique. Accélère le chargement d'une partie. Tout est chargé à l'identique.
+opt_settings,Ignorer les réglages inchangés
+opt_settings_tip,En entrant dans la boutique, le jeu écrit chaque réglage et chaque raccourci un par un dans le fichier de réglages, réécrivant tout le fichier environ 57 fois, presque toujours avec les valeurs qui y sont déjà. Un réglage que le fichier contient déjà avec la même valeur est désormais laissé de côté. Accélère l'entrée dans la boutique. Le fichier reste identique.
+opt_release,Libérer la boutique en la quittant
+opt_release_tip,Quand tu quittes la boutique, pour le menu principal par exemple, tout ce qui la désignait encore est relâché et sa mémoire libérée, pour que le chargement suivant ne commence pas avec l'ancienne boutique en mémoire.
 opt_buyer,Vérification d'achat rapide
 opt_buyer_tip,Décide si un client achètera un conteneur en un seul passage sur son contenu au lieu de tout revérifier à chaque niveau. Les clients acceptent et refusent exactement comme avant.
 opt_log,Journaliser les images longues

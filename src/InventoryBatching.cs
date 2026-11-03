@@ -60,6 +60,9 @@ namespace PerformanceFixes
             Flush();
         }
 
+        // The store has been left: inventories still waiting for a layout are gone.
+        public static void Forget() { layouts.Discard(); batch.Clear(); }
+
         static void Enter() { if (Enabled) layouts.Enter(); }
 
         // A finalizer, so an exception inside the game's method cannot leave batching switched on.

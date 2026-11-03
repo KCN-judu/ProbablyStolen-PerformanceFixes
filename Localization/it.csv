@@ -13,8 +13,16 @@ opt_select,Evidenziazione rapida della selezione
 opt_select_tip,L'evidenziazione sotto gli oggetti selezionati e l'anteprima di posizionamento vengono aggiornate sul posto invece di essere ridisegnate a ogni frame. Elimina gli scatti mentre si tiene o si trascina una selezione grande.
 opt_load,Controlla gli oggetti una volta al caricamento
 opt_load_tip,Durante il caricamento di un salvataggio, l'aspetto di ogni oggetto viene calcolato una volta per inventario invece di decine di volte mentre si ripristinano i suoi tag. Velocizza il caricamento di un negozio grande. Gli oggetti caricati sono gli stessi.
-opt_nodes,Crea l'interfaccia degli oggetti sul posto
-opt_nodes_tip,Ogni parte dell'aspetto di un oggetto viene creata direttamente dove va invece di essere creata altrove e poi spostata, che è la parte lenta. Velocizza il caricamento di un salvataggio e tutto ciò che crea molti oggetti. Gli oggetti hanno lo stesso aspetto.
+opt_nodes,Crea l'interfaccia sul posto
+opt_nodes_tip,Le parti di oggetti, finestre, inventari e pannelli delle macchine vengono create direttamente dove vanno invece di essere create altrove e poi spostate, che è la parte lenta. Velocizza il caricamento di un salvataggio e l'apertura di molte finestre. Tutto ha lo stesso aspetto.
+opt_shape,Controlli di forma più leggeri
+opt_shape_tip,Quando si calcolano forma e stato di un oggetto (decine di volte per oggetto durante il caricamento di un salvataggio), la ricerca di inventari sotto un oggetto che non ha nulla sotto viene saltata. Velocizza il caricamento di un salvataggio. Tutti i risultati sono uguali.
+opt_storeread,Anteprima del negozio più leggera
+opt_storeread_tip,Prima di caricare un salvataggio, il gioco dà una prima occhiata al negozio (quasi tutto il file di salvataggio) per vedere quali potenziamenti ha. Ora quell'occhiata legge solo quei potenziamenti invece dell'intero negozio. Velocizza il caricamento di un salvataggio. Tutto viene caricato allo stesso modo.
+opt_settings,Salta le impostazioni invariate
+opt_settings_tip,Entrando nel negozio, il gioco scrive ogni impostazione e ogni tasto assegnato uno alla volta nel file delle impostazioni, riscrivendo l'intero file circa 57 volte, quasi sempre con i valori che contiene già. Ora un'impostazione che il file ha già con lo stesso valore viene saltata. Velocizza l'ingresso nel negozio. Il file resta uguale.
+opt_release,Libera il negozio quando esci
+opt_release_tip,Quando esci dal negozio, per esempio verso il menu principale, tutto ciò che vi puntava ancora viene lasciato andare e la sua memoria liberata, così il caricamento successivo non parte con il vecchio negozio in memoria.
 opt_buyer,Controllo acquirente rapido
 opt_buyer_tip,Stabilisce se un cliente comprerà un contenitore con un solo passaggio sul contenuto invece di ricontrollare ogni livello. I clienti accettano e rifiutano esattamente come prima.
 opt_log,Registra i frame lunghi

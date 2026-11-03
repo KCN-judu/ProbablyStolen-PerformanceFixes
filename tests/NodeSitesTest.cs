@@ -25,6 +25,10 @@ static class NodeSitesTest
         var text = Find(K.Other, K.CreateText, K.LoadThis, K.Getter, K.MoveUnder, K.Other);
         Check("so is a text node, at its own position", text.Count == 1 && text[0].Index == 1 && text[0].Text);
 
+        Check("a parent read from one of this object's fields counts too",
+            Find(K.CreateNode, K.LoadThis, K.ParentField, K.MoveUnder).Count == 1);
+        Check("a parent field read from something else than this does not",
+            Find(K.CreateNode, K.Other, K.ParentField, K.MoveUnder).Count == 0);
         Check("a node kept where it was made is not", Find(K.CreateNode, K.Other, K.Other, K.Other).Count == 0);
         Check("a parent from somewhere else than this is not", Find(K.CreateNode, K.Other, K.Getter, K.MoveUnder).Count == 0);
         Check("a parent computed with more steps is not", Find(K.CreateNode, K.LoadThis, K.Getter, K.Getter, K.MoveUnder).Count == 0);

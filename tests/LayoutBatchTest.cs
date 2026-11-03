@@ -50,6 +50,13 @@ static class LayoutBatchTest
         batch.Leave();
         Check("leaving more scopes than entered is harmless", batch.Request("bay", out fresh));
 
+        batch.Enter();
+        batch.Request("bay", out fresh);
+        batch.Request("shelf", out fresh);
+        batch.Leave();
+        batch.Discard();
+        Check("discarding drops what waits without running it", batch.Count == 0 && !batch.Take(taken));
+
         Console.WriteLine(failed == 0 ? "all passed" : failed + " failed");
         return failed == 0 ? 0 : 1;
     }

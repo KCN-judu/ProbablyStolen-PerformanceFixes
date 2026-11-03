@@ -45,5 +45,8 @@ namespace PerformanceFixes
         }
 
         public void Done() { Flushing = false; }
+
+        // Drops every waiting layout without running it: their inventories are gone.
+        public void Discard() { if (!Flushing) pending.Clear(); }
     }
 }

@@ -78,6 +78,9 @@ namespace PerformanceFixes
 
         static readonly List<RectTransform> dead = new List<RectTransform>();
 
+        // The store has been left: drop the homes of its windows, which are gone.
+        public static void Forget() { Prune(); }
+
         static void Prune()
         {
             dead.Clear();

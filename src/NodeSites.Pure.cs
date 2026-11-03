@@ -7,14 +7,15 @@ namespace PerformanceFixes
     // runs it outside the game.
     //
     // A site is exactly four instructions in a row:
-    //   create a node (or a text node)   the game puts it in a shared temporary parent
+    //   create a node (or a text node)        the game puts it in a shared temporary parent
     //   load this
-    //   call a getter with no arguments  the node's real parent
+    //   call a getter with no arguments, or   the node's real parent
+    //   read one of this object's node fields
     //   move the node under that parent
     // Anything else in between, and the site does not count.
     static class NodeSites
     {
-        public enum Kind { Other, CreateNode, CreateText, LoadThis, Getter, MoveUnder }
+        public enum Kind { Other, CreateNode, CreateText, LoadThis, Getter, ParentField, MoveUnder }
 
         public struct Site
         {
@@ -29,7 +30,7 @@ namespace PerformanceFixes
             {
                 var k = code[i];
                 if (k != Kind.CreateNode && k != Kind.CreateText) continue;
-                if (code[i + 1] != Kind.LoadThis || code[i + 2] != Kind.Getter || code[i + 3] != Kind.MoveUnder) continue;
+                if (code[i + 1] != Kind.LoadThis || (code[i + 2] != Kind.Getter && code[i + 2] != Kind.ParentField) || code[i + 3] != Kind.MoveUnder) continue;
                 sites.Add(new Site { Index = i, Text = k == Kind.CreateText });
                 i += 3;
             }

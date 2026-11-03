@@ -13,8 +13,16 @@ opt_select,Resaltado de selección rápido
 opt_select_tip,El resaltado bajo los objetos seleccionados y la vista previa de colocación se actualizan en su sitio en vez de redibujarse en cada fotograma. Elimina los tirones al mantener o arrastrar una selección grande.
 opt_load,Comprobar los objetos una vez al cargar
 opt_load_tip,Al cargar una partida, el aspecto de cada objeto se calcula una vez por inventario en lugar de decenas de veces mientras se restauran sus etiquetas. Acelera la carga de una tienda grande. Los objetos cargados son los mismos.
-opt_nodes,Crear la interfaz de los objetos en su sitio
-opt_nodes_tip,Cada parte del aspecto de un objeto se crea directamente donde va en lugar de crearse en otro sitio y moverse, que es la parte lenta. Acelera la carga de una partida y todo lo que crea muchos objetos. Los objetos se ven igual.
+opt_nodes,Crear la interfaz en su sitio
+opt_nodes_tip,Las partes de objetos, ventanas, inventarios y paneles de máquinas se crean directamente donde van en lugar de crearse en otro sitio y moverse, que es la parte lenta. Acelera la carga de una partida y la apertura de muchas ventanas. Todo se ve igual.
+opt_shape,Comprobaciones de forma ligeras
+opt_shape_tip,Al calcular la forma y el estado de un objeto (decenas de veces por objeto al cargar una partida), se omite la búsqueda de inventarios bajo un objeto que no tiene nada debajo. Acelera la carga de una partida. Todos los resultados son iguales.
+opt_storeread,Vistazo previo a la tienda más ligero
+opt_storeread_tip,Antes de cargar una partida, el juego echa un primer vistazo a la tienda (casi todo el archivo de guardado) para ver qué mejoras tiene. Ese vistazo ahora solo lee esas mejoras en lugar de toda la tienda. Acelera la carga de una partida. Todo se carga igual.
+opt_settings,Omitir ajustes sin cambios
+opt_settings_tip,Al entrar en la tienda, el juego escribe cada ajuste y cada tecla asignada uno a uno en el archivo de ajustes, reescribiendo todo el archivo unas 57 veces, casi siempre con los valores que ya tiene. Ahora se omite un ajuste que el archivo ya tiene con el mismo valor. Acelera la entrada en la tienda. El archivo queda igual.
+opt_release,Liberar la tienda al salir
+opt_release_tip,Al salir de la tienda, por ejemplo al menú principal, se suelta todo lo que aún apuntaba a ella y se libera su memoria, para que la siguiente carga no empiece con la tienda anterior en memoria.
 opt_buyer,Comprobación de comprador rápida
 opt_buyer_tip,Decide si un cliente comprará un contenedor en una sola pasada por su contenido en vez de volver a comprobar cada nivel. Los clientes aceptan y rechazan exactamente lo mismo que antes.
 opt_log,Registrar fotogramas largos

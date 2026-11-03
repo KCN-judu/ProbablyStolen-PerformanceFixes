@@ -32,7 +32,7 @@ namespace PerformanceFixes
         static readonly CombinedPass<GameItemElement> checks = new CombinedPass<GameItemElement>();
         static readonly List<int> counts = new List<int>();
         static readonly Stopwatch load = new Stopwatch(), decode = new Stopwatch();
-        static int failed, uncheckedAsked, nodesAtStart;
+        static int failed, uncheckedAsked, nodesAtStart, shapesAtStart, walksSkippedAtStart;
         static bool loading;
 
         public static void Patch(Harmony harmony)
@@ -55,6 +55,9 @@ namespace PerformanceFixes
             checks.ResetStatistics();
             failed = uncheckedAsked = 0;
             nodesAtStart = ItemNodes.Built;
+            shapesAtStart = ShapeChecks.Computed;
+            walksSkippedAtStart = ShapeChecks.WalksSkipped;
+            LoadTimer.SaveLoadStarted();
             decode.Reset();
             load.Reset();
             load.Start();
@@ -64,6 +67,7 @@ namespace PerformanceFixes
         static Exception LoadFinalizer(Exception __exception)
         {
             load.Stop();
+            LoadTimer.SaveLoaded();
             if (!loading) return __exception;
             loading = false;
             try
@@ -74,6 +78,8 @@ namespace PerformanceFixes
                 UnityEngine.Debug.Log("[PerformanceFixes] save load: " + load.ElapsedMilliseconds + " ms, decoding " +
                     decode.ElapsedMilliseconds + " ms; " + checkText + (failed > 0 ? ", " + failed + " failed" : "") +
                     "; item UI nodes built in place: " + (ItemNodes.Built - nodesAtStart) +
+                    "; store preload: " + (StoreRead.LastNarrowed ? "upgrades only" : "whole store") +
+                    "; shape searches skipped: " + (ShapeChecks.WalksSkipped - walksSkippedAtStart) + " of " + (ShapeChecks.Computed - shapesAtStart) +
                     "; items per inventory: " + string.Join(", ", counts.ConvertAll(n => n.ToString()).ToArray()));
             }
             catch (Exception) { }

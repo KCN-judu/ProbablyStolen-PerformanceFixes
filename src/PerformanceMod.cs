@@ -20,10 +20,16 @@ namespace PerformanceFixes
     //     SelectionHighlight the highlight under selected or group-dragged items is updated in place each frame
     //     LoadChecks        while a save loads, each item's UI is checked once per part instead of dozens of times
     //     ItemNodes         an item's UI nodes are created under their own parents instead of being moved there
+    //     ShapeChecks       working out an item's shape skips the search under an item with nothing under it
+    //   Loading
+    //     StoreRead         the early look at a save's store reads only the upgrades it looks at
+    //     SettingsWrites    entering the store rewrites the settings file only for settings that changed
+    //     StoreRelease      leaving the store lets go of everything that still pointed at it
     //   Customers
     //     BuyerCheck        the buying check on containers runs once per item instead of quadratically
     //   Diagnostics
-    //     long-frame log (on) and the long-frame profiler (off), to find the next thing worth fixing
+    //     long-frame log (on) and the long-frame profiler (off), to find the next thing worth fixing; LoadTimer
+    //     writes the time of each step of every trip from the menu into the store
     //
     // A fix either installs completely or not at all: if one of its patches cannot attach, the ones it already
     // attached are removed again, the fix is off, and Player.log gets one line.
@@ -33,8 +39,8 @@ namespace PerformanceFixes
     // names. Mods start before the game applies the player's language, so compiling it then would fix those names
     // in English for the session, and water would stop selling in any other language. Of all the methods this mod
     // patches (the profiler's included), it is the only one that uses such a type. LoadChecks waits with it: its
-    // patches reach no such type, but a save is only ever loaded after the language is applied anyway. ItemNodes
-    // waits too, for the same reason.
+    // patches reach no such type, but a save is only ever loaded after the language is applied anyway. ItemNodes,
+    // ShapeChecks, StoreRead and SettingsWrites wait too, for the same reason.
     public sealed class PerformanceMod : IMod
     {
         public const string ModId = "performance_fixes";
@@ -48,7 +54,7 @@ namespace PerformanceFixes
         static string modId = ModId;
         static Harmony harmony;
         static GameObject ticker;
-        static ConfigEntry<bool> isolate, batching, selection, loadChecks, itemNodes, keep, stagger, fastHide, buyer, logFrames, profile;
+        static ConfigEntry<bool> isolate, batching, selection, loadChecks, itemNodes, shapeChecks, storeRead, settingsWrites, release, keep, stagger, fastHide, buyer, logFrames, profile;
         static Ticker tickerBehaviour;
         static bool optionsAdded;
 
@@ -56,7 +62,7 @@ namespace PerformanceFixes
         static string lastWindow;
         static float lastWindowAt, nextLog;
 
-        // BuyerCheck, LoadChecks and ItemNodes wait for the language the game resolves at startup to be applied
+        // BuyerCheck and the loading fixes wait for the language the game resolves at startup to be applied
         // (see WaitForLanguage).
         const float LanguageTimeout = 300f;
         static string startupLocale;
@@ -92,6 +98,8 @@ namespace PerformanceFixes
                 TryPatch("keep closed windows", () => KeepAdopted.Patch(harmony));
                 TryPatch("staggered presets", () => StaggeredPresets.Patch(harmony));
                 TryPatch("fast hide", () => FastHide.Patch(harmony));
+                TryPatch("load timer", () => LoadTimer.Patch(harmony), LoadTimer.Unpatch);
+                TryPatch("release the store when leaving", () => StoreRelease.Patch(harmony), StoreRelease.Unpatch);
                 TryPatch("window log", () => harmony.Patch(typeof(PixelWindow).GetMethod("Show", AnyInstance, null,
                         new[] { typeof(Vector2), typeof(Vector2), typeof(bool) }, null),
                     null, new HarmonyMethod(typeof(PerformanceMod).GetMethod("NoteWindow", AnyStatic))));
@@ -103,7 +111,7 @@ namespace PerformanceFixes
         {
             Profiler.Stop();
             buyerWaiting = false;
-            if (harmony != null) { InventoryBatching.Unpatch(); harmony.UnpatchAll(HarmonyId); harmony = null; }
+            if (harmony != null) { InventoryBatching.Unpatch(); LoadTimer.Unpatch(); StoreRelease.Unpatch(); harmony.UnpatchAll(HarmonyId); harmony = null; }
             if (ticker != null) { UnityEngine.Object.Destroy(ticker); ticker = null; }
         }
 
@@ -145,7 +153,7 @@ namespace PerformanceFixes
         // The game resolves the player's language once at startup, then applies it.
         static void NoteStartupLocale(string __result) { startupLocale = __result; }
 
-        // Installs BuyerCheck, LoadChecks and ItemNodes once that language is the selected one (LocaleGate, with tests);
+        // Installs BuyerCheck and the loading fixes once that language is the selected one (LocaleGate, with tests);
         // gives up after LanguageTimeout, leaving them off for the session.
         static void WaitForLanguage()
         {
@@ -158,10 +166,13 @@ namespace PerformanceFixes
                     TryPatch("buyer check", () => BuyerCheck.Patch(harmony));
                     TryPatch("load checks", () => LoadChecks.Patch(harmony));
                     TryPatch("item nodes in place", () => ItemNodes.Patch(harmony));
+                    TryPatch("light shape checks", () => ShapeChecks.Patch(harmony));
+                    TryPatch("light store preload", () => StoreRead.Patch(harmony));
+                    TryPatch("unchanged settings not rewritten", () => SettingsWrites.Patch(harmony));
                     break;
                 case LocaleGate.State.GiveUp:
                     buyerWaiting = false;
-                    Debug.LogWarning(Tag + "buyer check, load checks and item nodes in place are off: the game's language was not applied within " + LanguageTimeout + " s");
+                    Debug.LogWarning(Tag + "buyer check and the loading fixes are off: the game's language was not applied within " + LanguageTimeout + " s");
                     break;
             }
         }
@@ -201,6 +212,18 @@ namespace PerformanceFixes
                 itemNodes = config.Define("buildItemUiInPlace", true, "Inventories", () => L("opt_nodes"), () => L("opt_nodes_tip"), false);
                 ItemNodes.Enabled = itemNodes.Value;
                 itemNodes.OnChanged += v => ItemNodes.Enabled = v;
+                shapeChecks = config.Define("lightShapeChecks", true, "Inventories", () => L("opt_shape"), () => L("opt_shape_tip"), false);
+                ShapeChecks.Enabled = shapeChecks.Value;
+                shapeChecks.OnChanged += v => ShapeChecks.Enabled = v;
+                storeRead = config.Define("lightStorePreload", true, "Loading", () => L("opt_storeread"), () => L("opt_storeread_tip"), false);
+                StoreRead.Enabled = storeRead.Value;
+                storeRead.OnChanged += v => StoreRead.Enabled = v;
+                settingsWrites = config.Define("skipUnchangedSettings", true, "Loading", () => L("opt_settings"), () => L("opt_settings_tip"), false);
+                SettingsWrites.Enabled = settingsWrites.Value;
+                settingsWrites.OnChanged += v => SettingsWrites.Enabled = v;
+                release = config.Define("releaseStoreOnLeave", true, "Loading", () => L("opt_release"), () => L("opt_release_tip"), false);
+                StoreRelease.Enabled = release.Value;
+                release.OnChanged += v => StoreRelease.Enabled = v;
                 buyer = config.Define("fastBuyerCheck", true, "Customers", () => L("opt_buyer"), () => L("opt_buyer_tip"), false);
                 BuyerCheck.Enabled = buyer.Value;
                 buyer.OnChanged += v => BuyerCheck.Enabled = v;
@@ -222,6 +245,7 @@ namespace PerformanceFixes
         internal static void Tick()
         {
             try { StaggeredPresets.Tick(); } catch (Exception) { }
+            try { LoadTimer.Tick(); } catch (Exception) { }
             if (buyerWaiting && harmony != null)
                 try { WaitForLanguage(); }
                 catch (Exception e) { buyerWaiting = false; Debug.LogWarning(Tag + "buyer check is off: " + e.Message); }

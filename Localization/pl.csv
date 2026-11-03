@@ -13,8 +13,16 @@ opt_select,Szybkie podświetlenie zaznaczenia
 opt_select_tip,Podświetlenie pod zaznaczonymi przedmiotami i podgląd umieszczenia są aktualizowane na miejscu zamiast rysowane od nowa co klatkę. Usuwa przycięcia podczas trzymania lub przeciągania dużego zaznaczenia.
 opt_load,Sprawdzaj przedmioty raz przy wczytywaniu
 opt_load_tip,Podczas wczytywania zapisu wygląd każdego przedmiotu jest liczony raz na ekwipunek zamiast dziesiątki razy przy przywracaniu jego tagów. Przyspiesza wczytywanie dużego sklepu. Wczytane przedmioty są takie same.
-opt_nodes,Twórz interfejs przedmiotów na miejscu
-opt_nodes_tip,Każda część wyglądu przedmiotu jest tworzona od razu tam, gdzie należy, zamiast powstawać gdzie indziej i być przenoszona, co jest wolną częścią. Przyspiesza wczytywanie zapisu i wszystko, co tworzy wiele przedmiotów. Przedmioty wyglądają tak samo.
+opt_nodes,Twórz interfejs na miejscu
+opt_nodes_tip,Części przedmiotów, okien, ekwipunków i paneli maszyn są tworzone od razu tam, gdzie należą, zamiast powstawać gdzie indziej i być przenoszone, co jest wolną częścią. Przyspiesza wczytywanie zapisu i otwieranie wielu okien. Wszystko wygląda tak samo.
+opt_shape,Lżejsze sprawdzanie kształtu
+opt_shape_tip,Gdy obliczany jest kształt i stan przedmiotu (dziesiątki razy na przedmiot podczas wczytywania zapisu), pomijane jest szukanie ekwipunków pod przedmiotem, pod którym nic nie ma. Przyspiesza wczytywanie zapisu. Wszystkie wyniki są takie same.
+opt_storeread,Lżejszy wstępny odczyt sklepu
+opt_storeread_tip,Przed wczytaniem zapisu gra najpierw zagląda do sklepu (prawie całego pliku zapisu), by sprawdzić, jakie ma ulepszenia. Teraz to spojrzenie czyta tylko te ulepszenia zamiast całego sklepu. Przyspiesza wczytywanie zapisu. Wszystko wczytuje się tak samo.
+opt_settings,Pomijaj niezmienione ustawienia
+opt_settings_tip,Przy wejściu do sklepu gra zapisuje każde ustawienie i każdy klawisz po kolei do pliku ustawień, przepisując cały plik około 57 razy, prawie zawsze z wartościami, które już w nim są. Ustawienie, które plik już ma z tą samą wartością, jest teraz pomijane. Przyspiesza wejście do sklepu. Plik pozostaje taki sam.
+opt_release,Zwalniaj sklep przy wyjściu
+opt_release_tip,Gdy opuszczasz sklep, na przykład do menu głównego, wszystko, co jeszcze na niego wskazuje, zostaje puszczone, a jego pamięć zwolniona, więc następne wczytywanie nie zaczyna się ze starym sklepem w pamięci.
 opt_buyer,Szybkie sprawdzanie kupującego
 opt_buyer_tip,Decyduje, czy klient kupi pojemnik, w jednym przejściu przez zawartość zamiast sprawdzać od nowa każdy poziom. Klienci przyjmują i odrzucają dokładnie to samo co wcześniej.
 opt_log,Zapisuj długie klatki

@@ -104,5 +104,8 @@ namespace PerformanceFixes
         }
 
         public static int Count { get { return hidden.Count; } }
+
+        // The store has been left: drop its windows, which are gone.
+        public static void Forget() { hidden.RemoveWhere(g => g == null); }
     }
 }

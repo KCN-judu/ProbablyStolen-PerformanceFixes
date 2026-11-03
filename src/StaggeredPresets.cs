@@ -119,5 +119,12 @@ namespace PerformanceFixes
             catch (Exception e) { Debug.LogWarning("[PerformanceFixes] staggered preset window failed: " + e.Message); }
             finally { running = false; }
         }
+
+        // The store has been left: windows still waiting to open or close belong to it and are gone.
+        public static void Forget()
+        {
+            queue.Clear();
+            deferredOpen.Clear();
+        }
     }
 }
