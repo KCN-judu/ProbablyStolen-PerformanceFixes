@@ -73,8 +73,8 @@ msgid "The buying rule on small stores, nesting past the depth limit (no answer,
 msgstr "小型店铺上的收货规则、超过深度上限的嵌套（不给出答案，于是由游戏自己的判定执行）、拒收、每件物品只问一次，以及 2000 个随机店铺与规则原文的对照"
 
 #: manual/building.md:35
-msgid "While a save loads: each item's redraw waits once however often it is asked, runs once at the end with its containers, and is skipped if the item is gone"
-msgstr "读档时：每件物品的重画无论被请求多少次都只等待一次，最后连同它的容器只执行一次，物品已不存在则跳过"
+msgid "While a save loads: each item is listed once however often it is redrawn, the part ends with one pass that redraws it and its containers once each, and gone items are skipped"
+msgstr "读档时：每件物品无论被重画多少次都只记一次，这一部分结束时一次遍历，把它和它的容器各重画一次，已不存在的物品跳过"
 
 #: manual/building.md:36
 msgid "When an inventory layout waits for the end of the frame and when it runs at once"
@@ -423,12 +423,12 @@ msgid "The placement preview is updated in place in the same way. Whether the gr
 msgstr "摆放预览也同样原地更新。只有落点、选中内容或任一库存里的物品有变化时，才重新判断整组能否放下。其余条件仍然每帧检查，真正放下时仍由游戏自己的判断执行。"
 
 #: manual/inventories.md:25
-msgid "**Problem.** A save is decoded in eleven parts, one per inventory. Each part builds its items, restores their tags, runs about fifteen load steps on every item (machines, locks, plants, water sprites and more) and moves the items into the inventory. Every tag change and every move recomputes the item's shape and state and then redraws the item's look, and redrawing an item also redraws every container it is inside. In a store of 1,342 items that came to about 58,000 shape checks and 62,000 redraws, over a second of the load."
-msgstr "**问题。** 存档分十一部分解码，每个库存一部分。每部分先生成物品，恢复它们的标签，对每件物品执行约十五个读档步骤（机器、锁、植物、水的贴图等），再把物品放进库存。每次改标签、每次移动都会重新计算物品的形状和状态，然后重画物品的外观；而重画一件物品，还会连带重画它外面的每个容器。在一个有 1,342 件物品的店铺里，这加起来约有 58,000 次形状计算和 62,000 次重画，占去读档一秒多。"
+msgid "**Problem.** A save is decoded in eleven parts, one per inventory. Each part builds its items, restores their tags, runs about fifteen load steps on every item (machines, locks, plants, water sprites and more) and moves the items into the inventory. Every tag change and every move recomputes the item's shape and state and then redraws the item's look; redrawing an item also redraws every container it is inside, and every inventory layout redraws all its items again. In a store of 1,342 items that came to about 58,000 shape checks and 62,000 redraws, over a second of the load: each item's look worked out about 45 times."
+msgstr "**问题。** 存档分十一部分解码，每个库存一部分。每部分先生成物品，恢复它们的标签，对每件物品执行约十五个读档步骤（机器、锁、植物、水的贴图等），再把物品放进库存。每次改标签、每次移动都会重新计算物品的形状和状态，然后重画物品的外观；重画一件物品会连带重画它外面的每个容器，而每次库存布局又会把其中所有物品再重画一遍。在一个有 1,342 件物品的店铺里，这加起来约有 58,000 次形状计算和 62,000 次重画，占去读档一秒多：每件物品的外观要算约 45 次。"
 
 #: manual/inventories.md:27
-msgid "**Fix.** While a part is decoded, only the redraw waits. The shape, the state, placement and every load step run exactly as in the game, and none of them reads an item's look. When the part ends, each item that asked to be redrawn is redrawn once, in the order it first asked; containers it pulls in are redrawn once as well, and items destroyed in the meantime are skipped. An item's look is worked out from its current shape, state and contents, so one redraw at the end gives what the game's last redraw gives."
-msgstr "**修复。** 解码一部分时，只有重画会等待。形状、状态、摆放和每个读档步骤都与游戏完全一样地执行，而且它们都不读取物品的外观。这一部分结束时，每件请求过重画的物品按最先请求的顺序只重画一次；被它连带的容器也只重画一次，期间被销毁的物品则跳过。物品的外观由它当前的形状、状态和内容物算出，所以最后重画一次的结果，与游戏最后一次重画相同。"
+msgid "**Fix.** The redraws of one part are combined into a single pass, at the end of that same part of the load: each item that asked to be redrawn is redrawn once, in the order it first asked, then the containers around it once each; items destroyed during the part are skipped. Everything else runs exactly where and as often as in the game: shapes and states, placement, inventory layouts (they also set sizes and slot positions that later shape computations read) and every load step, none of which reads an item's look. An item's look is worked out from its current shape, state and contents, so the one pass gives what the game's last redraw gives."
+msgstr "**修复。** 每一部分的重画合并为一次遍历，就在读档的这一部分结束时：每件请求过重画的物品按最先请求的顺序重画一次，再把它外面的容器各重画一次；这一部分期间被销毁的物品跳过。其余一切都与游戏完全一样地执行，位置和次数都不变：形状和状态、摆放、库存布局（它们还会设置尺寸和槽位位置，之后的形状计算会读取），以及每个读档步骤，而它们都不读取物品的外观。物品的外观由它当前的形状、状态和内容物算出，所以这一次遍历的结果，与游戏最后一次重画相同。"
 
 #: manual/inventories.md:29
 msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded."

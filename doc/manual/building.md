@@ -32,7 +32,7 @@ The decisions that need neither Unity nor the game live in `src/*.Pure.cs`, and 
 | Test | What it checks |
 | --- | --- |
 | `BuyerRuleTest` | The buying rule on small stores, nesting past the depth limit (no answer, so the game's own check runs), refusal, each item asked once, and 2,000 random stores against the rule as it reads |
-| `DeferredChecksTest` | While a save loads: each item's redraw waits once however often it is asked, runs once at the end with its containers, and is skipped if the item is gone |
+| `CombinedPassTest` | While a save loads: each item is listed once however often it is redrawn, the part ends with one pass that redraws it and its containers once each, and gone items are skipped |
 | `LayoutBatchTest` | When an inventory layout waits for the end of the frame and when it runs at once |
 | `FormationFitTest` | When the group-drag fit check must run again |
 | `HighlightDiffTest` | Which highlight squares are switched off after a refresh |

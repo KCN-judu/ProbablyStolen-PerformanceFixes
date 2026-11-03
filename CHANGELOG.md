@@ -2,7 +2,7 @@
 
 ## 1.2.0
 
-- While a save loads, each item's look is worked out once per inventory instead of every time one of its tags is restored, which removes tens of thousands of redraws from loading a large store. The loaded items are the same. This can be turned off in the options.
+- While a save loads, the redraws of each inventory are combined into one pass, so each item's look is worked out once instead of every time one of its tags is restored or a container around it is laid out. This removes tens of thousands of redraws from loading a large store. The loaded items are the same. This can be turned off in the options.
 - Each load writes its time and the number of items in each inventory to `Player.log`.
 
 ## 1.1.1

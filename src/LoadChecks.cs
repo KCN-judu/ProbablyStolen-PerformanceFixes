@@ -5,21 +5,23 @@ using HarmonyLib;
 
 namespace PerformanceFixes
 {
-    // Fix 8: while a save loads, an item's UI is checked once at the end of each part instead of dozens of times.
+    // Fix 8: while a save loads, each item's UI is worked out in one pass per part instead of dozens of times.
     //
     // PlayerStore.LoadGame decodes the save in eleven parts, one per inventory (PlayerStore.DecodeSaveItem). Each part
     // builds its items, sets their saved tags, runs about fifteen load steps per item (machines, locks, plants, water
     // sprites and more) and moves the items into the inventory. Every tag change and every move runs
     // GameItem.ValidateShapeState, which computes the item's shape and state and then calls Validate on the item's UI
-    // (GameItemElement.Validate), and that in turn validates every item the item is inside. A large store measured
-    // about 58,000 shape checks and 62,000 UI checks for 1,342 items, over a second of the load.
+    // (GameItemElement.Validate), and that in turn validates every item the item is inside; every inventory layout
+    // walks all its items' UI again. A large store measured about 58,000 shape checks and 62,000 UI checks for 1,342
+    // items, over a second of the load: the same item's UI worked out about 45 times.
     //
-    // Inside DecodeSaveItem, only the UI check waits: the shape, the state, placement and every load step run exactly
-    // as in the game, and none of them reads the item's UI. When the part ends, each item whose UI was asked to be
-    // checked is checked once, in the order first asked; items it pulls in (the containers around it) are checked once
-    // as well, and items destroyed in the meantime are skipped. An item's UI is worked out from its current shape,
-    // state and contents, so one check at the end gives what the game's last check gives. The bookkeeping is in
-    // DeferredChecks (its own file, with tests).
+    // The UI walks of one part are combined into one, at the end of that same DecodeSaveItem call: each item whose UI
+    // was asked for is worked out once, in the order first asked, then the containers around it once each; items
+    // destroyed during the part are skipped. Everything that is not the item's UI runs exactly where and as often as in
+    // the game: the shape and state, placement, inventory layouts (they also write sizes and slot positions that later
+    // shape computations read) and every load step, none of which reads an item's UI. An item's UI is worked out from
+    // its current shape, state and contents, so the one pass gives what the game's last walk gives. The bookkeeping is
+    // in CombinedPass (its own file, with tests).
     //
     // Each load writes one line to Player.log with the load time and the number of items in each part's inventory, so
     // a load with the option on can be compared with one with it off.
@@ -27,7 +29,7 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
-        static readonly DeferredChecks<GameItemElement> checks = new DeferredChecks<GameItemElement>();
+        static readonly CombinedPass<GameItemElement> checks = new CombinedPass<GameItemElement>();
         static readonly List<int> counts = new List<int>();
         static readonly Stopwatch load = new Stopwatch(), decode = new Stopwatch();
         static int failed, uncheckedAsked;
@@ -57,7 +59,7 @@ namespace PerformanceFixes
             load.Start();
         }
 
-        // A finalizer, so a failing load still writes its line and leaves nothing waiting.
+        // A finalizer, so a failing load still writes its line and leaves nothing listed.
         static Exception LoadFinalizer(Exception __exception)
         {
             load.Stop();
@@ -111,7 +113,7 @@ namespace PerformanceFixes
         static void Failed(GameItemElement element, Exception e)
         {
             if (failed++ == 0)
-                UnityEngine.Debug.LogWarning("[PerformanceFixes] a deferred item UI check failed (later failures are only counted): " + e);
+                UnityEngine.Debug.LogWarning("[PerformanceFixes] an item UI check in the combined pass failed (later failures are only counted): " + e);
         }
     }
 }

@@ -8,7 +8,7 @@ Smoother shop, same game. Fixes stutters in the base game when you work with big
 [*][b]Opening and closing storage windows.[/b] Each time a window opens or closes, the game moves its whole contents between two canvases, which is costly for full storage. Closed windows now stay put, which roughly halves the stutter of the storage-preset hotkey, and a preset's windows now open one per frame so animations keep moving.
 [*][b]Instant reopening.[/b] Closing a window used to switch off every slot and item inside it, and reopening switched them all back on. Closed container windows are now simply not drawn, so reopening a full storage window is nearly instant.
 [*][b]Selecting and dragging many items.[/b] While items are selected or dragged as a group, the game redraws the highlight under every one of them each frame and copies the whole inventory list once per item to find it. Inside the original container it also re-checks every selected item against every other item each frame. The highlight and the placement preview are now updated in place, and the fit is only re-checked when something changes, so a large selection drags smoothly.
-[*][b]Loading a save.[/b] While a save loads, the game redraws every item each time one of its tags is restored, and every container around it with it: tens of thousands of redraws for a large store. Each item is now redrawn once per inventory at the end, with the same result.
+[*][b]Loading a save.[/b] While a save loads, the game redraws every item each time one of its tags is restored, and every container around it with it: tens of thousands of redraws for a large store. The redraws of each inventory are now combined into one pass, each item once, with the same result.
 [*][b]Trading with nested storage.[/b] To decide whether a customer will buy a container, the game re-checks everything inside it, level after level. The same rule now runs once per item.
 [/list]
 
@@ -53,7 +53,7 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 [*][b]开关存储窗口。[/b]原版每次开关窗口都要把全部内容在两块画布之间搬动，存储越满越慢。现在关闭的窗口原地保留，存储预设快捷键的卡顿大约减半；预设里的窗口改为每帧打开一个，动画不会停住。
 [*][b]瞬间重新打开。[/b]原版关闭窗口会停用里面的每个格子和物品，重新打开时再全部启用。现在关闭的容器窗口只是不再绘制，重新打开满载的存储窗口几乎是瞬间的。
 [*][b]选中和拖动大批物品。[/b]原版在选中或成组拖动物品时，每帧都会重画每件物品下的高亮，并为找到每件物品把整个库存列表复制一遍。在原容器里拖动时，还会每帧把每件选中物品和其他所有物品逐一比对。现在高亮和摆放预览都原地更新，只在有变化时才重新判断能否放下，大批物品也能流畅拖动。
-[*][b]读档。[/b]原版读档时，每恢复一个标签就重画一次物品，连同它外面的每个容器，大型店铺要重画几万次。现在每个库存在最后把每件物品只重画一次，结果完全相同。
+[*][b]读档。[/b]原版读档时，每恢复一个标签就重画一次物品，连同它外面的每个容器，大型店铺要重画几万次。现在每个库存的重画合并为一次遍历，每件物品只重画一次，结果完全相同。
 [*][b]嵌套存储的交易。[/b]判断顾客是否收购一个容器时，原版会一层一层反复检查里面的所有东西。现在同样的规则对每件物品只执行一次。
 [/list]
 

@@ -3,24 +3,25 @@ using System.Collections.Generic;
 
 namespace PerformanceFixes
 {
-    // Which UI checks wait for the end of a batching scope, and running each of them once. Uses only System types, so
-    // tests/DeferredChecksTest.cs runs it outside the game.
+    // Collects the repeated UI checks of one piece of work into a single pass over the targets. Uses only System types,
+    // so tests/CombinedPassTest.cs runs it outside the game.
     //
-    // Inside a scope (Enter / Leave, which may nest), a check is only recorded, once per target, in the order first
-    // asked. When the outermost scope ends, Flush runs the recorded checks in that order, each target once. A check
-    // asked for while they run is not run again for a target already checked or still waiting; a new target is added
-    // to the end and checked in turn. A target that is gone by then (alive answers false) is skipped.
-    sealed class DeferredChecks<T> where T : class
+    // Inside a scope (Enter / Leave, which may nest), each target is listed once, in the order first asked, however
+    // often it is asked. When the outermost scope ends, Flush walks the list once and checks each target once. A target
+    // asked for during that walk is not checked again if it is already checked or still listed; a new one (a container
+    // around a checked item) is added to the end and checked in turn. A target that is gone (alive answers false) is
+    // skipped.
+    sealed class CombinedPass<T> where T : class
     {
-        readonly List<T> waiting = new List<T>();
+        readonly List<T> listed = new List<T>();
         readonly HashSet<T> recorded = new HashSet<T>();
         T running;
         int depth;
 
         public bool Flushing { get; private set; }
-        public int Waiting { get { return waiting.Count; } }
+        public int Listed { get { return listed.Count; } }
 
-        // Statistics: checks asked for inside scopes, and checks actually run by Flush.
+        // Statistics: checks asked for inside scopes, and checks the pass actually ran.
         public int Asked, Ran, Skipped;
 
         public void Enter() { depth++; }
@@ -32,32 +33,32 @@ namespace PerformanceFixes
             return --depth == 0;
         }
 
-        // Whether a check of target asked for now should run now.
+        // Whether a check of target asked for now should run now, or is covered by the pass.
         public bool Request(T target)
         {
             if (Flushing)
             {
                 if (target == running) { running = null; return true; }
-                if (recorded.Add(target)) waiting.Add(target);
+                if (recorded.Add(target)) listed.Add(target);
                 return false;
             }
             if (depth == 0) return true;
             Asked++;
-            if (recorded.Add(target)) waiting.Add(target);
+            if (recorded.Add(target)) listed.Add(target);
             return false;
         }
 
-        // Runs every recorded check once. check runs the real check (which asks Request again and is let through);
+        // The single pass: checks every listed target once. check runs the real check (which asks Request again and is let through);
         // a failure of one check is passed to failed and does not stop the others.
         public void Flush(Action<T> check, Func<T, bool> alive, Action<T, Exception> failed)
         {
-            if (Flushing || waiting.Count == 0) return;
+            if (Flushing || listed.Count == 0) return;
             Flushing = true;
             try
             {
-                for (int i = 0; i < waiting.Count; i++)
+                for (int i = 0; i < listed.Count; i++)
                 {
-                    var target = waiting[i];
+                    var target = listed[i];
                     if (!alive(target)) { Skipped++; continue; }
                     running = target;
                     try { check(target); Ran++; }
@@ -67,7 +68,7 @@ namespace PerformanceFixes
             }
             finally
             {
-                waiting.Clear();
+                listed.Clear();
                 recorded.Clear();
                 Flushing = false;
             }
