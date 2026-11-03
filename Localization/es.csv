@@ -13,6 +13,8 @@ opt_select,Resaltado de selección rápido
 opt_select_tip,El resaltado bajo los objetos seleccionados y la vista previa de colocación se actualizan en su sitio en vez de redibujarse en cada fotograma. Elimina los tirones al mantener o arrastrar una selección grande.
 opt_load,Comprobar los objetos una vez al cargar
 opt_load_tip,Al cargar una partida, el aspecto de cada objeto se calcula una vez por inventario en lugar de decenas de veces mientras se restauran sus etiquetas. Acelera la carga de una tienda grande. Los objetos cargados son los mismos.
+opt_nodes,Crear la interfaz de los objetos en su sitio
+opt_nodes_tip,Cada parte del aspecto de un objeto se crea directamente donde va en lugar de crearse en otro sitio y moverse, que es la parte lenta. Acelera la carga de una partida y todo lo que crea muchos objetos. Los objetos se ven igual.
 opt_buyer,Comprobación de comprador rápida
 opt_buyer_tip,Decide si un cliente comprará un contenedor en una sola pasada por su contenido en vez de volver a comprobar cada nivel. Los clientes aceptan y rechazan exactamente lo mismo que antes.
 opt_log,Registrar fotogramas largos

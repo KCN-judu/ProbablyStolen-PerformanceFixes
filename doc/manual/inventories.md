@@ -27,3 +27,11 @@ The placement preview is updated in place in the same way. Whether the group fit
 **Fix.** The redraws of one part are combined into a single pass, at the end of that same part of the load: each item that asked to be redrawn is redrawn once, in the order it first asked, then the containers around it once each; items destroyed during the part are skipped. Everything else runs exactly where and as often as in the game: shapes and states, placement, inventory layouts (they also set sizes and slot positions that later shape computations read) and every load step, none of which reads an item's look. An item's look is worked out from its current shape, state and contents, so the one pass gives what the game's last redraw gives.
 
 Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded.
+
+## Build item UI in place
+
+**Problem.** Every item's look is made of thirteen parts. The game creates twelve of them in a shared temporary place and then moves each one to where it belongs inside the item. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s just moving parts, and the same happens whenever many items are created.
+
+**Fix.** Each of those twelve parts is created directly where it belongs, and the game's own move then finds it already in place. The part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the item and is active. The item's first part is created as before. If a game update changes how many parts are made this way, the option does not install and `Player.log` says so.
+
+With this and the option above, the same 1,342-item save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory.

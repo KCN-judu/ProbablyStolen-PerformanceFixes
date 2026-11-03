@@ -3,6 +3,7 @@
 ## 1.2.0
 
 - While a save loads, the redraws of each inventory are combined into one pass, so each item's look is worked out once instead of every time one of its tags is restored or a container around it is laid out. This removes tens of thousands of redraws from loading a large store. The loaded items are the same. This can be turned off in the options.
+- The parts of an item's look are created directly where they belong instead of being created elsewhere and moved there, which was most of the time spent creating items. Together with the change above, a 1,342-item save loads in about 2.8 s instead of about 6 s. This can be turned off in the options.
 - Each load writes its time and the number of items in each inventory to `Player.log`.
 
 ## 1.1.1

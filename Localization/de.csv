@@ -13,6 +13,8 @@ opt_select,Schnelle Auswahlhervorhebung
 opt_select_tip,Die Hervorhebung unter ausgewählten Gegenständen und die Platzierungsvorschau werden an Ort und Stelle aktualisiert, statt jeden Frame neu gezeichnet zu werden. Beseitigt das Ruckeln, während eine große Auswahl gehalten oder gezogen wird.
 opt_load,Gegenstände beim Laden einmal prüfen
 opt_load_tip,Beim Laden eines Spielstands wird das Aussehen jedes Gegenstands einmal pro Inventar berechnet statt dutzendfach beim Wiederherstellen seiner Tags. Lädt einen großen Laden schneller. Die geladenen Gegenstände sind dieselben.
+opt_nodes,Gegenstands-UI direkt am Platz erstellen
+opt_nodes_tip,Jeder Teil der Darstellung eines Gegenstands wird direkt an seinem Platz erstellt, statt anderswo erstellt und dann verschoben zu werden, was der langsame Teil ist. Beschleunigt das Laden eines Spielstands und alles, was viele Gegenstände erstellt. Gegenstände sehen gleich aus.
 opt_buyer,Schnelle Käuferprüfung
 opt_buyer_tip,Entscheidet in einem Durchgang über den Inhalt, ob ein Kunde einen Behälter kauft, statt jede Ebene erneut zu prüfen. Kunden nehmen an und lehnen ab wie zuvor.
 opt_log,Lange Frames protokollieren

@@ -77,56 +77,60 @@ msgid "While a save loads: each item is listed once however often it is redrawn,
 msgstr ""
 
 #: manual/building.md:36
-msgid "When an inventory layout waits for the end of the frame and when it runs at once"
+msgid "Which UI parts of an item are created in place: exactly the create, load this, getter, move sequence, nothing in between"
 msgstr ""
 
 #: manual/building.md:37
-msgid "When the group-drag fit check must run again"
+msgid "When an inventory layout waits for the end of the frame and when it runs at once"
 msgstr ""
 
 #: manual/building.md:38
-msgid "Which highlight squares are switched off after a refresh"
+msgid "When the group-drag fit check must run again"
 msgstr ""
 
 #: manual/building.md:39
-msgid "Which patches a fix that fails halfway removes again"
+msgid "Which highlight squares are switched off after a refresh"
 msgstr ""
 
 #: manual/building.md:40
+msgid "Which patches a fix that fails halfway removes again"
+msgstr ""
+
+#: manual/building.md:41
 msgid "When the buyer check may be installed, given the game's language"
 msgstr ""
 
-#: manual/building.md:42
+#: manual/building.md:43
 msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
 msgstr ""
 
-#: manual/building.md:44
+#: manual/building.md:45
 msgid "Languages"
 msgstr ""
 
-#: manual/building.md:46
+#: manual/building.md:47
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr ""
 
-#: manual/building.md:48
+#: manual/building.md:49
 msgid "Install by hand"
 msgstr ""
 
-#: manual/building.md:50
+#: manual/building.md:51
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr ""
 
-#: manual/building.md:52
+#: manual/building.md:53
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
 #: manual/customers.md:1
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Customers"
 msgstr ""
 
 #: manual/customers.md:3
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Fast buyer check"
 msgstr ""
 
@@ -163,8 +167,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr ""
 
 #: manual/diagnostics.md:1
-#: manual/index.md:21
 #: manual/index.md:22
+#: manual/index.md:23
 msgid "Diagnostics"
 msgstr ""
 
@@ -274,6 +278,7 @@ msgstr ""
 #: manual/index.md:19
 #: manual/index.md:20
 #: manual/index.md:21
+#: manual/index.md:22
 msgid "on"
 msgstr ""
 
@@ -311,6 +316,7 @@ msgstr ""
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
+#: manual/index.md:20
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr ""
@@ -334,59 +340,68 @@ msgid "While a save loads, each item's look is worked out once per inventory ins
 msgstr ""
 
 #: manual/index.md:19
+#: manual/inventories.md:31
+msgid "Build item UI in place"
+msgstr ""
+
+#: manual/index.md:19
+msgid "Each part of an item's look is created where it belongs instead of being created elsewhere and moved."
+msgstr ""
+
+#: manual/index.md:20
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr ""
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Log long frames"
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr ""
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "Profile long frames"
 msgstr ""
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "off"
 msgstr ""
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr ""
 
-#: manual/index.md:24
+#: manual/index.md:25
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr ""
 
-#: manual/index.md:26
+#: manual/index.md:27
 msgid "The fixes"
 msgstr ""
 
-#: manual/index.md:28
+#: manual/index.md:29
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr ""
 
-#: manual/index.md:29
-msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, and each item checked once while a save loads."
-msgstr ""
-
 #: manual/index.md:30
-msgid "[Customers](customers.md): the buying check in one pass."
+msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, and item UI built in place."
 msgstr ""
 
 #: manual/index.md:31
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr ""
+
+#: manual/index.md:32
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr ""
 
@@ -432,6 +447,18 @@ msgstr ""
 
 #: manual/inventories.md:29
 msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded."
+msgstr ""
+
+#: manual/inventories.md:33
+msgid "**Problem.** Every item's look is made of thirteen parts. The game creates twelve of them in a shared temporary place and then moves each one to where it belongs inside the item. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s just moving parts, and the same happens whenever many items are created."
+msgstr ""
+
+#: manual/inventories.md:35
+msgid "**Fix.** Each of those twelve parts is created directly where it belongs, and the game's own move then finds it already in place. The part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the item and is active. The item's first part is created as before. If a game update changes how many parts are made this way, the option does not install and `Player.log` says so."
+msgstr ""
+
+#: manual/inventories.md:37
+msgid "With this and the option above, the same 1,342-item save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory."
 msgstr ""
 
 #: manual/windows.md:3

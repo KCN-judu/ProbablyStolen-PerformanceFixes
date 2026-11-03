@@ -13,6 +13,8 @@ opt_select,Szybkie podświetlenie zaznaczenia
 opt_select_tip,Podświetlenie pod zaznaczonymi przedmiotami i podgląd umieszczenia są aktualizowane na miejscu zamiast rysowane od nowa co klatkę. Usuwa przycięcia podczas trzymania lub przeciągania dużego zaznaczenia.
 opt_load,Sprawdzaj przedmioty raz przy wczytywaniu
 opt_load_tip,Podczas wczytywania zapisu wygląd każdego przedmiotu jest liczony raz na ekwipunek zamiast dziesiątki razy przy przywracaniu jego tagów. Przyspiesza wczytywanie dużego sklepu. Wczytane przedmioty są takie same.
+opt_nodes,Twórz interfejs przedmiotów na miejscu
+opt_nodes_tip,Każda część wyglądu przedmiotu jest tworzona od razu tam, gdzie należy, zamiast powstawać gdzie indziej i być przenoszona, co jest wolną częścią. Przyspiesza wczytywanie zapisu i wszystko, co tworzy wiele przedmiotów. Przedmioty wyglądają tak samo.
 opt_buyer,Szybkie sprawdzanie kupującego
 opt_buyer_tip,Decyduje, czy klient kupi pojemnik, w jednym przejściu przez zawartość zamiast sprawdzać od nowa każdy poziom. Klienci przyjmują i odrzucają dokładnie to samo co wcześniej.
 opt_log,Zapisuj długie klatki

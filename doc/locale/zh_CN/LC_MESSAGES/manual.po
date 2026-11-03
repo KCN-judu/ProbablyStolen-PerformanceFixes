@@ -77,56 +77,60 @@ msgid "While a save loads: each item is listed once however often it is redrawn,
 msgstr "读档时：每件物品无论被重画多少次都只记一次，这一部分结束时一次遍历，把它和它的容器各重画一次，已不存在的物品跳过"
 
 #: manual/building.md:36
+msgid "Which UI parts of an item are created in place: exactly the create, load this, getter, move sequence, nothing in between"
+msgstr "物品的哪些界面部件原地生成：严格是“生成、取 this、取父节点、移动”这一连串，中间不能夹别的"
+
+#: manual/building.md:37
 msgid "When an inventory layout waits for the end of the frame and when it runs at once"
 msgstr "库存布局何时等到帧末、何时立即执行"
 
-#: manual/building.md:37
+#: manual/building.md:38
 msgid "When the group-drag fit check must run again"
 msgstr "成组拖动时何时需要重新判断能否放下"
 
-#: manual/building.md:38
+#: manual/building.md:39
 msgid "Which highlight squares are switched off after a refresh"
 msgstr "刷新后关掉哪些高亮格"
 
-#: manual/building.md:39
+#: manual/building.md:40
 msgid "Which patches a fix that fails halfway removes again"
 msgstr "中途失败的修复要撤掉哪些补丁"
 
-#: manual/building.md:40
+#: manual/building.md:41
 msgid "When the buyer check may be installed, given the game's language"
 msgstr "根据游戏语言，何时可以安装收货判定"
 
-#: manual/building.md:42
+#: manual/building.md:43
 msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
 msgstr "每个测试对每个用例输出 `ok` 或 `FAIL`，只要有一个用例失败就以非零代码退出。"
 
-#: manual/building.md:44
+#: manual/building.md:45
 msgid "Languages"
 msgstr "语言"
 
-#: manual/building.md:46
+#: manual/building.md:47
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr "选项文字在 `Localization/` 里，游戏的每种语言一个文件，以游戏的语言代码命名：`en`、`zh`、`ja`、`ko`、`de`、`fr`、`es`、`it`、`pl`、`ru` 和 `ptBR`。缺少的条目回退为英文。"
 
-#: manual/building.md:48
+#: manual/building.md:49
 msgid "Install by hand"
 msgstr "手动安装"
 
-#: manual/building.md:50
+#: manual/building.md:51
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr "把 `out/performance_fixes` 文件夹复制到游戏的 `Mods` 文件夹，启动游戏，在模组菜单中启用它。模组在游戏启动时加载，所以启用或更新后要重启游戏。"
 
-#: manual/building.md:52
+#: manual/building.md:53
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr "这个模组不声明任何权限，游戏启用它时不会弹出权限确认。"
 
 #: manual/customers.md:1
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Customers"
 msgstr "顾客"
 
 #: manual/customers.md:3
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Fast buyer check"
 msgstr "快速收货判定"
 
@@ -163,8 +167,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr "**何时启动。** 游戏自己的判定会用到一份本地化的水名列表，游戏在第一次用到时才填写它。安装本修复也会让它被填写，而模组启动时游戏还没有应用玩家的语言。所以本修复会等到游戏启动时选定的语言生效后才安装。如果五分钟内仍未生效，本修复在这次游戏中保持关闭，`Player.log` 里会写明。没有这一步等待，水的名称会在整局里保持英文，在其他语言下水也会卖不出去。"
 
 #: manual/diagnostics.md:1
-#: manual/index.md:21
 #: manual/index.md:22
+#: manual/index.md:23
 msgid "Diagnostics"
 msgstr "诊断"
 
@@ -274,6 +278,7 @@ msgstr "每个窗口独立画布"
 #: manual/index.md:19
 #: manual/index.md:20
 #: manual/index.md:21
+#: manual/index.md:22
 msgid "on"
 msgstr "开"
 
@@ -311,6 +316,7 @@ msgstr "存储预设快捷键分几帧开关窗口（第一个立即开关），
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
+#: manual/index.md:20
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr "库存"
@@ -334,59 +340,68 @@ msgid "While a save loads, each item's look is worked out once per inventory ins
 msgstr "读档时，每件物品的外观在每个库存里只计算一次，而不是几十次。"
 
 #: manual/index.md:19
+#: manual/inventories.md:31
+msgid "Build item UI in place"
+msgstr "物品界面原地生成"
+
+#: manual/index.md:19
+msgid "Each part of an item's look is created where it belongs instead of being created elsewhere and moved."
+msgstr "物品外观的每个部件直接在所属位置生成，而不是先在别处生成再移过去。"
+
+#: manual/index.md:20
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr "快速选中高亮"
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr "选中物品下的高亮原地更新，不再每帧重画，框选或拖动大批物品时不再卡顿。"
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr "顾客对容器的收货判定每件物品只算一次，而不是每层都重查。"
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Log long frames"
 msgstr "记录长帧"
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr "把超过 100 毫秒的帧和刚打开的窗口写入 `Player.log`。"
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "Profile long frames"
 msgstr "分析长帧"
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "off"
 msgstr "关"
 
-#: manual/index.md:22
+#: manual/index.md:23
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr "按方法拆解超过 100 毫秒的帧。会让游戏略微变慢。"
 
-#: manual/index.md:24
+#: manual/index.md:25
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr "如果发现异常，先关掉对应部分的选项，再反馈你看到的现象。"
 
-#: manual/index.md:26
+#: manual/index.md:27
 msgid "The fixes"
 msgstr "各项修复"
 
-#: manual/index.md:28
+#: manual/index.md:29
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr "[窗口](windows.md)：独立画布、窗口原地保留、瞬间隐藏和预设逐个打开。"
 
-#: manual/index.md:29
-msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, and each item checked once while a save loads."
-msgstr "[库存](inventories.md)：每帧每个库存只布局一次，选中高亮原地更新，读档时每件物品只检查一次。"
-
 #: manual/index.md:30
+msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, and item UI built in place."
+msgstr "[库存](inventories.md)：每帧每个库存只布局一次，选中高亮原地更新，读档时每件物品只检查一次，物品界面原地生成。"
+
+#: manual/index.md:31
 msgid "[Customers](customers.md): the buying check in one pass."
 msgstr "[顾客](customers.md)：一次遍历完成收货判定。"
 
-#: manual/index.md:31
+#: manual/index.md:32
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr "[诊断](diagnostics.md)：长帧日志，以及找出以上所有问题的分析器。"
 
@@ -433,6 +448,18 @@ msgstr "**修复。** 每一部分的重画合并为一次遍历，就在读档�
 #: manual/inventories.md:29
 msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded."
 msgstr "无论是否开启此选项，每次读档都会在 `Player.log` 里写一行：`[PerformanceFixes] save load: ... ms`、请求和实际执行的重画次数，以及每部分库存里的物品数量。用同一个存档分别在开启和关闭此选项时读取，就能看到省下的时间，并确认读出的物品相同。"
+
+#: manual/inventories.md:33
+msgid "**Problem.** Every item's look is made of thirteen parts. The game creates twelve of them in a shared temporary place and then moves each one to where it belongs inside the item. Moving a part inside the game's interface is slow, about 80 µs each whatever the part holds, so a save of 1,342 items spent most of 2.3 s just moving parts, and the same happens whenever many items are created."
+msgstr "**问题。** 每件物品的外观由十三个部件组成。游戏把其中十二个先放在一个共用的临时位置生成，再逐个移到它在物品里该在的地方。在游戏界面里移动一个部件很慢，无论部件里有什么，每次约 80 微秒，所以一个有 1,342 件物品的存档，2.3 秒里大部分时间都花在移动部件上；任何大量生成物品的时候也一样。"
+
+#: manual/inventories.md:35
+msgid "**Fix.** Each of those twelve parts is created directly where it belongs, and the game's own move then finds it already in place. The part ends up with the same parent, the same place among its siblings and the same position, rotation and scale as before, and it starts up the same way, because everything it is created under has just been made by the item and is active. The item's first part is created as before. If a game update changes how many parts are made this way, the option does not install and `Player.log` says so."
+msgstr "**修复。** 这十二个部件都直接在所属位置生成，游戏自己的移动随后发现它已经就位。部件最终的父节点、在兄弟节点中的位置，以及位置、旋转和缩放都与原来相同；它的启动方式也一样，因为它所在的每个父节点都是这件物品刚刚生成的，而且处于激活状态。物品的第一个部件照原样生成。如果游戏更新改变了以这种方式生成的部件数量，此选项不会安装，`Player.log` 里会写明。"
+
+#: manual/inventories.md:37
+msgid "With this and the option above, the same 1,342-item save loaded in about 2.8 s instead of about 6 s, with the same items in every inventory."
+msgstr "加上这一项和上面的选项，同一个 1,342 件物品的存档读档约 2.8 秒，原来约 6 秒，每个库存里的物品都相同。"
 
 #: manual/windows.md:3
 msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."

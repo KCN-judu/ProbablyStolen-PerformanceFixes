@@ -13,6 +13,8 @@ opt_select,Evidenziazione rapida della selezione
 opt_select_tip,L'evidenziazione sotto gli oggetti selezionati e l'anteprima di posizionamento vengono aggiornate sul posto invece di essere ridisegnate a ogni frame. Elimina gli scatti mentre si tiene o si trascina una selezione grande.
 opt_load,Controlla gli oggetti una volta al caricamento
 opt_load_tip,Durante il caricamento di un salvataggio, l'aspetto di ogni oggetto viene calcolato una volta per inventario invece di decine di volte mentre si ripristinano i suoi tag. Velocizza il caricamento di un negozio grande. Gli oggetti caricati sono gli stessi.
+opt_nodes,Crea l'interfaccia degli oggetti sul posto
+opt_nodes_tip,Ogni parte dell'aspetto di un oggetto viene creata direttamente dove va invece di essere creata altrove e poi spostata, che è la parte lenta. Velocizza il caricamento di un salvataggio e tutto ciò che crea molti oggetti. Gli oggetti hanno lo stesso aspetto.
 opt_buyer,Controllo acquirente rapido
 opt_buyer_tip,Stabilisce se un cliente comprerà un contenitore con un solo passaggio sul contenuto invece di ricontrollare ogni livello. I clienti accettano e rifiutano esattamente come prima.
 opt_log,Registra i frame lunghi

@@ -32,7 +32,7 @@ namespace PerformanceFixes
         static readonly CombinedPass<GameItemElement> checks = new CombinedPass<GameItemElement>();
         static readonly List<int> counts = new List<int>();
         static readonly Stopwatch load = new Stopwatch(), decode = new Stopwatch();
-        static int failed, uncheckedAsked;
+        static int failed, uncheckedAsked, nodesAtStart;
         static bool loading;
 
         public static void Patch(Harmony harmony)
@@ -54,6 +54,7 @@ namespace PerformanceFixes
             counts.Clear();
             checks.ResetStatistics();
             failed = uncheckedAsked = 0;
+            nodesAtStart = ItemNodes.Built;
             decode.Reset();
             load.Reset();
             load.Start();
@@ -72,6 +73,7 @@ namespace PerformanceFixes
                     : "item UI checks: " + uncheckedAsked + " run as asked (option off)";
                 UnityEngine.Debug.Log("[PerformanceFixes] save load: " + load.ElapsedMilliseconds + " ms, decoding " +
                     decode.ElapsedMilliseconds + " ms; " + checkText + (failed > 0 ? ", " + failed + " failed" : "") +
+                    "; item UI nodes built in place: " + (ItemNodes.Built - nodesAtStart) +
                     "; items per inventory: " + string.Join(", ", counts.ConvertAll(n => n.ToString()).ToArray()));
             }
             catch (Exception) { }

@@ -13,6 +13,8 @@ opt_select,Surbrillance de sélection rapide
 opt_select_tip,La surbrillance sous les objets sélectionnés et l'aperçu de placement sont mis à jour sur place au lieu d'être redessinés à chaque image. Supprime les saccades quand on maintient ou fait glisser une grande sélection.
 opt_load,Vérifier les objets une fois au chargement
 opt_load_tip,Pendant le chargement d'une partie, l'apparence de chaque objet est calculée une fois par inventaire au lieu de dizaines de fois pendant la restauration de ses étiquettes. Accélère le chargement d'une grande boutique. Les objets chargés sont les mêmes.
+opt_nodes,Construire l'interface des objets sur place
+opt_nodes_tip,Chaque partie de l'apparence d'un objet est créée directement à sa place au lieu d'être créée ailleurs puis déplacée, ce qui est la partie lente. Accélère le chargement d'une partie et tout ce qui crée beaucoup d'objets. Les objets ont le même aspect.
 opt_buyer,Vérification d'achat rapide
 opt_buyer_tip,Décide si un client achètera un conteneur en un seul passage sur son contenu au lieu de tout revérifier à chaque niveau. Les clients acceptent et refusent exactement comme avant.
 opt_log,Journaliser les images longues

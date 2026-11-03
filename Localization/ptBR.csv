@@ -13,6 +13,8 @@ opt_select,Destaque de seleção rápido
 opt_select_tip,O destaque sob os itens selecionados e a prévia de posicionamento são atualizados no lugar em vez de redesenhados a cada quadro. Remove os travamentos ao segurar ou arrastar uma seleção grande.
 opt_load,Verificar os itens uma vez ao carregar
 opt_load_tip,Ao carregar um jogo salvo, a aparência de cada item é calculada uma vez por inventário em vez de dezenas de vezes enquanto as etiquetas são restauradas. Acelera o carregamento de uma loja grande. Os itens carregados são os mesmos.
+opt_nodes,Criar a interface dos itens no lugar
+opt_nodes_tip,Cada parte da aparência de um item é criada direto no lugar onde fica em vez de ser criada em outro lugar e movida, que é a parte lenta. Acelera o carregamento de um jogo salvo e tudo o que cria muitos itens. Os itens ficam iguais.
 opt_buyer,Verificação rápida do comprador
 opt_buyer_tip,Decide em uma única passada pelo conteúdo se um cliente vai comprar um contêiner em vez de reverificar cada nível. Os clientes aceitam e recusam exatamente como antes.
 opt_log,Registrar quadros longos
