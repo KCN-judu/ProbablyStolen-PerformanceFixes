@@ -16,7 +16,8 @@ namespace PerformanceFixes
     //   - Hide is replaced, for windows that have their own canvas and stay under the floating canvas (fix 4), by
     //     the same steps with the canvas switched off instead of the object deactivated;
     //   - Show switches the canvas back on first, after which its SetActive(true) finds the object already active
-    //     and does nothing;
+    //     and does nothing; for a locked window the game's Show returns at once and the window stays hidden, and so
+    //     does this;
     //   - IsVisible answers false for a window hidden this way.
     static class FastHide
     {
@@ -61,8 +62,11 @@ namespace PerformanceFixes
             return false;
         }
 
+        // The game's Show returns at once for a locked window (a container locked while closed), leaving it hidden;
+        // so does this.
         static void ShowPrefix(PixelWindow __instance)
         {
+            if (__instance.isLocked) return;
             var handler = __instance.handler;
             if (handler == null) return;
             var go = handler.gameObject;
@@ -80,7 +84,8 @@ namespace PerformanceFixes
             if (handler != null && hidden.Contains(handler.gameObject)) __result = false;
         }
 
-        // A window about to be destroyed is shown as hidden in the ordinary way first, so nothing is left behind.
+        // A window about to be destroyed is no longer listed here. The game's Destroy then hides it with its own Hide
+        // (KeepAdopted keeps no window while one is destroyed, so this mod's Hide steps aside) and destroys it.
         static void DestroyPrefix(PixelWindow __instance)
         {
             var handler = __instance.handler;

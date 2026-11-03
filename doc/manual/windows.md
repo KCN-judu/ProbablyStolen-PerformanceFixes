@@ -23,7 +23,7 @@ The game finds window bounds through `Canvas.rootCanvas` and positions windows w
 **Fix.** Switching off the window's own canvas hides it just as well and costs almost nothing: nothing is drawn, and its raycaster is off, so it takes no clicks. The game reads a window's state only through `PixelWindow.IsVisible` and changes it only in `Show` and `Hide`, so for container windows that have their own canvas and stay in place:
 
 - `Hide` performs the game's own steps in the same order: it remembers the window position, releases the window and removes it from the open-window list. The only difference is that it switches the canvas off instead of deactivating the object.
-- `Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing.
+- `Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing. A locked window, such as a container whose inventory is shown inside a machine slot, is left hidden, as the game's own `Show` leaves it.
 - `IsVisible` answers false for a window hidden this way.
 
 Each window still pays the full cost the first time it opens. Turning the option off restores every such window to an ordinary, deactivated one.

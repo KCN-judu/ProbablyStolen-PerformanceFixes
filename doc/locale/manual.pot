@@ -44,7 +44,7 @@ msgid "Variable"
 msgstr ""
 
 #: manual/building.md:19
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Default"
 msgstr ""
 
@@ -310,7 +310,7 @@ msgstr ""
 
 #: manual/cost.md:33
 #: manual/cost.md:49
-#: manual/index.md:13
+#: manual/index.md:17
 #: manual/windows.md:5
 msgid "Separate canvas per window"
 msgstr ""
@@ -341,7 +341,7 @@ msgstr ""
 
 #: manual/cost.md:34
 #: manual/cost.md:57
-#: manual/index.md:14
+#: manual/index.md:18
 #: manual/windows.md:13
 msgid "Keep closed windows in place"
 msgstr ""
@@ -358,14 +358,14 @@ msgstr ""
 
 #: manual/cost.md:35
 #: manual/cost.md:67
-#: manual/index.md:15
+#: manual/index.md:19
 #: manual/windows.md:19
 msgid "Hide closed windows instantly"
 msgstr ""
 
 #: manual/cost.md:36
 #: manual/cost.md:77
-#: manual/index.md:16
+#: manual/index.md:20
 #: manual/windows.md:31
 msgid "Open preset windows one by one"
 msgstr ""
@@ -380,7 +380,7 @@ msgstr ""
 
 #: manual/cost.md:37
 #: manual/cost.md:87
-#: manual/index.md:17
+#: manual/index.md:21
 #: manual/inventories.md:3
 msgid "Batch inventory layouts"
 msgstr ""
@@ -395,7 +395,7 @@ msgstr ""
 
 #: manual/cost.md:38
 #: manual/cost.md:97
-#: manual/index.md:18
+#: manual/index.md:22
 #: manual/inventories.md:23
 msgid "Check items once while loading"
 msgstr ""
@@ -410,7 +410,7 @@ msgstr ""
 
 #: manual/cost.md:39
 #: manual/cost.md:107
-#: manual/index.md:19
+#: manual/index.md:23
 #: manual/inventories.md:31
 msgid "Build UI in place"
 msgstr ""
@@ -425,7 +425,7 @@ msgstr ""
 
 #: manual/cost.md:40
 #: manual/cost.md:117
-#: manual/index.md:20
+#: manual/index.md:24
 #: manual/inventories.md:39
 msgid "Lighter shape checks"
 msgstr ""
@@ -440,7 +440,7 @@ msgstr ""
 
 #: manual/cost.md:41
 #: manual/cost.md:127
-#: manual/index.md:21
+#: manual/index.md:25
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr ""
@@ -455,7 +455,7 @@ msgstr ""
 
 #: manual/cost.md:42
 #: manual/cost.md:151
-#: manual/index.md:22
+#: manual/index.md:26
 #: manual/loading.md:14
 msgid "Lighter store preload"
 msgstr ""
@@ -470,7 +470,7 @@ msgstr ""
 
 #: manual/cost.md:43
 #: manual/cost.md:161
-#: manual/index.md:23
+#: manual/index.md:27
 #: manual/loading.md:20
 msgid "Skip unchanged settings"
 msgstr ""
@@ -485,7 +485,7 @@ msgstr ""
 
 #: manual/cost.md:44
 #: manual/cost.md:171
-#: manual/index.md:24
+#: manual/index.md:28
 #: manual/loading.md:26
 msgid "Free the store when leaving"
 msgstr ""
@@ -501,7 +501,7 @@ msgstr ""
 #: manual/cost.md:45
 #: manual/cost.md:183
 #: manual/customers.md:3
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "Fast buyer check"
 msgstr ""
 
@@ -514,10 +514,10 @@ msgid "each item checked once: O(N)"
 msgstr ""
 
 #: manual/cost.md:47
-#: manual/index.md:13
-#: manual/index.md:14
-#: manual/index.md:15
-#: manual/index.md:16
+#: manual/index.md:17
+#: manual/index.md:18
+#: manual/index.md:19
+#: manual/index.md:20
 #: manual/windows.md:1
 msgid "Windows"
 msgstr ""
@@ -579,11 +579,11 @@ msgid "**Result.** Identical: each window's tab selection is applied right after
 msgstr ""
 
 #: manual/cost.md:85
-#: manual/index.md:17
-#: manual/index.md:18
-#: manual/index.md:19
-#: manual/index.md:20
 #: manual/index.md:21
+#: manual/index.md:22
+#: manual/index.md:23
+#: manual/index.md:24
+#: manual/index.md:25
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr ""
@@ -669,9 +669,9 @@ msgid "**Result.** Identical: the squares end every frame as the game leaves the
 msgstr ""
 
 #: manual/cost.md:137
-#: manual/index.md:22
-#: manual/index.md:23
-#: manual/index.md:24
+#: manual/index.md:26
+#: manual/index.md:27
+#: manual/index.md:28
 #: manual/loading.md:1
 msgid "Loading"
 msgstr ""
@@ -807,7 +807,7 @@ msgstr ""
 
 #: manual/cost.md:181
 #: manual/customers.md:1
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "Customers"
 msgstr ""
 
@@ -860,8 +860,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr ""
 
 #: manual/diagnostics.md:1
-#: manual/index.md:26
-#: manual/index.md:27
+#: manual/index.md:30
+#: manual/index.md:31
 msgid "Diagnostics"
 msgstr ""
 
@@ -942,29 +942,33 @@ msgid "![Performance Fixes cover](../attachments/cover.png)"
 msgstr ""
 
 #: manual/index.md:7
-msgid "Options"
+msgid "Loading a save and opening full containers, with this mod off and on, recorded in the game on a real tested large store (the loading part plays at double speed):"
 msgstr ""
 
 #: manual/index.md:9
+msgid "![Loading a save and opening containers with Performance Fixes off and on](../attachments/compare.gif)"
+msgstr ""
+
+#: manual/index.md:11
+msgid "Options"
+msgstr ""
+
+#: manual/index.md:13
 msgid "Every fix has its own switch in the mod's options: open the Mods menu, select Performance Fixes and click the gear icon. All of them are on by default except the profiler."
 msgstr ""
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Section"
 msgstr ""
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Option"
 msgstr ""
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "What it does"
 msgstr ""
 
-#: manual/index.md:13
-#: manual/index.md:14
-#: manual/index.md:15
-#: manual/index.md:16
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
@@ -975,110 +979,114 @@ msgstr ""
 #: manual/index.md:24
 #: manual/index.md:25
 #: manual/index.md:26
+#: manual/index.md:27
+#: manual/index.md:28
+#: manual/index.md:29
+#: manual/index.md:30
 msgid "on"
 msgstr ""
 
-#: manual/index.md:13
+#: manual/index.md:17
 msgid "Each container window is drawn on its own canvas, so a change in one window no longer redraws every open window."
 msgstr ""
 
-#: manual/index.md:14
+#: manual/index.md:18
 msgid "A closed window stays in the floating-window layer, so reopening it does not move its contents between canvases."
 msgstr ""
 
-#: manual/index.md:15
+#: manual/index.md:19
 msgid "A closed container window stops being drawn instead of having everything inside switched off, so reopening a full window is nearly instant. Needs the two options above."
 msgstr ""
 
-#: manual/index.md:16
+#: manual/index.md:20
 msgid "The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running."
 msgstr ""
 
-#: manual/index.md:17
+#: manual/index.md:21
 msgid "Each inventory is re-laid out once per frame instead of once per item change."
 msgstr ""
 
-#: manual/index.md:18
+#: manual/index.md:22
 msgid "While a save loads, each item's look is worked out once per inventory instead of dozens of times."
 msgstr ""
 
-#: manual/index.md:19
+#: manual/index.md:23
 msgid "The parts of items, windows, inventories and machine panels are created where they belong instead of being created elsewhere and moved."
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:24
 msgid "Working out an item's shape and state skips the search under an item that has nothing under it."
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:25
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr ""
 
-#: manual/index.md:22
+#: manual/index.md:26
 msgid "The early look at a save's store reads only the upgrades it checks instead of the whole store."
 msgstr ""
 
-#: manual/index.md:23
+#: manual/index.md:27
 msgid "Entering the store no longer rewrites the settings file for settings that already hold the same value."
 msgstr ""
 
-#: manual/index.md:24
+#: manual/index.md:28
 msgid "Leaving the store lets go of everything that still pointed at it, so the next load does not start with the old store in memory."
 msgstr ""
 
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr ""
 
-#: manual/index.md:26
+#: manual/index.md:30
 msgid "Log long frames"
 msgstr ""
 
-#: manual/index.md:26
+#: manual/index.md:30
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr ""
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "Profile long frames"
 msgstr ""
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "off"
 msgstr ""
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr ""
 
-#: manual/index.md:29
+#: manual/index.md:33
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr ""
 
-#: manual/index.md:31
+#: manual/index.md:35
 msgid "The fixes"
 msgstr ""
 
-#: manual/index.md:33
+#: manual/index.md:37
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr ""
 
-#: manual/index.md:34
+#: manual/index.md:38
 msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, UI built in place and lighter shape checks."
 msgstr ""
 
-#: manual/index.md:35
+#: manual/index.md:39
 msgid "[Loading](loading.md): the whole load with and without this mod, the lighter store preload, unchanged settings left unwritten, and the store freed when you leave it."
 msgstr ""
 
-#: manual/index.md:36
+#: manual/index.md:40
 msgid "[Customers](customers.md): the buying check in one pass."
 msgstr ""
 
-#: manual/index.md:37
+#: manual/index.md:41
 msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
 msgstr ""
 
-#: manual/index.md:38
+#: manual/index.md:42
 msgid "[Diagnostics](diagnostics.md): the long-frame log, the load timeline and the profiler that found all of the above."
 msgstr ""
 
@@ -1235,7 +1243,7 @@ msgid "`Hide` performs the game's own steps in the same order: it remembers the 
 msgstr ""
 
 #: manual/windows.md:26
-msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing."
+msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing. A locked window, such as a container whose inventory is shown inside a machine slot, is left hidden, as the game's own `Show` leaves it."
 msgstr ""
 
 #: manual/windows.md:27

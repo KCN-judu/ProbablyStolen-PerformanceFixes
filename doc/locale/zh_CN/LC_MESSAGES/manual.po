@@ -44,7 +44,7 @@ msgid "Variable"
 msgstr "变量"
 
 #: manual/building.md:19
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Default"
 msgstr "默认值"
 
@@ -310,7 +310,7 @@ msgstr "结果相同"
 
 #: manual/cost.md:33
 #: manual/cost.md:49
-#: manual/index.md:13
+#: manual/index.md:17
 #: manual/windows.md:5
 msgid "Separate canvas per window"
 msgstr "每个窗口独立画布"
@@ -341,7 +341,7 @@ msgstr "是"
 
 #: manual/cost.md:34
 #: manual/cost.md:57
-#: manual/index.md:14
+#: manual/index.md:18
 #: manual/windows.md:13
 msgid "Keep closed windows in place"
 msgstr "关闭的窗口原地保留"
@@ -358,14 +358,14 @@ msgstr "首次打开 O(g)，之后为常数"
 
 #: manual/cost.md:35
 #: manual/cost.md:67
-#: manual/index.md:15
+#: manual/index.md:19
 #: manual/windows.md:19
 msgid "Hide closed windows instantly"
 msgstr "瞬间隐藏关闭的窗口"
 
 #: manual/cost.md:36
 #: manual/cost.md:77
-#: manual/index.md:16
+#: manual/index.md:20
 #: manual/windows.md:31
 msgid "Open preset windows one by one"
 msgstr "预设窗口逐个打开"
@@ -380,7 +380,7 @@ msgstr "总量相同，每帧 O(g)"
 
 #: manual/cost.md:37
 #: manual/cost.md:87
-#: manual/index.md:17
+#: manual/index.md:21
 #: manual/inventories.md:3
 msgid "Batch inventory layouts"
 msgstr "合并库存布局"
@@ -395,7 +395,7 @@ msgstr "每个库存每帧 O(n)"
 
 #: manual/cost.md:38
 #: manual/cost.md:97
-#: manual/index.md:18
+#: manual/index.md:22
 #: manual/inventories.md:23
 msgid "Check items once while loading"
 msgstr "读档时物品只检查一次"
@@ -410,7 +410,7 @@ msgstr "每件物品一次，再每个容器一次：每部分 O(N + P)"
 
 #: manual/cost.md:39
 #: manual/cost.md:107
-#: manual/index.md:19
+#: manual/index.md:23
 #: manual/inventories.md:31
 msgid "Build UI in place"
 msgstr "界面原地生成"
@@ -425,7 +425,7 @@ msgstr "k 次生成，不移动"
 
 #: manual/cost.md:40
 #: manual/cost.md:117
-#: manual/index.md:20
+#: manual/index.md:24
 #: manual/inventories.md:39
 msgid "Lighter shape checks"
 msgstr "精简形状检查"
@@ -440,7 +440,7 @@ msgstr "这类物品不查找，也不建任何东西；其他物品照旧查找
 
 #: manual/cost.md:41
 #: manual/cost.md:127
-#: manual/index.md:21
+#: manual/index.md:25
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr "快速选中高亮"
@@ -455,7 +455,7 @@ msgstr "不复制列表，只动有变化的格子；O(m² · n) 的检查只在
 
 #: manual/cost.md:42
 #: manual/cost.md:151
-#: manual/index.md:22
+#: manual/index.md:26
 #: manual/loading.md:14
 msgid "Lighter store preload"
 msgstr "精简商店预读"
@@ -470,7 +470,7 @@ msgstr "提前查看时跳过 S，只建 u：跳过 O(S)，建 O(u)"
 
 #: manual/cost.md:43
 #: manual/cost.md:161
-#: manual/index.md:23
+#: manual/index.md:27
 #: manual/loading.md:20
 msgid "Skip unchanged settings"
 msgstr "跳过未改动的设置"
@@ -485,7 +485,7 @@ msgstr "读 K 次，O(K · F)；只有改动过的设置才写"
 
 #: manual/cost.md:44
 #: manual/cost.md:171
-#: manual/index.md:24
+#: manual/index.md:28
 #: manual/loading.md:26
 msgid "Free the store when leaving"
 msgstr "离开商店时释放内存"
@@ -501,7 +501,7 @@ msgstr "放开引用 O(R)，菜单空闲时回收一次"
 #: manual/cost.md:45
 #: manual/cost.md:183
 #: manual/customers.md:3
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "Fast buyer check"
 msgstr "快速收货判定"
 
@@ -514,10 +514,10 @@ msgid "each item checked once: O(N)"
 msgstr "每件物品检查一次：O(N)"
 
 #: manual/cost.md:47
-#: manual/index.md:13
-#: manual/index.md:14
-#: manual/index.md:15
-#: manual/index.md:16
+#: manual/index.md:17
+#: manual/index.md:18
+#: manual/index.md:19
+#: manual/index.md:20
 #: manual/windows.md:1
 msgid "Windows"
 msgstr "窗口"
@@ -579,11 +579,11 @@ msgid "**Result.** Identical: each window's tab selection is applied right after
 msgstr "**结果。** 相同：每个窗口的标签页选择紧接在它自己打开之后应用，再次按下快捷键会先处理完尚未打开的窗口。"
 
 #: manual/cost.md:85
-#: manual/index.md:17
-#: manual/index.md:18
-#: manual/index.md:19
-#: manual/index.md:20
 #: manual/index.md:21
+#: manual/index.md:22
+#: manual/index.md:23
+#: manual/index.md:24
+#: manual/index.md:25
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr "库存"
@@ -669,9 +669,9 @@ msgid "**Result.** Identical: the squares end every frame as the game leaves the
 msgstr "**结果。** 相同：每帧结束时的格子与游戏留下的一样，真正放下时仍由游戏自己的检查执行。"
 
 #: manual/cost.md:137
-#: manual/index.md:22
-#: manual/index.md:23
-#: manual/index.md:24
+#: manual/index.md:26
+#: manual/index.md:27
+#: manual/index.md:28
 #: manual/loading.md:1
 msgid "Loading"
 msgstr "读档"
@@ -807,7 +807,7 @@ msgstr "**结果。** 相同：每处引用只在游戏不再读取它的地方�
 
 #: manual/cost.md:181
 #: manual/customers.md:1
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "Customers"
 msgstr "顾客"
 
@@ -860,8 +860,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr "**何时启动。** 游戏自己的判定会用到一份本地化的水名列表，游戏在第一次用到时才填写它。安装本修复也会让它被填写，而模组启动时游戏还没有应用玩家的语言。所以本修复会等到游戏启动时选定的语言生效后才安装。如果五分钟内仍未生效，本修复在这次游戏中保持关闭，`Player.log` 里会写明。没有这一步等待，水的名称会在整局里保持英文，在其他语言下水也会卖不出去。"
 
 #: manual/diagnostics.md:1
-#: manual/index.md:26
-#: manual/index.md:27
+#: manual/index.md:30
+#: manual/index.md:31
 msgid "Diagnostics"
 msgstr "诊断"
 
@@ -942,29 +942,33 @@ msgid "![Performance Fixes cover](../attachments/cover.png)"
 msgstr "![性能修复封面](../attachments/cover.png)"
 
 #: manual/index.md:7
+msgid "Loading a save and opening full containers, with this mod off and on, recorded in the game on a real tested large store (the loading part plays at double speed):"
+msgstr "在实测的大型店铺上，于游戏中分别关闭和开启本模组，录下读档和打开满载容器的过程（读档部分以两倍速播放）："
+
+#: manual/index.md:9
+msgid "![Loading a save and opening containers with Performance Fixes off and on](../attachments/compare.gif)"
+msgstr "![关闭和开启性能修复时的读档与打开容器](../attachments/compare_zh.gif)"
+
+#: manual/index.md:11
 msgid "Options"
 msgstr "选项"
 
-#: manual/index.md:9
+#: manual/index.md:13
 msgid "Every fix has its own switch in the mod's options: open the Mods menu, select Performance Fixes and click the gear icon. All of them are on by default except the profiler."
 msgstr "每项修复在模组设置里都有独立开关：打开模组菜单，选中性能修复，点击齿轮图标。除分析器外，所有修复默认开启。"
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Section"
 msgstr "分组"
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "Option"
 msgstr "选项"
 
-#: manual/index.md:11
+#: manual/index.md:15
 msgid "What it does"
 msgstr "作用"
 
-#: manual/index.md:13
-#: manual/index.md:14
-#: manual/index.md:15
-#: manual/index.md:16
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
@@ -975,110 +979,114 @@ msgstr "作用"
 #: manual/index.md:24
 #: manual/index.md:25
 #: manual/index.md:26
+#: manual/index.md:27
+#: manual/index.md:28
+#: manual/index.md:29
+#: manual/index.md:30
 msgid "on"
 msgstr "开"
 
-#: manual/index.md:13
+#: manual/index.md:17
 msgid "Each container window is drawn on its own canvas, so a change in one window no longer redraws every open window."
 msgstr "每个容器窗口画在自己的画布上，一个窗口有变化时不再重绘所有打开的窗口。"
 
-#: manual/index.md:14
+#: manual/index.md:18
 msgid "A closed window stays in the floating-window layer, so reopening it does not move its contents between canvases."
 msgstr "关闭的窗口留在浮动窗口层，重新打开时不用在画布之间搬动内容。"
 
-#: manual/index.md:15
+#: manual/index.md:19
 msgid "A closed container window stops being drawn instead of having everything inside switched off, so reopening a full window is nearly instant. Needs the two options above."
 msgstr "关闭的容器窗口只是不再绘制，而不是停用里面的所有内容，所以重新打开满载窗口几乎是瞬间的。需要上面两项。"
 
-#: manual/index.md:16
+#: manual/index.md:20
 msgid "The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running."
 msgstr "存储预设快捷键分几帧开关窗口（第一个立即开关），动画不会卡住。"
 
-#: manual/index.md:17
+#: manual/index.md:21
 msgid "Each inventory is re-laid out once per frame instead of once per item change."
 msgstr "每帧每个库存只重新布局一次，而不是每个物品变动都布局一次。"
 
-#: manual/index.md:18
+#: manual/index.md:22
 msgid "While a save loads, each item's look is worked out once per inventory instead of dozens of times."
 msgstr "读档时，每件物品的外观在每个库存里只计算一次，而不是几十次。"
 
-#: manual/index.md:19
+#: manual/index.md:23
 msgid "The parts of items, windows, inventories and machine panels are created where they belong instead of being created elsewhere and moved."
 msgstr "物品、窗口、库存和机器面板的部件直接在所属位置生成，而不是先在别处生成再移过去。"
 
-#: manual/index.md:20
+#: manual/index.md:24
 msgid "Working out an item's shape and state skips the search under an item that has nothing under it."
 msgstr "计算物品的形状和状态时，下面什么都没有的物品跳过查找。"
 
-#: manual/index.md:21
+#: manual/index.md:25
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr "选中物品下的高亮原地更新，不再每帧重画，框选或拖动大批物品时不再卡顿。"
 
-#: manual/index.md:22
+#: manual/index.md:26
 msgid "The early look at a save's store reads only the upgrades it checks instead of the whole store."
 msgstr "读档前提前查看商店时，只读要检查的升级，而不是整个商店。"
 
-#: manual/index.md:23
+#: manual/index.md:27
 msgid "Entering the store no longer rewrites the settings file for settings that already hold the same value."
 msgstr "进入商店时，已经是相同值的设置不再重写设置文件。"
 
-#: manual/index.md:24
+#: manual/index.md:28
 msgid "Leaving the store lets go of everything that still pointed at it, so the next load does not start with the old store in memory."
 msgstr "离开商店时放开所有仍指向它的引用，下次读档不会带着旧商店的内存开始。"
 
-#: manual/index.md:25
+#: manual/index.md:29
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr "顾客对容器的收货判定每件物品只算一次，而不是每层都重查。"
 
-#: manual/index.md:26
+#: manual/index.md:30
 msgid "Log long frames"
 msgstr "记录长帧"
 
-#: manual/index.md:26
+#: manual/index.md:30
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr "把超过 100 毫秒的帧和刚打开的窗口写入 `Player.log`。"
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "Profile long frames"
 msgstr "分析长帧"
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "off"
 msgstr "关"
 
-#: manual/index.md:27
+#: manual/index.md:31
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr "按方法拆解超过 100 毫秒的帧。会让游戏略微变慢。"
 
-#: manual/index.md:29
+#: manual/index.md:33
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr "如果发现异常，先关掉对应部分的选项，再反馈你看到的现象。"
 
-#: manual/index.md:31
+#: manual/index.md:35
 msgid "The fixes"
 msgstr "各项修复"
 
-#: manual/index.md:33
+#: manual/index.md:37
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr "[窗口](windows.md)：独立画布、窗口原地保留、瞬间隐藏和预设逐个打开。"
 
-#: manual/index.md:34
+#: manual/index.md:38
 msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, UI built in place and lighter shape checks."
 msgstr "[库存](inventories.md)：每个库存每帧只布局一次，选中高亮原地更新，读档时每件物品只检查一次，界面原地生成，以及精简形状检查。"
 
-#: manual/index.md:35
+#: manual/index.md:39
 msgid "[Loading](loading.md): the whole load with and without this mod, the lighter store preload, unchanged settings left unwritten, and the store freed when you leave it."
 msgstr "[读档](loading.md)：用与不用此模组时的整个读档，精简商店预读，跳过未改动的设置，以及离开商店时释放它。"
 
-#: manual/index.md:36
+#: manual/index.md:40
 msgid "[Customers](customers.md): the buying check in one pass."
 msgstr "[顾客](customers.md)：一次遍历完成收货判定。"
 
-#: manual/index.md:37
+#: manual/index.md:41
 msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
 msgstr "[成本分析](cost.md)：每项修复省去了多少工作，用所涉及的规模来表示。"
 
-#: manual/index.md:38
+#: manual/index.md:42
 msgid "[Diagnostics](diagnostics.md): the long-frame log, the load timeline and the profiler that found all of the above."
 msgstr "[诊断](diagnostics.md)：长帧日志、读档时间线，以及找出以上所有问题的分析器。"
 
@@ -1235,8 +1243,8 @@ msgid "`Hide` performs the game's own steps in the same order: it remembers the 
 msgstr "`Hide` 按原来的顺序执行游戏自己的步骤：记住窗口位置、释放窗口、从打开窗口列表中移除。唯一的区别是关掉画布，而不是停用对象。"
 
 #: manual/windows.md:26
-msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing."
-msgstr "`Show` 先重新打开画布。之后游戏调用 `SetActive(true)` 时，发现对象已经是启用状态，就什么都不做。"
+msgid "`Show` switches the canvas back on first. After that, the game's `SetActive(true)` finds the object already active and does nothing. A locked window, such as a container whose inventory is shown inside a machine slot, is left hidden, as the game's own `Show` leaves it."
+msgstr "`Show` 先重新打开画布。之后游戏调用 `SetActive(true)` 时，发现对象已经是启用状态，就什么都不做。上锁的窗口（例如库存被显示在机器槽位里的容器）保持隐藏，和游戏自己的 `Show` 一样。"
 
 #: manual/windows.md:27
 msgid "`IsVisible` answers false for a window hidden this way."
