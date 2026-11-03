@@ -11,6 +11,8 @@ opt_batch,Batch inventory layouts
 opt_batch_tip,Each inventory is re-laid out once per frame instead of once per item change. Speeds up loading and changes inside full containers.
 opt_select,Fast selection highlight
 opt_select_tip,The highlight under selected items and the placement preview are updated in place instead of being redrawn every frame. Removes the stutter while a large selection is held or dragged.
+opt_load,Check items once while loading
+opt_load_tip,While a save loads, each item's look is worked out once per inventory instead of dozens of times as its tags are restored. Speeds up loading a large store. The loaded items are the same.
 opt_buyer,Fast buyer check
 opt_buyer_tip,Decides whether a customer will buy a container in one pass over its contents instead of rechecking every level. Customers accept and refuse exactly as before.
 opt_log,Log long frames

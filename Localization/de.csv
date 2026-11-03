@@ -11,6 +11,8 @@ opt_batch,Inventar-Layouts bündeln
 opt_batch_tip,Jedes Inventar wird einmal pro Frame neu angeordnet statt bei jeder Gegenstandsänderung. Beschleunigt das Laden und Änderungen in vollen Behältern.
 opt_select,Schnelle Auswahlhervorhebung
 opt_select_tip,Die Hervorhebung unter ausgewählten Gegenständen und die Platzierungsvorschau werden an Ort und Stelle aktualisiert, statt jeden Frame neu gezeichnet zu werden. Beseitigt das Ruckeln, während eine große Auswahl gehalten oder gezogen wird.
+opt_load,Gegenstände beim Laden einmal prüfen
+opt_load_tip,Beim Laden eines Spielstands wird das Aussehen jedes Gegenstands einmal pro Inventar berechnet statt dutzendfach beim Wiederherstellen seiner Tags. Lädt einen großen Laden schneller. Die geladenen Gegenstände sind dieselben.
 opt_buyer,Schnelle Käuferprüfung
 opt_buyer_tip,Entscheidet in einem Durchgang über den Inhalt, ob ein Kunde einen Behälter kauft, statt jede Ebene erneut zu prüfen. Kunden nehmen an und lehnen ab wie zuvor.
 opt_log,Lange Frames protokollieren

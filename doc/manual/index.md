@@ -15,6 +15,7 @@ Every fix has its own switch in the mod's options: open the Mods menu, select Pe
 | Windows | Hide closed windows instantly | on | A closed container window stops being drawn instead of having everything inside switched off, so reopening a full window is nearly instant. Needs the two options above. |
 | Windows | Open preset windows one by one | on | The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running. |
 | Inventories | Batch inventory layouts | on | Each inventory is re-laid out once per frame instead of once per item change. |
+| Inventories | Check items once while loading | on | While a save loads, each item's look is worked out once per inventory instead of dozens of times. |
 | Inventories | Fast selection highlight | on | The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters. |
 | Customers | Fast buyer check | on | The customer's buying check on containers runs once per item instead of re-checking every level. |
 | Diagnostics | Log long frames | on | Writes frames over 100 ms to `Player.log` with the window opened just before. |
@@ -25,6 +26,6 @@ If anything looks wrong, turn off the option for that area and report what you s
 ## The fixes
 
 - [Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets.
-- [Inventories](inventories.md): one layout per inventory per frame, and the selection highlight updated in place.
+- [Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, and each item checked once while a save loads.
 - [Customers](customers.md): the buying check in one pass.
 - [Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above.

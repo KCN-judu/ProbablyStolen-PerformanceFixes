@@ -18,6 +18,7 @@ namespace PerformanceFixes
     //   Inventories
     //     InventoryBatching an inventory is re-laid out once per frame instead of once per item change
     //     SelectionHighlight the highlight under selected or group-dragged items is updated in place each frame
+    //     LoadChecks        while a save loads, each item's UI is checked once per part instead of dozens of times
     //   Customers
     //     BuyerCheck        the buying check on containers runs once per item instead of quadratically
     //   Diagnostics
@@ -30,7 +31,8 @@ namespace PerformanceFixes
     // StoreClient.IsClientRefusingItem uses WaterFeatureHelper, whose static constructor reads the localized water
     // names. Mods start before the game applies the player's language, so compiling it then would fix those names
     // in English for the session, and water would stop selling in any other language. Of all the methods this mod
-    // patches (the profiler's included), it is the only one that uses such a type.
+    // patches (the profiler's included), it is the only one that uses such a type. LoadChecks waits with it: its
+    // patches reach no such type, but a save is only ever loaded after the language is applied anyway.
     public sealed class PerformanceMod : IMod
     {
         public const string ModId = "performance_fixes";
@@ -44,7 +46,7 @@ namespace PerformanceFixes
         static string modId = ModId;
         static Harmony harmony;
         static GameObject ticker;
-        static ConfigEntry<bool> isolate, batching, selection, keep, stagger, fastHide, buyer, logFrames, profile;
+        static ConfigEntry<bool> isolate, batching, selection, loadChecks, keep, stagger, fastHide, buyer, logFrames, profile;
         static Ticker tickerBehaviour;
         static bool optionsAdded;
 
@@ -52,7 +54,7 @@ namespace PerformanceFixes
         static string lastWindow;
         static float lastWindowAt, nextLog;
 
-        // BuyerCheck waits for the language the game resolves at startup to be applied (see WaitForLanguage).
+        // BuyerCheck and LoadChecks wait for the language the game resolves at startup to be applied (see WaitForLanguage).
         const float LanguageTimeout = 300f;
         static string startupLocale;
         static bool buyerWaiting;
@@ -140,8 +142,8 @@ namespace PerformanceFixes
         // The game resolves the player's language once at startup, then applies it.
         static void NoteStartupLocale(string __result) { startupLocale = __result; }
 
-        // Installs BuyerCheck once that language is the selected one (LocaleGate, with tests); gives up after
-        // LanguageTimeout, leaving it off for the session.
+        // Installs BuyerCheck and LoadChecks once that language is the selected one (LocaleGate, with tests); gives up after
+        // LanguageTimeout, leaving both off for the session.
         static void WaitForLanguage()
         {
             bool initialized = startupLocale != null && LocalizationSettings.InitializationOperation.IsDone;
@@ -151,10 +153,11 @@ namespace PerformanceFixes
                 case LocaleGate.State.Ready:
                     buyerWaiting = false;
                     TryPatch("buyer check", () => BuyerCheck.Patch(harmony));
+                    TryPatch("load checks", () => LoadChecks.Patch(harmony));
                     break;
                 case LocaleGate.State.GiveUp:
                     buyerWaiting = false;
-                    Debug.LogWarning(Tag + "buyer check is off: the game's language was not applied within " + LanguageTimeout + " s");
+                    Debug.LogWarning(Tag + "buyer check and load checks are off: the game's language was not applied within " + LanguageTimeout + " s");
                     break;
             }
         }
@@ -188,6 +191,9 @@ namespace PerformanceFixes
                 selection = config.Define("fastSelectionHighlight", true, "Inventories", () => L("opt_select"), () => L("opt_select_tip"), false);
                 SelectionHighlight.Enabled = selection.Value;
                 selection.OnChanged += v => SelectionHighlight.Enabled = v;
+                loadChecks = config.Define("deferLoadChecks", true, "Inventories", () => L("opt_load"), () => L("opt_load_tip"), false);
+                LoadChecks.Enabled = loadChecks.Value;
+                loadChecks.OnChanged += v => LoadChecks.Enabled = v;
                 buyer = config.Define("fastBuyerCheck", true, "Customers", () => L("opt_buyer"), () => L("opt_buyer_tip"), false);
                 BuyerCheck.Enabled = buyer.Value;
                 buyer.OnChanged += v => BuyerCheck.Enabled = v;

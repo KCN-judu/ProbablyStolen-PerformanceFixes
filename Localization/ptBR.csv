@@ -11,6 +11,8 @@ opt_batch,Agrupar o layout dos inventários
 opt_batch_tip,Cada inventário é reorganizado uma vez por quadro em vez de a cada mudança de item. Acelera o carregamento e mudanças em contêineres cheios.
 opt_select,Destaque de seleção rápido
 opt_select_tip,O destaque sob os itens selecionados e a prévia de posicionamento são atualizados no lugar em vez de redesenhados a cada quadro. Remove os travamentos ao segurar ou arrastar uma seleção grande.
+opt_load,Verificar os itens uma vez ao carregar
+opt_load_tip,Ao carregar um jogo salvo, a aparência de cada item é calculada uma vez por inventário em vez de dezenas de vezes enquanto as etiquetas são restauradas. Acelera o carregamento de uma loja grande. Os itens carregados são os mesmos.
 opt_buyer,Verificação rápida do comprador
 opt_buyer_tip,Decide em uma única passada pelo conteúdo se um cliente vai comprar um contêiner em vez de reverificar cada nível. Os clientes aceitam e recusam exatamente como antes.
 opt_log,Registrar quadros longos

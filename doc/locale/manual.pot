@@ -73,56 +73,60 @@ msgid "The buying rule on small stores, nesting past the depth limit (no answer,
 msgstr ""
 
 #: manual/building.md:35
-msgid "When an inventory layout waits for the end of the frame and when it runs at once"
+msgid "While a save loads: each item's redraw waits once however often it is asked, runs once at the end with its containers, and is skipped if the item is gone"
 msgstr ""
 
 #: manual/building.md:36
-msgid "When the group-drag fit check must run again"
+msgid "When an inventory layout waits for the end of the frame and when it runs at once"
 msgstr ""
 
 #: manual/building.md:37
-msgid "Which highlight squares are switched off after a refresh"
+msgid "When the group-drag fit check must run again"
 msgstr ""
 
 #: manual/building.md:38
-msgid "Which patches a fix that fails halfway removes again"
+msgid "Which highlight squares are switched off after a refresh"
 msgstr ""
 
 #: manual/building.md:39
+msgid "Which patches a fix that fails halfway removes again"
+msgstr ""
+
+#: manual/building.md:40
 msgid "When the buyer check may be installed, given the game's language"
 msgstr ""
 
-#: manual/building.md:41
+#: manual/building.md:42
 msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
 msgstr ""
 
-#: manual/building.md:43
+#: manual/building.md:44
 msgid "Languages"
 msgstr ""
 
-#: manual/building.md:45
+#: manual/building.md:46
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr ""
 
-#: manual/building.md:47
+#: manual/building.md:48
 msgid "Install by hand"
 msgstr ""
 
-#: manual/building.md:49
+#: manual/building.md:50
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr ""
 
-#: manual/building.md:51
+#: manual/building.md:52
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
 #: manual/customers.md:1
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Customers"
 msgstr ""
 
 #: manual/customers.md:3
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "Fast buyer check"
 msgstr ""
 
@@ -159,8 +163,8 @@ msgid "**When it starts.** The game's own check uses a list of localized water n
 msgstr ""
 
 #: manual/diagnostics.md:1
-#: manual/index.md:20
 #: manual/index.md:21
+#: manual/index.md:22
 msgid "Diagnostics"
 msgstr ""
 
@@ -269,6 +273,7 @@ msgstr ""
 #: manual/index.md:18
 #: manual/index.md:19
 #: manual/index.md:20
+#: manual/index.md:21
 msgid "on"
 msgstr ""
 
@@ -305,6 +310,7 @@ msgstr ""
 
 #: manual/index.md:17
 #: manual/index.md:18
+#: manual/index.md:19
 #: manual/inventories.md:1
 msgid "Inventories"
 msgstr ""
@@ -319,59 +325,68 @@ msgid "Each inventory is re-laid out once per frame instead of once per item cha
 msgstr ""
 
 #: manual/index.md:18
+#: manual/inventories.md:23
+msgid "Check items once while loading"
+msgstr ""
+
+#: manual/index.md:18
+msgid "While a save loads, each item's look is worked out once per inventory instead of dozens of times."
+msgstr ""
+
+#: manual/index.md:19
 #: manual/inventories.md:13
 msgid "Fast selection highlight"
 msgstr ""
 
-#: manual/index.md:18
+#: manual/index.md:19
 msgid "The highlight under selected items is updated in place instead of being redrawn every frame, so holding or dragging a large selection no longer stutters."
 msgstr ""
 
-#: manual/index.md:19
+#: manual/index.md:20
 msgid "The customer's buying check on containers runs once per item instead of re-checking every level."
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Log long frames"
 msgstr ""
 
-#: manual/index.md:20
+#: manual/index.md:21
 msgid "Writes frames over 100 ms to `Player.log` with the window opened just before."
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Profile long frames"
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "off"
 msgstr ""
 
-#: manual/index.md:21
+#: manual/index.md:22
 msgid "Breaks frames over 100 ms down by method. Slows the game slightly."
 msgstr ""
 
-#: manual/index.md:23
+#: manual/index.md:24
 msgid "If anything looks wrong, turn off the option for that area and report what you saw."
 msgstr ""
 
-#: manual/index.md:25
+#: manual/index.md:26
 msgid "The fixes"
 msgstr ""
 
-#: manual/index.md:27
+#: manual/index.md:28
 msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr ""
 
-#: manual/index.md:28
-msgid "[Inventories](inventories.md): one layout per inventory per frame, and the selection highlight updated in place."
-msgstr ""
-
 #: manual/index.md:29
-msgid "[Customers](customers.md): the buying check in one pass."
+msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, and each item checked once while a save loads."
 msgstr ""
 
 #: manual/index.md:30
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr ""
+
+#: manual/index.md:31
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr ""
 
@@ -405,6 +420,18 @@ msgstr ""
 
 #: manual/inventories.md:21
 msgid "The placement preview is updated in place in the same way. Whether the group fits is worked out again only when the drop position, the selection, or an item in any inventory changes. Every other condition is still checked each frame, and the drop itself still runs the game's own check."
+msgstr ""
+
+#: manual/inventories.md:25
+msgid "**Problem.** A save is decoded in eleven parts, one per inventory. Each part builds its items, restores their tags, runs about fifteen load steps on every item (machines, locks, plants, water sprites and more) and moves the items into the inventory. Every tag change and every move recomputes the item's shape and state and then redraws the item's look, and redrawing an item also redraws every container it is inside. In a store of 1,342 items that came to about 58,000 shape checks and 62,000 redraws, over a second of the load."
+msgstr ""
+
+#: manual/inventories.md:27
+msgid "**Fix.** While a part is decoded, only the redraw waits. The shape, the state, placement and every load step run exactly as in the game, and none of them reads an item's look. When the part ends, each item that asked to be redrawn is redrawn once, in the order it first asked; containers it pulls in are redrawn once as well, and items destroyed in the meantime are skipped. An item's look is worked out from its current shape, state and contents, so one redraw at the end gives what the game's last redraw gives."
+msgstr ""
+
+#: manual/inventories.md:29
+msgid "Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded."
 msgstr ""
 
 #: manual/windows.md:3

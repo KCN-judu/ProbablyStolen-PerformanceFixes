@@ -3,8 +3,8 @@
   <ID>performance_fixes</ID>
   <Name>Performance Fixes</Name>
   <Author>KCN-judu</Author>
-  <ModVersion>1.1.1</ModVersion>
-  <Description>Fixes stutters in the base game without changing how it plays. Opening a full container no longer rebuilds every open window, because each container window gets its own canvas. Inventories are laid out once per frame instead of once per item change, which removes seconds from loading a large store. Selecting or dragging a large group of items no longer redraws its highlight and re-checks the whole formation every frame. A customer's buying check on nested storage runs once per item instead of re-checking everything inside, level after level. Customers accept and refuse exactly what they did before.</Description>
+  <ModVersion>1.2.0</ModVersion>
+  <Description>Fixes stutters in the base game without changing how it plays. Opening a full container no longer rebuilds every open window, because each container window gets its own canvas. Loading a save redraws each item once instead of every time one of its tags is restored. Inventories are laid out once per frame instead of once per item change, which removes seconds from loading a large store. Selecting or dragging a large group of items no longer redraws its highlight and re-checks the whole formation every frame. A customer's buying check on nested storage runs once per item instead of re-checking everything inside, level after level. Customers accept and refuse exactly what they did before.</Description>
   <GameVersions>
     <Version>0.46D</Version>
   </GameVersions>

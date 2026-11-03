@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.2.0
+
+- While a save loads, each item's look is worked out once per inventory instead of every time one of its tags is restored, which removes tens of thousands of redraws from loading a large store. The loaded items are the same. This can be turned off in the options.
+- Each load writes its time and the number of items in each inventory to `Player.log`.
+
 ## 1.1.1
 
 - The buyer check installs only once the player's language is applied. Installing it earlier could leave the water names in English for the session, so water stopped selling in other languages.

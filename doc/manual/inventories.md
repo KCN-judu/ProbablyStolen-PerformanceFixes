@@ -19,3 +19,11 @@ Over the items' own container, a group drag is always a precise placement (elsew
 **Fix.** The same squares are lit in the same way, and then only the squares lit the frame before that are not lit now are switched off. A square that stays lit is not touched, so the highlight looks exactly as before and an unchanged selection costs almost nothing. Each item's slot is kept between frames while the item stays in the same inventory with the same shape, so the item list is no longer copied every frame.
 
 The placement preview is updated in place in the same way. Whether the group fits is worked out again only when the drop position, the selection, or an item in any inventory changes. Every other condition is still checked each frame, and the drop itself still runs the game's own check.
+
+## Check items once while loading
+
+**Problem.** A save is decoded in eleven parts, one per inventory. Each part builds its items, restores their tags, runs about fifteen load steps on every item (machines, locks, plants, water sprites and more) and moves the items into the inventory. Every tag change and every move recomputes the item's shape and state and then redraws the item's look, and redrawing an item also redraws every container it is inside. In a store of 1,342 items that came to about 58,000 shape checks and 62,000 redraws, over a second of the load.
+
+**Fix.** While a part is decoded, only the redraw waits. The shape, the state, placement and every load step run exactly as in the game, and none of them reads an item's look. When the part ends, each item that asked to be redrawn is redrawn once, in the order it first asked; containers it pulls in are redrawn once as well, and items destroyed in the meantime are skipped. An item's look is worked out from its current shape, state and contents, so one redraw at the end gives what the game's last redraw gives.
+
+Each load writes one line to `Player.log`, with or without the option: `[PerformanceFixes] save load: ... ms`, the number of redraws asked for and run, and the number of items in each part's inventory. Loading the same save with the option on and off shows the time saved and that the same items were loaded.
