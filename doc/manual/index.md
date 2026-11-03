@@ -29,4 +29,5 @@ If anything looks wrong, turn off the option for that area and report what you s
 - [Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets.
 - [Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, and item UI built in place.
 - [Customers](customers.md): the buying check in one pass.
+- [Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved.
 - [Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above.

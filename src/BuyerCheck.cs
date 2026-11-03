@@ -2,13 +2,13 @@ using HarmonyLib;
 
 namespace PerformanceFixes
 {
-    // Fix 1: makes the game's "would this customer buy it" check linear instead of quadratic.
+    // Fix 1: makes the game's "would this customer buy it" check linear in the items inside.
     //
     // StoreClient.IsClientBuyingThisItem(item) on a container lists every item inside it (GraphUtils.
-    // FindAllChildrenType) and calls itself on each one, and each of those does the same for its own contents. In a
-    // deep store that is quadratic, with a fresh list at every level, and the game runs it when an item is placed on
-    // the counter, when it checks whether something can be sold, and in the negotiation screen (once per item in the
-    // back inventory).
+    // FindAllChildrenType, every level down) and calls itself on each one, and each of those does the same for its own
+    // contents, so an item k levels down is checked up to 2^(k-1) times, with a fresh list each time. The game runs it
+    // when an item is placed on the counter, when it checks whether something can be sold, and in the negotiation
+    // screen (once per item in the back inventory).
     //
     // The rule itself, read from the game, is evaluated bottom-up once per item per call by BuyerRule (its own file,
     // with tests); this patch only supplies the game's answers for single items:

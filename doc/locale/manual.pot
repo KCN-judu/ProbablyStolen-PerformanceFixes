@@ -124,18 +124,433 @@ msgstr ""
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
-#: manual/customers.md:1
-#: manual/index.md:21
-msgid "Customers"
+#: manual/cost.md:1
+msgid "Cost analysis"
 msgstr ""
 
+#: manual/cost.md:3
+msgid "How much work each fix removes, in terms of the sizes involved. For each fix: what the game does and what that costs, what the fix does and what it costs instead, what was measured, and whether the result is the same as the game's."
+msgstr ""
+
+#: manual/cost.md:5
+msgid "Most fixes remove repeated work: the same item, inventory or highlight worked out again and again with the same inputs. Where the order of growth stays the same and only a repeated pass or a constant per step goes away, this page says so. Times were measured in game on one large store and are given to show scale, not as guarantees for every store."
+msgstr ""
+
+#: manual/cost.md:7
+msgid "Sizes"
+msgstr ""
+
+#: manual/cost.md:9
+msgid "Symbol"
+msgstr ""
+
+#: manual/cost.md:9
+msgid "Meaning"
+msgstr ""
+
+#: manual/cost.md:11
+msgid "N"
+msgstr ""
+
+#: manual/cost.md:11
+msgid "items involved, for example all items in a save"
+msgstr ""
+
+#: manual/cost.md:12
+msgid "n"
+msgstr ""
+
+#: manual/cost.md:12
+msgid "items in one inventory"
+msgstr ""
+
+#: manual/cost.md:13
+msgid "t"
+msgstr ""
+
+#: manual/cost.md:13
+msgid "tag changes and moves per item while a save loads"
+msgstr ""
+
+#: manual/cost.md:14
+msgid "d"
+msgstr ""
+
+#: manual/cost.md:14
+msgid "nesting depth: containers inside containers"
+msgstr ""
+
+#: manual/cost.md:15
+msgid "P"
+msgstr ""
+
+#: manual/cost.md:15
+msgid "containers around the items being worked on"
+msgstr ""
+
+#: manual/cost.md:16
+msgid "k"
+msgstr ""
+
+#: manual/cost.md:16
+msgid "UI parts per item (13)"
+msgstr ""
+
+#: manual/cost.md:17
+msgid "m"
+msgstr ""
+
+#: manual/cost.md:17
+msgid "selected items"
+msgstr ""
+
+#: manual/cost.md:18
+msgid "s"
+msgstr ""
+
+#: manual/cost.md:18
+msgid "highlight squares lit"
+msgstr ""
+
+#: manual/cost.md:19
+msgid "W"
+msgstr ""
+
+#: manual/cost.md:19
+msgid "open windows"
+msgstr ""
+
+#: manual/cost.md:20
+msgid "g"
+msgstr ""
+
+#: manual/cost.md:20
+msgid "graphics and components in one window"
+msgstr ""
+
+#: manual/cost.md:22
+msgid "At a glance"
+msgstr ""
+
+#: manual/cost.md:24
+msgid "Fix"
+msgstr ""
+
+#: manual/cost.md:24
+msgid "Game"
+msgstr ""
+
+#: manual/cost.md:24
+msgid "With the fix"
+msgstr ""
+
+#: manual/cost.md:24
+msgid "Same result"
+msgstr ""
+
+#: manual/cost.md:26
+#: manual/cost.md:38
+#: manual/index.md:13
+#: manual/windows.md:5
+msgid "Separate canvas per window"
+msgstr ""
+
+#: manual/cost.md:26
+msgid "O(g · W) per change"
+msgstr ""
+
+#: manual/cost.md:26
+msgid "O(g) per change"
+msgstr ""
+
+#: manual/cost.md:26
+#: manual/cost.md:27
+#: manual/cost.md:28
+#: manual/cost.md:29
+#: manual/cost.md:30
+#: manual/cost.md:31
+#: manual/cost.md:32
+#: manual/cost.md:33
+#: manual/cost.md:34
+msgid "yes"
+msgstr ""
+
+#: manual/cost.md:27
+#: manual/cost.md:46
+#: manual/index.md:14
+#: manual/windows.md:13
+msgid "Keep closed windows in place"
+msgstr ""
+
+#: manual/cost.md:27
+#: manual/cost.md:28
+msgid "O(g) per open and per close"
+msgstr ""
+
+#: manual/cost.md:27
+#: manual/cost.md:28
+msgid "O(g) on the first open, then constant"
+msgstr ""
+
+#: manual/cost.md:28
+#: manual/cost.md:56
+#: manual/index.md:15
+#: manual/windows.md:19
+msgid "Hide closed windows instantly"
+msgstr ""
+
+#: manual/cost.md:29
+#: manual/cost.md:66
+#: manual/index.md:16
+#: manual/windows.md:31
+msgid "Open preset windows one by one"
+msgstr ""
+
+#: manual/cost.md:29
+msgid "O(g · W) in one frame"
+msgstr ""
+
+#: manual/cost.md:29
+msgid "the same total, O(g) per frame"
+msgstr ""
+
+#: manual/cost.md:30
+#: manual/cost.md:76
+#: manual/index.md:17
+#: manual/inventories.md:3
+msgid "Batch inventory layouts"
+msgstr ""
+
+#: manual/cost.md:30
+msgid "O(n) per change, O(n²) to fill an inventory"
+msgstr ""
+
+#: manual/cost.md:30
+msgid "O(n) per inventory per frame"
+msgstr ""
+
+#: manual/cost.md:31
+#: manual/cost.md:86
+#: manual/index.md:18
+#: manual/inventories.md:23
+msgid "Check items once while loading"
+msgstr ""
+
+#: manual/cost.md:31
+msgid "each item's UI worked out about t times, each time with its containers"
+msgstr ""
+
+#: manual/cost.md:31
+msgid "each item once, then each container once: O(N + P) per part"
+msgstr ""
+
+#: manual/cost.md:32
+#: manual/cost.md:96
+#: manual/index.md:19
+#: manual/inventories.md:31
+msgid "Build item UI in place"
+msgstr ""
+
+#: manual/cost.md:32
+msgid "k creations and k − 1 moves per item"
+msgstr ""
+
+#: manual/cost.md:32
+msgid "k creations, no moves"
+msgstr ""
+
+#: manual/cost.md:33
+#: manual/cost.md:106
+#: manual/index.md:20
+#: manual/inventories.md:13
+msgid "Fast selection highlight"
+msgstr ""
+
+#: manual/cost.md:33
+msgid "O(m · n) list copies and s squares off and on, every frame; inside the original container also O(m² · n) every frame"
+msgstr ""
+
+#: manual/cost.md:33
+msgid "no list copies, only changed squares touched; the O(m² · n) check only when the drop position or contents change"
+msgstr ""
+
+#: manual/cost.md:34
+#: manual/cost.md:118
 #: manual/customers.md:3
 #: manual/index.md:21
 msgid "Fast buyer check"
 msgstr ""
 
+#: manual/cost.md:34
+msgid "an item k levels deep checked up to 2^(k−1) times"
+msgstr ""
+
+#: manual/cost.md:34
+msgid "each item checked once: O(N)"
+msgstr ""
+
+#: manual/cost.md:36
+#: manual/index.md:13
+#: manual/index.md:14
+#: manual/index.md:15
+#: manual/index.md:16
+#: manual/windows.md:1
+msgid "Windows"
+msgstr ""
+
+#: manual/cost.md:40
+msgid "**Game.** Every floating window is under one canvas, and Unity rebuilds a canvas as a whole. Any change in any window, an item moving or a slot lighting up under the mouse, re-batches every graphic of every open window: O(g · W) per change."
+msgstr ""
+
+#: manual/cost.md:42
+msgid "**Fix.** Each container window gets its own nested canvas, so a change re-batches only its own window: O(g) per change. The order of growth per window is the same; the factor W, the other open windows, goes away."
+msgstr ""
+
+#: manual/cost.md:44
+msgid "**Result.** Identical: same draw order, pixels-per-unit and shader channels, and clicks still reach the window."
+msgstr ""
+
+#: manual/cost.md:48
+msgid "**Game.** Opening a window moves it from its home under the floating-window canvas, and closing it moves it back. Each move makes every graphic in the window re-register: O(g) per open and per close."
+msgstr ""
+
+#: manual/cost.md:50
+msgid "**Fix.** A closed window stays where it is. The first open still costs O(g); after that, opening only brings it to the front, a constant amount of work."
+msgstr ""
+
+#: manual/cost.md:52
+msgid "**Measured.** About 140 ms of the 280 ms stutter of the storage-preset hotkey, which opens four full windows at once."
+msgstr ""
+
+#: manual/cost.md:54
+msgid "**Result.** Identical. A window is kept only within its own scene and goes home before it is destroyed."
+msgstr ""
+
+#: manual/cost.md:58
+msgid "**Game.** Hiding a window deactivates it, and showing it activates it again: every component in it is switched off and on, O(g) each way."
+msgstr ""
+
+#: manual/cost.md:60
+msgid "**Fix.** The window's own canvas and raycaster are switched off instead: constant work per hide and per show. The first open of each window still costs O(g)."
+msgstr ""
+
+#: manual/cost.md:62
+msgid "**Measured.** About 110 ms each way for one large storage window before; nearly instant after its first open."
+msgstr ""
+
+#: manual/cost.md:64
+msgid "**Result.** Identical: the game's own hide steps run in the same order, and the window answers \"not visible\" as before."
+msgstr ""
+
+#: manual/cost.md:68
+msgid "**Game.** The storage-preset hotkey opens or closes all W windows of a preset in one frame: O(g · W) in that frame."
+msgstr ""
+
+#: manual/cost.md:70
+msgid "**Fix.** The same windows open or close one per frame, the first at once. **This fix does not reduce the work**: the total stays O(g · W). It spreads it over W frames, so no single frame does more than O(g) and animations keep moving."
+msgstr ""
+
+#: manual/cost.md:72
+msgid "**Result.** Identical: each window's tab selection is applied right after its own opening, and pressing the hotkey again finishes any pending windows first."
+msgstr ""
+
+#: manual/cost.md:74
+#: manual/index.md:17
+#: manual/index.md:18
+#: manual/index.md:19
+#: manual/index.md:20
+#: manual/inventories.md:1
+msgid "Inventories"
+msgstr ""
+
+#: manual/cost.md:78
+msgid "**Game.** Every item that enters or leaves an inventory, and every tag change on an item, lays the item out and then lays out its whole inventory again: O(n) per change. Filling an inventory of n items costs n inventory layouts of growing size, O(n²); a tag change on one item in a full storage bay lays out the whole bay."
+msgstr ""
+
+#: manual/cost.md:80
+msgid "**Fix.** The inventory layouts asked for while an item is laid out are collected, and each inventory is laid out once, just before the frame is drawn: O(n) per inventory per frame however many changes it had. The item's own layout and everything else still run at once."
+msgstr ""
+
+#: manual/cost.md:82
+msgid "**Measured.** One save load ran 161,804 item layouts and 7,000 inventory layouts in a single frame, about 1.8 s."
+msgstr ""
+
+#: manual/cost.md:84
+msgid "**Result.** Identical on screen, because the layout happens before the frame is drawn. This is the one fix that moves work to a later point in the frame rather than combining it in the same call, because in the game's design the inventory layout is triggered from inside every item change and cannot be combined there."
+msgstr ""
+
+#: manual/cost.md:88
+msgid "**Game.** A save loads in parts, one per inventory. While a part loads, every tag change and every move of an item recomputes its shape and state and then works out its UI again, about t times per item. Working out an item's UI also works out the UI of every container around it, and every inventory layout works out the UI of all its items again. With a container nesting depth of d, an item's UI is worked out O(t · d) times, the same inputs nearly every time but the last."
+msgstr ""
+
+#: manual/cost.md:90
+msgid "**Fix.** The UI work of one part is combined into a single pass at the end of that same part: each item whose UI was asked for is worked out once, then each container around them once. That is O(N + P) per part. Shapes, states, placement, inventory layouts and every load step still run exactly as often as in the game, so their own cost, O(N · t) shape computations, is unchanged."
+msgstr ""
+
+#: manual/cost.md:92
+msgid "**Measured.** On a store of 1,342 items: 61,551 UI requests became 1,343 runs (11 more were for items destroyed during the load, and skipped). The time spent working out item UI fell from 576 ms to 57 ms, and the shape computation, which used to include it, from 991 ms to 507 ms."
+msgstr ""
+
+#: manual/cost.md:94
+msgid "**Result.** Identical. An item's UI is worked out from its current shape, state and contents, so working it out once at the end gives what the game's last time gives."
+msgstr ""
+
+#: manual/cost.md:98
+msgid "**Game.** Each item's UI has k = 13 parts. Twelve of them are created in a shared temporary place and then each is moved to where it belongs inside the item. Creating is unavoidable; moving costs a constant per move, about 73 µs for a bare part inside the game's interface and about 28 µs outside it, whatever the part holds. That is 12 moves per item, O(N · k) moves for N items."
+msgstr ""
+
+#: manual/cost.md:100
+msgid "**Fix.** Each part is created directly where it belongs, so the moves are gone. The creations remain, so **the order of growth is still O(N · k)**; what goes away is one of the two per-part steps, and the more expensive one."
+msgstr ""
+
+#: manual/cost.md:102
+msgid "**Measured.** Creating the UI of 1,342 items fell from 2,040 ms to 363 ms. The whole save load went from 4,655 ms to 2,833 ms."
+msgstr ""
+
+#: manual/cost.md:104
+msgid "**Result.** Identical: each part ends with the same parent, the same place among its siblings and the same position, rotation and scale, and it starts up the same way."
+msgstr ""
+
+#: manual/cost.md:108
+msgid "**Game.** While items are selected, and while they are dragged, the game every frame switches off all s lit highlight squares and lights them again, so each one rebuilds and its canvas is re-batched. To find each item's slot it searches a fresh copy of the inventory's item list: O(m · n) per frame. Over the items' own container, a group drag also checks every selected item against every item in the inventory, and for each of those searches the list of selected items: O(m² · n) per frame."
+msgstr ""
+
+#: manual/cost.md:110
+msgid "**Fix.** The same squares are lit, but only squares whose state changes are touched, and each item's slot is kept while the item stays put, so no lists are copied. The fit check itself is not made faster: **it still costs O(m² · n) when it runs**, but it runs again only when the drop position, the selection or an inventory's contents change, instead of every frame. Every other condition of the check still runs every frame."
+msgstr ""
+
+#: manual/cost.md:112
+msgid "**Measured.** Not timed. Holding and dragging a large selection no longer stutters, inside the original container as well."
+msgstr ""
+
+#: manual/cost.md:114
+msgid "**Result.** Identical: the squares end every frame as the game leaves them, and the drop itself still runs the game's own check."
+msgstr ""
+
+#: manual/cost.md:116
+#: manual/customers.md:1
+#: manual/index.md:21
+msgid "Customers"
+msgstr ""
+
+#: manual/cost.md:120
+msgid "**Game.** To decide whether a customer buys a container, the game lists every item anywhere inside it and runs the full check on each one, and each of those lists and checks everything inside itself again. An item k levels below the container is reached once for every combination of the containers between them, so it can be checked up to 2^(k−1) times, and every listing builds a new list. For the shallow nesting of most stores this looks roughly quadratic; it grows much faster with depth."
+msgstr ""
+
+#: manual/cost.md:122
+msgid "**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep get no answer from this rule, and the game's own check runs for that call instead."
+msgstr ""
+
+#: manual/cost.md:124
+msgid "**Measured.** Not timed separately. The rule is checked outside the game against a plain version of the game's rule on 2,000 random stores, with the same answer every time (see [Building](building.md))."
+msgstr ""
+
+#: manual/cost.md:126
+msgid "**Result.** Identical: the same answers for the current state."
+msgstr ""
+
 #: manual/customers.md:5
-msgid "**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. For nested storage that is quadratic, and every level allocates a new list."
+msgid "**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. An item k levels below the container can be checked up to 2^(k−1) times, and every level allocates a new list; for shallow storage that looks roughly quadratic, and it grows much faster with depth."
 msgstr ""
 
 #: manual/customers.md:7
@@ -260,19 +675,6 @@ msgstr ""
 #: manual/index.md:14
 #: manual/index.md:15
 #: manual/index.md:16
-#: manual/windows.md:1
-msgid "Windows"
-msgstr ""
-
-#: manual/index.md:13
-#: manual/windows.md:5
-msgid "Separate canvas per window"
-msgstr ""
-
-#: manual/index.md:13
-#: manual/index.md:14
-#: manual/index.md:15
-#: manual/index.md:16
 #: manual/index.md:17
 #: manual/index.md:18
 #: manual/index.md:19
@@ -287,17 +689,7 @@ msgid "Each container window is drawn on its own canvas, so a change in one wind
 msgstr ""
 
 #: manual/index.md:14
-#: manual/windows.md:13
-msgid "Keep closed windows in place"
-msgstr ""
-
-#: manual/index.md:14
 msgid "A closed window stays in the floating-window layer, so reopening it does not move its contents between canvases."
-msgstr ""
-
-#: manual/index.md:15
-#: manual/windows.md:19
-msgid "Hide closed windows instantly"
 msgstr ""
 
 #: manual/index.md:15
@@ -305,25 +697,7 @@ msgid "A closed container window stops being drawn instead of having everything 
 msgstr ""
 
 #: manual/index.md:16
-#: manual/windows.md:31
-msgid "Open preset windows one by one"
-msgstr ""
-
-#: manual/index.md:16
 msgid "The storage-preset hotkey opens or closes its windows over a few frames, the first at once, so animations keep running."
-msgstr ""
-
-#: manual/index.md:17
-#: manual/index.md:18
-#: manual/index.md:19
-#: manual/index.md:20
-#: manual/inventories.md:1
-msgid "Inventories"
-msgstr ""
-
-#: manual/index.md:17
-#: manual/inventories.md:3
-msgid "Batch inventory layouts"
 msgstr ""
 
 #: manual/index.md:17
@@ -331,26 +705,11 @@ msgid "Each inventory is re-laid out once per frame instead of once per item cha
 msgstr ""
 
 #: manual/index.md:18
-#: manual/inventories.md:23
-msgid "Check items once while loading"
-msgstr ""
-
-#: manual/index.md:18
 msgid "While a save loads, each item's look is worked out once per inventory instead of dozens of times."
 msgstr ""
 
 #: manual/index.md:19
-#: manual/inventories.md:31
-msgid "Build item UI in place"
-msgstr ""
-
-#: manual/index.md:19
 msgid "Each part of an item's look is created where it belongs instead of being created elsewhere and moved."
-msgstr ""
-
-#: manual/index.md:20
-#: manual/inventories.md:13
-msgid "Fast selection highlight"
 msgstr ""
 
 #: manual/index.md:20
@@ -402,6 +761,10 @@ msgid "[Customers](customers.md): the buying check in one pass."
 msgstr ""
 
 #: manual/index.md:32
+msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
+msgstr ""
+
+#: manual/index.md:33
 msgid "[Diagnostics](diagnostics.md): the long-frame log and the profiler that found all of the above."
 msgstr ""
 

@@ -2,7 +2,7 @@
 
 ## Fast buyer check
 
-**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. For nested storage that is quadratic, and every level allocates a new list.
+**Problem.** When the game decides whether the customer will buy an item (`StoreClient.IsClientBuyingThisItem`), it also checks a container's contents. It lists every item anywhere inside, runs the full check on each one, and each of those lists and checks its own contents again. An item k levels below the container can be checked up to 2^(k−1) times, and every level allocates a new list; for shallow storage that looks roughly quadratic, and it grows much faster with depth.
 
 The game runs this check when an item is placed on the counter, when it decides whether something can be sold, and in the negotiation screen, once for every item in the back inventory.
 
