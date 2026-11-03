@@ -1,45 +1,32 @@
 [h1]Performance Fixes[/h1]
 Smoother shop, same game. Fixes stutters in the base game when you work with big, packed storage.
 
-[h2]What it fixes[/h2]
+[h2]What's new in 1.3.1[/h2]
 [list]
-[*][b]Opening full containers.[/b] All windows share one canvas, so every change redraws every open window. Each container window now gets its own canvas, so a change only redraws that window.
-[*][b]Loading and full containers.[/b] Every time an item is added or changes, the game re-lays out the whole inventory it is in, which costs n × n work for n items. Inventories are now laid out once per frame. This cuts seconds of layout from loading a large store.
-[*][b]Opening and closing storage windows.[/b] Each time a window opens or closes, the game moves its whole contents between two canvases, which is costly for full storage. Closed windows now stay put, which roughly halves the stutter of the storage-preset hotkey, and a preset's windows now open one per frame so animations keep moving.
-[*][b]Instant reopening.[/b] Closing a window used to switch off every slot and item inside it, and reopening switched them all back on. Closed container windows are now simply not drawn, so reopening a full storage window is nearly instant.
-[*][b]Selecting and dragging many items.[/b] While items are selected or dragged as a group, the game redraws the highlight under every one of them each frame and re-checks the whole group. The highlight and the placement preview are now updated in place, and the fit is only re-checked when something changes.
-[*][b]Loading a save.[/b] While a save loads, the game redraws every item each time one of its tags is restored, and every container around it with it: tens of thousands of redraws for a large store. The redraws of each inventory are now combined into one pass, each item once, with the same result.
-[*][b]Creating items and windows.[/b] The game built each part of items and windows in a temporary place and then moved it, which is slow. The parts are now created where they belong.
-[*][b]The rest of the load.[/b] The early look at the store reads only its upgrades, and entering the store no longer rewrites unchanged settings 57 times. A 1,342-item store loads in about 4.7 s instead of about 8 s.
-[*][b]Leaving the store.[/b] The old store is now freed from memory when you return to the main menu.
-[*][b]Trading with nested storage.[/b] To decide whether a customer will buy a container, the game re-checks everything inside it, level after level. The same rule now runs once per item.
+[*]A preventive fix: a locked container window now stays hidden, as in the base game. Nothing else changes.
+[/list]
+1.3.0 made loading a save much faster (8.3 s to 4.6 s on a real tested large store) and frees the store's memory when you leave it.
+
+[h2]What it does[/h2]
+[list]
+[*][b]Windows.[/b] Opening, closing and reopening full containers no longer stutters, and storage presets open without freezing animations.
+[*][b]Inventories.[/b] Large inventories are laid out once per frame instead of once per change, and selecting or dragging many items stays smooth.
+[*][b]Loading.[/b] Loading a save does far less repeated work, and leaving the store frees its memory.
+[*][b]Customers.[/b] The buying check on nested storage runs once per item.
 [/list]
 
 [h2]What stays the same[/h2]
 [list]
 [*]Customers accept and refuse exactly what they did before.
 [*]Windows look, stack and drag as before.
-[*]Each fix can be turned off in the mod's options.
+[*]Every fix can be switched off on its own in the mod's options (gear icon in the Mods menu).
 [/list]
 
-[h2]Options[/h2]
-Every fix can be switched on or off in the mod's options (gear icon in the Mods menu):
-[list]
-[*][b]Windows:[/b] Separate canvas per window, Keep closed windows in place, Hide closed windows instantly, Open preset windows one by one
-[*][b]Inventories:[/b] Batch inventory layouts, Check items once while loading, Build UI in place, Lighter shape checks, Fast selection highlight
-[*][b]Loading:[/b] Lighter store preload, Skip unchanged settings, Free the store when leaving
-[*][b]Customers:[/b] Fast buyer check
-[*][b]Diagnostics:[/b] Log long frames (on), Profile long frames (off)
-[/list]
-
-[h2]For troubleshooting[/h2]
-Frames over 100 ms are written to Player.log with the window that was just opened, so slowdowns can be traced.
-
-Needs no special permissions. Works on its own or with Demand Highlight. Built for game version 0.46D.
+Needs no special permissions. Works on its own or with the other mods in the collection. Built for game version 0.46D.
 
 [h2]Source and documentation[/h2]
 [list]
-[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/en/performance-fixes/]Documentation[/url] (English and Chinese)
+[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/en/performance-fixes/]Documentation[/url] (English and Chinese), with every fix explained and measured
 [*][url=https://github.com/KCN-judu/ProbablyStolen-PerformanceFixes]Source code on GitHub[/url], Apache License 2.0
 [*][url=https://github.com/KCN-judu/ProbablyStolen-Mods]All mods by KCN-judu[/url]
 [/list]
@@ -50,45 +37,32 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 [h1]性能修复[/h1]
 店铺更流畅，玩法不变。修复原版游戏在处理大型、塞满的存储时的卡顿。
 
-[h2]修复了什么[/h2]
+[h2]1.3.1 新内容[/h2]
 [list]
-[*][b]打开满载容器。[/b]原版所有窗口共用一块画布，任何变化都会重绘所有打开的窗口。现在每个容器窗口有自己的画布，变化只重绘那一个窗口。
-[*][b]读档和满载容器。[/b]原版每添加或改变一件物品，就把它所在的整个库存重新布局一次，n 件物品要做 n × n 的工作。现在每个库存每帧只布局一次，读取大型店铺时能省下好几秒。
-[*][b]开关存储窗口。[/b]原版每次开关窗口都要把全部内容在两块画布之间搬动，存储越满越慢。现在关闭的窗口原地保留，存储预设快捷键的卡顿大约减半；预设里的窗口改为每帧打开一个，动画不会停住。
-[*][b]瞬间重新打开。[/b]原版关闭窗口会停用里面的每个格子和物品，重新打开时再全部启用。现在关闭的容器窗口只是不再绘制，重新打开满载的存储窗口几乎是瞬间的。
-[*][b]选中和拖动大批物品。[/b]原版在选中或成组拖动物品时，每帧都会重画每件物品下的高亮并重新检查整组物品。现在高亮和摆放预览都原地更新，只在有变化时才重新判断能否放下。
-[*][b]读档。[/b]原版读档时，每恢复一个标签就重画一次物品，连同它外面的每个容器，大型店铺要重画几万次。现在每个库存的重画合并为一次遍历，每件物品只重画一次，结果完全相同。
-[*][b]生成物品和窗口。[/b]原版把物品和窗口的部件先在临时位置生成再移过去，移动很慢。现在部件直接在所属位置生成。
-[*][b]读档的其余部分。[/b]提前查看商店时只读升级，进入商店时不再把未改动的设置重写 57 次。1342 件物品的店铺读档约 4.7 秒，原版约 8 秒。
-[*][b]离开商店。[/b]回到主菜单时，旧商店会从内存中释放。
-[*][b]嵌套存储的交易。[/b]判断顾客是否收购一个容器时，原版会一层一层反复检查里面的所有东西。现在同样的规则对每件物品只执行一次。
+[*]预防性修复：上锁的容器窗口现在和原版一样保持关闭。其他内容不变。
+[/list]
+1.3.0 大幅加快了读档（在实测的大型店铺上从 8.3 秒缩短到 4.6 秒），并会在离开商店时释放内存。
+
+[h2]功能[/h2]
+[list]
+[*][b]窗口。[/b]开关和重新打开满载容器不再卡顿，存储预设打开时动画不会停住。
+[*][b]库存。[/b]大型库存每帧只布局一次，而不是每次变化都布局；选中和拖动大批物品保持流畅。
+[*][b]读档。[/b]读档时少做大量重复工作，离开商店时释放内存。
+[*][b]顾客。[/b]嵌套存储的收货判定对每件物品只执行一次。
 [/list]
 
 [h2]保持不变的[/h2]
 [list]
 [*]顾客收什么、拒什么与原来完全一致。
 [*]窗口的外观、叠放和拖动与原来一样。
-[*]每项修复都可以在模组选项中关闭。
+[*]每项修复都可以在模组选项（模组菜单中的齿轮图标）里单独关闭。
 [/list]
 
-[h2]选项[/h2]
-每项修复都可以在模组选项（模组菜单中的齿轮图标）里单独开关：
-[list]
-[*][b]窗口：[/b]每个窗口独立画布、关闭的窗口原地保留、瞬间隐藏关闭的窗口、预设窗口逐个打开
-[*][b]库存：[/b]合并库存布局、读档时物品只检查一次、界面原地生成、精简形状检查、快速选中高亮
-[*][b]读档：[/b]精简商店预读、跳过未改动的设置、离开商店时释放内存
-[*][b]顾客：[/b]快速收货判定
-[*][b]诊断：[/b]记录长帧（默认开）、分析长帧（默认关）
-[/list]
-
-[h2]排查问题[/h2]
-超过 100 毫秒的帧会连同刚打开的窗口一起写入 Player.log，方便追查卡顿。
-
-不需要任何特殊权限。可单独使用，也可与需求高亮一起使用。适用于游戏版本 0.46D。
+不需要任何特殊权限。可单独使用，也可与合集里的其他模组一起使用。适用于游戏版本 0.46D。
 
 [h2]源码与文档[/h2]
 [list]
-[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/zh-cn/performance-fixes/]中文文档[/url]
+[*][url=https://kcn-judu.github.io/ProbablyStolen-Mods/zh-cn/performance-fixes/]中文文档[/url]，每项修复都有说明和实测
 [*][url=https://github.com/KCN-judu/ProbablyStolen-PerformanceFixes]GitHub 源码[/url]，Apache License 2.0
 [*][url=https://github.com/KCN-judu/ProbablyStolen-Mods]KCN-judu 的全部模组[/url]
 [/list]

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.1
+
+- Preventive: Hide closed windows instantly leaves a locked window hidden when something asks to show it, as the game does. Before, a container window closed with this option and locked afterwards (for example when its inventory is shown inside a machine slot) could reappear as an empty frame. Nothing else changes.
+- The documentation opens with a recording of loading a save and opening full containers with the mod off and on.
+
 ## 1.3.0
 
 - Loading a save is faster again. On a 1,342-item store, from the click to the first frame, a load takes about 4.7 s, against about 8 s without this mod, starting the game fresh each time.
