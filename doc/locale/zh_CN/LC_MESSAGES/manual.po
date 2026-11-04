@@ -1262,6 +1262,26 @@ msgstr "**问题。** 存储预设快捷键在同一帧内开关预设中的所�
 msgid "**Fix.** The first window opens or closes at once, so the key answers immediately, and the others follow on the next frames, one each. Each window's tab selection is applied right after its own opening, as the game does. Pressing the hotkey again while some are still pending finishes them first, so the game always sees a settled state."
 msgstr "**修复。** 第一个窗口立即打开或关闭，按键马上有反应，其余窗口在之后的帧里每帧处理一个。每个窗口的标签页选择紧跟在它自己打开之后应用，和游戏原来的做法一致。如果还有窗口没处理完又按了快捷键，会先把剩下的处理完，保证游戏看到的状态始终一致。"
 
+#: manual/windows.md:37
+msgid "Disclaimer: windows of other mods"
+msgstr "免责声明：其他模组的窗口"
+
+#: manual/windows.md:39
+msgid "These fixes change how the game's own floating windows (`PixelWindow`) close and open again. Windows that other mods build with the game's custom UI (`CustomUIManager.CreateWindow`), or from their own objects, are not touched."
+msgstr "这几项修复改变的是游戏自己的浮动窗口（`PixelWindow`）关闭和再次打开的方式。其他模组用游戏的自定义界面（`CustomUIManager.CreateWindow`）搭建的窗口，或用自己的对象做的窗口，都不受影响。"
+
+#: manual/windows.md:41
+msgid "A mod that makes its own `PixelWindow` can be affected in one case. With Hide closed windows instantly on, a closed container window, or one the mod gave its own canvas, stays active with its canvas switched off instead of being deactivated. The game's `IsVisible`, `Show` and `Hide` work as usual on it. A mod that checks `activeSelf` instead of `IsVisible`, opens the window with `SetActive(true)` instead of `Show`, or refreshes it in `OnEnable`, may find that its window does not open again, or opens with old contents. We do not work around that."
+msgstr "自己创建 `PixelWindow` 的模组只在一种情况下会受影响。开启“瞬间隐藏关闭的窗口”时，关闭的容器窗口，或者模组自己加了画布的窗口，会保持启用、只关掉画布，而不是被停用。游戏的 `IsVisible`、`Show` 和 `Hide` 对它照常工作。如果模组用 `activeSelf` 而不是 `IsVisible` 判断窗口状态，用 `SetActive(true)` 而不是 `Show` 打开窗口，或在 `OnEnable` 里刷新窗口，它的窗口可能再也打不开，或者打开后还是旧内容。本模组不会为此做兼容处理。"
+
+#: manual/windows.md:43
+msgid "If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please tell us which mod it was, so it can be listed here."
+msgstr "如果其他模组的窗口出现异常，请在选项里关掉“瞬间隐藏关闭的窗口”。所有以这种方式隐藏的窗口会立刻变回普通的隐藏窗口，之后关闭的窗口会像原版游戏一样被停用。也请告诉我们是哪个模组，以便列在这里。"
+
+#: manual/windows.md:45
+msgid "To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then works the same with and without this mod."
+msgstr "致模组作者：请像游戏自己那样，用 `PixelWindow.IsVisible()` 读取窗口状态，用 `Show()` 和 `Hide()` 打开和关闭窗口，不要依赖 `OnEnable` 或 `OnDisable` 来察觉开关。这样无论装没装本模组，你的窗口表现都一样。"
+
 #~ msgid "UI parts per item (13)"
 #~ msgstr "每件物品的界面部件数（13）"
 

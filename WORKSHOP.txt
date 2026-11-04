@@ -1,3 +1,6 @@
+[h1]⚠ 兼容性警告：其他模组的窗口如果没有按原版方式注册，可能与本模组不兼容。对应选项“瞬间隐藏关闭的窗口”可在模组设置中关闭。本模组不为其他不兼容的窗口注册方式提供优化。[/h1]
+[h1]⚠ Compatibility warning: windows from other mods that are not registered the way the base game does it may not work with this mod. The option involved, Hide closed windows instantly, can be turned off in the mod's settings. This mod does not optimise windows registered in other, incompatible ways.[/h1]
+
 [h1]Performance Fixes[/h1]
 Smoother shop, same game. Fixes stutters in the base game when you work with big, packed storage.
 

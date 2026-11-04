@@ -33,3 +33,13 @@ Each window still pays the full cost the first time it opens. Turning the option
 **Problem.** The storage-preset hotkey opens or closes every window of the preset in one frame, so any remaining cost freezes every animation for its whole length.
 
 **Fix.** The first window opens or closes at once, so the key answers immediately, and the others follow on the next frames, one each. Each window's tab selection is applied right after its own opening, as the game does. Pressing the hotkey again while some are still pending finishes them first, so the game always sees a settled state.
+
+## Disclaimer: windows of other mods
+
+These fixes change how the game's own floating windows (`PixelWindow`) close and open again. Windows that other mods build with the game's custom UI (`CustomUIManager.CreateWindow`), or from their own objects, are not touched.
+
+A mod that makes its own `PixelWindow` can be affected in one case. With Hide closed windows instantly on, a closed container window, or one the mod gave its own canvas, stays active with its canvas switched off instead of being deactivated. The game's `IsVisible`, `Show` and `Hide` work as usual on it. A mod that checks `activeSelf` instead of `IsVisible`, opens the window with `SetActive(true)` instead of `Show`, or refreshes it in `OnEnable`, may find that its window does not open again, or opens with old contents. We do not work around that.
+
+If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please tell us which mod it was, so it can be listed here.
+
+To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then works the same with and without this mod.
