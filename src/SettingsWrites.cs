@@ -21,13 +21,20 @@ namespace PerformanceFixes
     static class SettingsWrites
     {
         public static bool Enabled = true;
+        // Statistics for the log line.
         public static int Written, Unchanged;
 
+        // Number of ES3.Save calls in each patched method, counted in the game's code. Redirect refuses a different
+        // number (after a game update), so a changed method is never half-redirected.
         const int ApplySettingWrites = 33, KeyBindingWrites = 1;
 
+        // Nonzero while EmporiumOption.ApplySetting runs; outside it every save is written as the game does.
         static int depth;
+        // ES3.Save<T>(string, T) as found in the game, and this mod's Save<T> that replaces calls to it.
         static MethodInfo gameSave, checkedSave;
 
+        // Finds ES3.Save<T>(string, T) among the overloads, then patches ApplySetting (Begin, transpiler, End) and
+        // KeyBindHelper.Save (transpiler only).
         public static void Patch(Harmony harmony)
         {
             foreach (var m in typeof(ES3).GetMethods(BindingFlags.Static | BindingFlags.Public))
@@ -69,6 +76,7 @@ namespace PerformanceFixes
 
         static int writtenAtStart, unchangedAtStart;
 
+        // depth counts nesting, so only the outermost ApplySetting starts the statistics.
         static void Begin()
         {
             if (depth++ > 0) return;
@@ -94,6 +102,7 @@ namespace PerformanceFixes
             Written++;
         }
 
+        // Reads the key back the way ES3.Save would have to write it, to know whether writing changes the file.
         static bool Holds<T>(string key, T value)
         {
             try { return EqualityComparer<T>.Default.Equals(ES3.Load<T>(key), value); }

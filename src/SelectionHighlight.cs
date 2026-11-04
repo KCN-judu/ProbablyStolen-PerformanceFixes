@@ -38,8 +38,13 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // Private fields and a private method of the game's ItemMultiSelectHandler, read by reflection because the
+        // replaced methods need the handler's own lists. Patch throws if any is missing (game update).
         static FieldInfo selectedField, highlightsField, previewField;
         static MethodInfo preciseDelta;
+        // The squares lit last frame, to find the stale ones. slots and moved are this frame's caches and nextSlots and
+        // nextMoved are being filled; they swap each frame so an item no longer selected drops out. All of them hold
+        // store objects and are emptied by Forget (code_standard: nothing kept after leaving the store).
         static readonly HashSet<TreeNodeRender> previous = new HashSet<TreeNodeRender>();
         static Dictionary<GameItemElement, SlotMarker> slots = new Dictionary<GameItemElement, SlotMarker>();
         static Dictionary<GameItemElement, SlotMarker> nextSlots = new Dictionary<GameItemElement, SlotMarker>();
@@ -55,6 +60,7 @@ namespace PerformanceFixes
         // Counts item re-layouts; any change in an inventory's contents goes through one.
         static int version;
 
+        // Prefixes replace the two per-frame refreshes; ClearSelection drops the caches; ValidateShapeState only counts.
         public static void Patch(Harmony harmony)
         {
             selectedField = typeof(ItemMultiSelectHandler).GetField("selectedItems", PerformanceMod.AnyInstance);
@@ -138,6 +144,7 @@ namespace PerformanceFixes
             return false;
         }
 
+        // Starts a refresh: previous takes the squares lit last frame and the game's list is emptied for this one.
         static void Begin(List<TreeNodeRender> lit)
         {
             previous.Clear();
@@ -154,6 +161,8 @@ namespace PerformanceFixes
             previous.Clear();
         }
 
+        // The item's slot in its inventory, reused while inventory and shape object are unchanged (and the type is one
+        // whose HighlightSlot ignores the slot's index).
         static SlotMarker SlotOf(GameItemElement element, GameInventory inventory)
         {
             if (!IndexUnused(inventory)) return inventory.GetIncompleteItemInventorySlot(element);
@@ -226,6 +235,7 @@ namespace PerformanceFixes
             return home;
         }
 
+        // Any re-layout may have changed what fits; the version invalidates the kept placement answer.
         static void LayoutPrefix() { version++; }
 
         // The store has been left: drop every kept slot, moved shape and fit answer, which still point at its items.
@@ -237,6 +247,7 @@ namespace PerformanceFixes
             previous.Clear();
         }
 
+        // The selection was cleared: nothing kept is valid any more.
         static void ClearPostfix()
         {
             slots.Clear();

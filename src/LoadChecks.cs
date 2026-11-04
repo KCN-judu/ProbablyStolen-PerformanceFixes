@@ -29,12 +29,17 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // Everything below is per load and is cleared in LoadPrefix; nothing here survives to hold store objects
+        // (the pass empties its lists in Flush). The stopwatches and counters only feed the one log line.
         static readonly CombinedPass<GameItemElement> checks = new CombinedPass<GameItemElement>();
         static readonly List<int> counts = new List<int>();
         static readonly Stopwatch load = new Stopwatch(), decode = new Stopwatch();
         static int failed, uncheckedAsked, nodesAtStart, shapesAtStart, walksSkippedAtStart;
+        // True from LoadGame's start to its end; DecodeSaveItem and Validate calls outside it are not counted.
         static bool loading;
 
+        // LoadGame and DecodeSaveItem get a prefix and a finalizer each; GameItemElement.Validate gets a prefix that
+        // lists the request instead of running it.
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(PlayerStore).GetMethod("LoadGame", PerformanceMod.AnyInstance, null, Type.EmptyTypes, null),
@@ -48,6 +53,7 @@ namespace PerformanceFixes
                 new HarmonyMethod(typeof(LoadChecks).GetMethod("ValidatePrefix", PerformanceMod.AnyStatic)));
         }
 
+        // Resets the counters and takes the start values of the other fixes' counters, so the line shows this load only.
         static void LoadPrefix()
         {
             loading = true;
@@ -86,12 +92,15 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // One DecodeSaveItem call is one part (one inventory); the scope opens here and closes in DecodeFinalizer.
         static void DecodePrefix()
         {
             decode.Start();
             if (Enabled) checks.Enter();
         }
 
+        // A finalizer, so the scope closes and the list is emptied even when the part throws. When the outermost scope
+        // ends, the one combined pass runs here.
         static Exception DecodeFinalizer(GameInventory gameInventory, Exception __exception)
         {
             try
@@ -108,6 +117,7 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // Runs the item UI check now when asked outside a scope or by the pass itself; otherwise only lists it.
         static bool ValidatePrefix(GameItemElement __instance)
         {
             if (!Enabled && !checks.Flushing)
@@ -118,6 +128,7 @@ namespace PerformanceFixes
             return checks.Request(__instance);
         }
 
+        // Called for an item whose check threw during the pass; only the first one is logged.
         static void Failed(GameItemElement element, Exception e)
         {
             if (failed++ == 0)

@@ -21,9 +21,14 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // Window rect -> the canvas it came from. Holds store objects, so Forget prunes it after leaving the store and
+        // Prune runs when it grows past 512 (code_standard: nothing kept after leaving the store).
         static readonly Dictionary<RectTransform, Transform> homes = new Dictionary<RectTransform, Transform>();
+        // Nonzero while PixelWindow.Destroy runs: the window must go home then, as in the game, so nothing is kept.
         static int destroying;
 
+        // Adopt records the home; ReleaseWindow is skipped for kept windows; Destroy only flags that a window is being
+        // destroyed (the finalizer clears it even on an exception).
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(UIFamilyLayer).GetMethod("Adopt", PerformanceMod.AnyStatic, null, new[] { typeof(RectTransform) }, null),
@@ -42,6 +47,7 @@ namespace PerformanceFixes
             __state = windowRect != null ? windowRect.parent : null;
         }
 
+        // Only records when Adopt actually moved the window (parent changed).
         static void AdoptPostfix(RectTransform windowRect, Transform __state)
         {
             if (windowRect == null || __state == null || windowRect.parent == __state) return;
@@ -49,6 +55,7 @@ namespace PerformanceFixes
             homes[windowRect] = __state;
         }
 
+        // Skips the game's move back home for a window WillKeep accepts.
         static bool ReleasePrefix(PixelWindow window)
         {
             if (!WillKeep(window)) return true;
@@ -74,6 +81,7 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // Windows closed without moving back; for the long-frame line.
         public static int KeptCount;
 
         static readonly List<RectTransform> dead = new List<RectTransform>();
@@ -81,6 +89,7 @@ namespace PerformanceFixes
         // The store has been left: drop the homes of its windows, which are gone.
         public static void Forget() { Prune(); }
 
+        // Removes entries whose window or home has been destroyed (Unity null).
         static void Prune()
         {
             dead.Clear();

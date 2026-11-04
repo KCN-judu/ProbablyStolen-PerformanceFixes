@@ -18,6 +18,7 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // One window action put off to a later frame, with the arguments of the game's call.
         sealed class Step
         {
             public ItemMouseDoubleClickHandler Opener;
@@ -29,10 +30,16 @@ namespace PerformanceFixes
             public bool IncludeChildren;
         }
 
+        // queue holds the pending steps in order; deferredOpen finds the open step of an item so its tab selection can
+        // be attached. Both hold store objects and are emptied by Forget. inToggle is true during TogglePresets; running
+        // is true while a step runs, so the game's call made by Run goes through the patches unchanged; firstDone marks
+        // that the first window of this toggle has been handled at once.
         static readonly Queue<Step> queue = new Queue<Step>();
         static readonly Dictionary<GameItem, Step> deferredOpen = new Dictionary<GameItem, Step>();
         static bool inToggle, running, firstDone;
 
+        // TogglePresets marks the span in which calls are put off; the open, tab and close methods it calls are the
+        // ones intercepted.
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(MachineStorageCoordinator).GetMethod("TogglePresets", PerformanceMod.AnyStatic),
@@ -49,6 +56,7 @@ namespace PerformanceFixes
                 new HarmonyMethod(typeof(StaggeredPresets).GetMethod("ClosePrefix", PerformanceMod.AnyStatic)));
         }
 
+        // Finishes steps of an earlier press first, so each press starts from a settled state.
         static void TogglePrefix()
         {
             FinishAll();
@@ -63,6 +71,7 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // Lets the first open run now and queues the rest.
         static bool OpenPrefix(ItemMouseDoubleClickHandler __instance, GameItem newItem, Vector2 mousePosition)
         {
             if (!inToggle || running || newItem == null) return true;
@@ -84,6 +93,7 @@ namespace PerformanceFixes
             return false;
         }
 
+        // As OpenPrefix, for closing.
         static bool ClosePrefix(GameItem __instance, bool includeChildren)
         {
             if (!inToggle || running) return true;
@@ -98,11 +108,13 @@ namespace PerformanceFixes
             if (queue.Count > 0) Run(queue.Dequeue());
         }
 
+        // Runs every pending step now; used before a new toggle and when the option is switched off.
         public static void FinishAll()
         {
             while (queue.Count > 0) Run(queue.Dequeue());
         }
 
+        // Runs one step through the game's own method; a failure is logged and does not stop the queue.
         static void Run(Step step)
         {
             running = true;

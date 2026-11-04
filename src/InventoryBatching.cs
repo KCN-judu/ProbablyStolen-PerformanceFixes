@@ -23,11 +23,14 @@ namespace PerformanceFixes
 
         // Which layouts wait for the end of the frame (its own file, with tests).
         static readonly LayoutBatch<GameInventory> layouts = new LayoutBatch<GameInventory>();
+        // Reused buffer for the flush, so a frame allocates nothing for it.
         static readonly List<GameInventory> batch = new List<GameInventory>();
 
         // Statistics for the long-frame log.
         public static int Deferred, Flushed, Skipped, Failed;
 
+        // Enter is a prefix and Leave a finalizer on ValidateShapeState, so the scope is closed even if the game's
+        // method throws. Flush is hooked to the frame end (see the header for why that moment).
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(GameItem).GetMethod("ValidateShapeState", PerformanceMod.AnyInstance, null, Type.EmptyTypes, null),
@@ -45,8 +48,10 @@ namespace PerformanceFixes
             Canvas.willRenderCanvases += Flush;
         }
 
+        // DeclaredOnly: the override of each concrete type is patched, not the inherited one twice.
         const System.Reflection.BindingFlags Declared = PerformanceMod.AnyInstance | System.Reflection.BindingFlags.DeclaredOnly;
 
+        // GetMethodBody() != null skips methods without IL (extern or abstract stubs), which Harmony cannot patch.
         static void PatchValidate(Harmony harmony, System.Reflection.MethodInfo[] methods, HarmonyMethod prefix)
         {
             foreach (var m in methods)
@@ -54,6 +59,7 @@ namespace PerformanceFixes
                     harmony.Patch(m, prefix);
         }
 
+        // Lays out what is still waiting, so switching the mod off leaves no inventory unlaid.
         public static void Unpatch()
         {
             Canvas.willRenderCanvases -= Flush;
@@ -72,6 +78,7 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // Skips the game's Validate when the layout is deferred; runs it when called outside ValidateShapeState.
         static bool ValidatePrefix(GameInventory __instance)
         {
             bool newlyDeferred;
@@ -80,6 +87,7 @@ namespace PerformanceFixes
             return now;
         }
 
+        // Runs before Unity renders the frame: lays out each recorded inventory once.
         static void Flush()
         {
             if (!layouts.Take(batch)) return;

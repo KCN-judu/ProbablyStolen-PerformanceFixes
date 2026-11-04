@@ -9,6 +9,7 @@ namespace PerformanceFixes
     {
         public enum State { Wait, Ready, GiveUp }
 
+        // waited and timeout are in seconds. Wait is the answer until the language matches or the time is up.
         public static State Decide(bool initialized, string resolved, string selected, float waited, float timeout)
         {
             if (initialized && resolved != null && selected == resolved) return State.Ready;

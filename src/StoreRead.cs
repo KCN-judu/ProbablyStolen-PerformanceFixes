@@ -18,15 +18,19 @@ namespace PerformanceFixes
     static class StoreRead
     {
         public static bool Enabled = true;
+        // Number of preloads narrowed; LastNarrowed is for the save-load log line.
         public static int Preloads;
         public static bool LastNarrowed;   // whether the last preload read only the upgrades
 
         const string UpgradesMember = "networkUpgrade";
 
+        // ES3Type.members is the list of members Easy Save reads for a type; it is not public, hence reflection. While
+        // narrowed is set, the type holds the short list and allMembers the full one, which Restore puts back.
         static FieldInfo membersField;
         static ES3Types.ES3Type narrowed;
         static ES3Internal.ES3Member[] allMembers;
 
+        // Prefix narrows the description, finalizer restores it, so the real load always sees the whole type.
         public static void Patch(Harmony harmony)
         {
             membersField = typeof(ES3Types.ES3Type).GetField("members", PerformanceMod.AnyInstance);
@@ -36,6 +40,7 @@ namespace PerformanceFixes
                 new HarmonyMethod(typeof(StoreRead).GetMethod("PreloadFinalizer", PerformanceMod.AnyStatic)));
         }
 
+        // On any failure the description is restored and the preload reads everything, as the game does.
         static void PreloadPrefix()
         {
             LastNarrowed = false;
@@ -66,6 +71,7 @@ namespace PerformanceFixes
             return __exception;
         }
 
+        // Puts the full member list back; safe to call when nothing is narrowed.
         static void Restore()
         {
             if (narrowed == null) return;

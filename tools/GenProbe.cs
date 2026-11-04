@@ -3,6 +3,7 @@
 // Validate(), as C# typeof(...) entries the profiler can patch without reflecting over unknown types.
 using System; using System.IO; using System.Linq; using System.Collections.Generic; using Mono.Cecil;
 class G {
+  // Whether the type derives from UnityEngine.MonoBehaviour, so its Update-like methods are called by Unity every frame.
   static bool IsMono(TypeDefinition t) {
     for (var b = t.BaseType; b != null; ) {
       if (b.FullName == "UnityEngine.MonoBehaviour") return true;
@@ -16,12 +17,15 @@ class G {
     var n = t.Name;
     return !(n.StartsWith("Mod") || n.StartsWith("Steam") || n.StartsWith("Workshop") || n.Contains("Trust"));
   }
+  // Public, non-generic, non-interface types only: the generated source must name them without reflection.
   static bool Visible(TypeDefinition t) {
     if (!Allowed(t)) return false;
     for (var x = t; x != null; x = x.DeclaringType) if (!(x.IsPublic || x.IsNestedPublic)) return false;
     return !t.HasGenericParameters && !t.IsInterface && t.Name.IndexOf('<') < 0;
   }
+  // Name as written in the generated C#; nested types use '.'.
   static string Name(TypeDefinition t) { return "global::" + t.FullName.Replace('/', '.'); }
+  // Only parameterless instance methods are listed, which is all Unity's per-frame callbacks and Validate are.
   static void Main(string[] a) {
     var res = new DefaultAssemblyResolver(); res.AddSearchDirectory(Path.GetDirectoryName(a[0]));
     var asm = AssemblyDefinition.ReadAssembly(a[0], new ReaderParameters { AssemblyResolver = res });

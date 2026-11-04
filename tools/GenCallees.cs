@@ -4,7 +4,10 @@
 using System; using System.IO; using System.Linq; using System.Text; using System.Collections.Generic;
 using Mono.Cecil; using Mono.Cecil.Cil;
 class G {
+  // The game's main module, set in Main; used to keep only calls that stay inside Assembly-CSharp.
   static ModuleDefinition mod;
+  // Whether the type can be written in C# source from another assembly: all its declaring types are public and it is not
+  // compiler-generated.
   static bool Visible(TypeReference r) {
     if (r is ByReferenceType) return Visible(((ByReferenceType)r).ElementType);
     if (r is ArrayType) return Visible(((ArrayType)r).ElementType);
@@ -16,6 +19,7 @@ class G {
     for (var x = d; x != null; x = x.DeclaringType) if (!(x.IsPublic || x.IsNestedPublic)) return false;
     return d.Name.IndexOf('<') < 0;
   }
+  // C# spelling of a type for the generated source (by-ref types lose the ref; MakeByRefType is added in TypeOf).
   static string Cs(TypeReference r) {
     if (r is ByReferenceType) return Cs(((ByReferenceType)r).ElementType);
     if (r is ArrayType) return Cs(((ArrayType)r).ElementType) + "[]";
@@ -26,14 +30,17 @@ class G {
     }
     return "global::" + r.FullName.Replace('/', '.');
   }
+  // The typeof(...) expression that selects the overload in GetMethod.
   static string TypeOf(TypeReference r) {
     var t = "typeof(" + Cs(r) + ")";
     return r is ByReferenceType ? t + ".MakeByRefType()" : t;
   }
+  // The game's mod loader, mod security and Steam integration may not be patched by mods; leave them out.
   static bool Allowed(TypeDefinition t) {
     var n = t.Name;
     return !(n.StartsWith("Mod") || n.StartsWith("Steam") || n.StartsWith("Workshop") || n.Contains("Trust"));
   }
+  // Breadth-first walk of the call graph from the roots, one level per loop pass, then one line per usable method.
   static void Main(string[] a) {
     var res = new DefaultAssemblyResolver(); res.AddSearchDirectory(Path.GetDirectoryName(Path.GetFullPath(a[0])));
     var asm = AssemblyDefinition.ReadAssembly(a[0], new ReaderParameters { AssemblyResolver = res });
@@ -57,6 +64,8 @@ class G {
           }
       frontier = next;
     }
+    // Skipped: constructors, generic and abstract methods, properties and compiler-generated names, since the profiler
+    // finds methods by name and parameter types.
     var lines = new List<string>();
     foreach (var m in seen.OrderBy(x => x.DeclaringType.FullName).ThenBy(x => x.Name)) {
       var t = m.DeclaringType;

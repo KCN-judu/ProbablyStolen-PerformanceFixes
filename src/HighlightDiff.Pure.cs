@@ -9,6 +9,7 @@ namespace PerformanceFixes
     // no more and is switched off; a square lit both times is left alone.
     static class HighlightDiff
     {
+        // Removes from previous every square that is lit now; what is left is the stale set.
         public static void KeepStale<T>(HashSet<T> previous, List<T> lit)
         {
             foreach (var square in lit) previous.Remove(square);

@@ -10,11 +10,13 @@ namespace PerformanceFixes
     // it. While all of them are as they were, the last answer still holds.
     sealed class FormationFit<TInventory, TItem> where TInventory : class where TItem : class
     {
+        // A copy of the selection, not the caller's list: the caller reuses and changes its own.
         readonly List<TItem> selection = new List<TItem>();
         TInventory inventory;
         int deltaX, deltaY, version;
         bool known, fits;
 
+        // True when the stored answer is still valid for these inputs; the answer is then in fits.
         public bool TryGet(TInventory inventory, int deltaX, int deltaY, int version, List<TItem> items, out bool fits)
         {
             fits = this.fits;
@@ -22,6 +24,7 @@ namespace PerformanceFixes
                 this.version == version && Same(items);
         }
 
+        // Remembers the answer together with the inputs it was computed from.
         public void Store(TInventory inventory, int deltaX, int deltaY, int version, List<TItem> items, bool fits)
         {
             this.inventory = inventory;
@@ -34,6 +37,7 @@ namespace PerformanceFixes
             known = true;
         }
 
+        // Drops the inventory and items, so nothing from the store is kept.
         public void Forget()
         {
             known = false;

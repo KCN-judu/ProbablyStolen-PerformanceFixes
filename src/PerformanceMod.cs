@@ -7,6 +7,11 @@ using UnityEngine.Localization.Settings;
 
 namespace PerformanceFixes
 {
+    // Entry point (IMod) of the mod: reads the options, attaches the patches of every fix and drives the per-frame
+    // work. The fixes themselves are in the other files of src/, one per fix; decisions with headless tests are in
+    // the .Pure.cs files. Diagnostics: the long-frame log is at the end of this file, LoadTimer.cs and Profiler.cs
+    // hold the rest.
+    //
     // Performance fixes for the base game. Each fix keeps the game's behaviour and only removes wasted work, and
     // each has its own option, grouped as in the options screen:
     //   Windows
@@ -43,22 +48,29 @@ namespace PerformanceFixes
     // ShapeChecks, StoreRead and SettingsWrites wait too, for the same reason.
     public sealed class PerformanceMod : IMod
     {
+        // Id of the mod as in manifest.xml; used for the config and the localized option names.
         public const string ModId = "performance_fixes";
         const string HarmonyId = "mod." + ModId;
         const string Tag = "[PerformanceFixes] ";
+        // A frame longer than this many seconds is written to Player.log.
         const float LongFrame = 0.1f;
 
+        // Flags for GetMethod: the game's methods are often private or internal, so every patch looks them up by
+        // name with these.
         internal const BindingFlags AnyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         internal const BindingFlags AnyStatic = BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
 
         static string modId = ModId;
         static Harmony harmony;
         static GameObject ticker;
+        // One option per fix (see ReadConfig).
         static ConfigEntry<bool> isolate, batching, selection, loadChecks, itemNodes, shapeChecks, storeRead, settingsWrites, release, keep, stagger, fastHide, buyer, logFrames, profile;
         static Ticker tickerBehaviour;
         static bool optionsAdded;
 
+        // Count of windows moved to their own canvas (set by WindowCanvases), shown in the long-frame line.
         internal static int Isolated;
+        // The last container window shown and when, so a long frame can name the window opened just before it.
         static string lastWindow;
         static float lastWindowAt, nextLog;
 
@@ -69,11 +81,14 @@ namespace PerformanceFixes
         static bool buyerWaiting;
         static float buyerSince;
 
+        // Takes the id from the manifest, so config and localization are found under whatever id the game loaded us as.
         public void Init(ModManifest manifest)
         {
             if (manifest != null && !string.IsNullOrEmpty(manifest.ID)) modId = manifest.ID;
         }
 
+        // Reads the options, creates the ticker, attaches the fixes that do not wait for the language and starts the
+        // profiler if it is on. Runs once; later calls only (re)start the profiler.
         public void OnEnable()
         {
             ReadConfig();
@@ -107,6 +122,8 @@ namespace PerformanceFixes
             if (profile != null && profile.Value) TryPatch("profiler", () => Profiler.Start(tickerBehaviour));
         }
 
+        // Takes everything back: patches, ticker and profiler. The three Unpatch calls undo what harmony.UnpatchAll
+        // does not (state those fixes set up outside their patches).
         public void OnDisable()
         {
             Profiler.Stop();
@@ -177,8 +194,11 @@ namespace PerformanceFixes
             }
         }
 
+        // Localized text of this mod (Localization/*.csv) for the options screen.
         static string L(string key) { return ModHelper.GetLocalized(modId, key); }
 
+        // Defines the options and applies each one to its fix, now and when the player changes it. A fix switched off
+        // at run time undoes its visible state (RestoreAll, FinishAll) where it has any.
         static void ReadConfig()
         {
             if (optionsAdded) return;
@@ -234,6 +254,7 @@ namespace PerformanceFixes
             catch (Exception e) { Debug.LogWarning(Tag + "settings unavailable, using defaults: " + e.Message); }
         }
 
+        // Postfix of PixelWindow.Show: remembers the last window that belongs to items, for the long-frame line.
         static void NoteWindow(PixelWindow __instance)
         {
             var owners = __instance.parentItems;
@@ -242,6 +263,9 @@ namespace PerformanceFixes
             lastWindowAt = Time.unscaledTime;
         }
 
+        // Called once per frame by the Ticker. Each step is guarded: an exception in one must not stop the others or
+        // be thrown into Unity's Update every frame. Writes the long-frame line at most every 2 s, and not during the
+        // first 300 frames (loading) or while the profiler does its own logging.
         internal static void Tick()
         {
             try { StaggeredPresets.Tick(); } catch (Exception) { }
@@ -262,6 +286,7 @@ namespace PerformanceFixes
         }
     }
 
+    // Carries Update for the DontDestroyOnLoad object; the mod itself is not a MonoBehaviour.
     public sealed class Ticker : MonoBehaviour
     {
         void Update() { PerformanceMod.Tick(); }

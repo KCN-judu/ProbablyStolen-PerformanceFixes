@@ -16,14 +16,20 @@ namespace PerformanceFixes
     // LoadTimeline (its own file, with tests).
     static class LoadTimer
     {
+        // The scene the store lives in (see code_standard).
         const string StoreScene = "InventoryScene";
+        // Seconds after which an unfinished timeline is dropped, e.g. when the trip fails or the player quits.
         const float GiveUpAfter = 120f;
 
         static readonly LoadTimeline timeline = new LoadTimeline();
         static readonly Stopwatch clock = new Stopwatch();
+        // True while StartNewGameClick runs: StartBlackscreenSequence is also used elsewhere, and only the one called
+        // from the start button is timed.
         static bool inClick;
+        // Frame in which the scene was set up or the save loaded; the first later frame is the first one drawn.
         static int busyFrame = -1;
 
+        // Unlike the other fixes this one subscribes to sceneLoaded, so Unpatch must remove it.
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(MainMenuUIController).GetMethod("StartNewGameClick", PerformanceMod.AnyInstance, null, Type.EmptyTypes, null),
@@ -71,6 +77,7 @@ namespace PerformanceFixes
         // From LoadChecks: the save itself.
         public static void SaveLoadStarted() { Mark("save load started"); }
 
+        // From LoadChecks: the save is loaded; the next later frame is the first one drawn.
         public static void SaveLoaded()
         {
             Mark("save loaded");
@@ -95,6 +102,7 @@ namespace PerformanceFixes
             else if (clock.Elapsed.TotalSeconds > GiveUpAfter) Finish();
         }
 
+        // Writes the one line and stops the clock.
         static void Finish()
         {
             timeline.End();

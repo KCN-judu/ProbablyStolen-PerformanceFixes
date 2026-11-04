@@ -29,11 +29,15 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // The store's scene name, as in code_standard.md; the main menu is EmporiumMenu.
         const string StoreScene = "InventoryScene";
 
+        // SaveManager.InitHeap is private and called by reflection. inStore is true once the store scene has been loaded,
+        // so the first other scene afterwards is the one that follows leaving it.
         static MethodInfo initHeap;
         static bool inStore;
 
+        // No Harmony patch: this fix only listens to sceneLoaded, so Unpatch must unsubscribe.
         public static void Patch(Harmony harmony)
         {
             initHeap = typeof(SaveManager).GetMethod("InitHeap", PerformanceMod.AnyStatic, null, Type.EmptyTypes, null);
@@ -43,6 +47,7 @@ namespace PerformanceFixes
 
         public static void Unpatch() { SceneManager.sceneLoaded -= OnSceneLoaded; }
 
+        // Single mode only: an additive scene is not leaving the store.
         static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
             if (mode != LoadSceneMode.Single) return;
@@ -52,6 +57,8 @@ namespace PerformanceFixes
             if (Enabled) Release(scene.name);
         }
 
+        // Each step runs on its own, so one failing step does not keep the others from releasing. The forced collection
+        // is what makes the next load start from a clean heap; the line gives the managed memory before and after.
         static void Release(string sceneName)
         {
             long before = GC.GetTotalMemory(false);
@@ -70,8 +77,11 @@ namespace PerformanceFixes
                 " manager(s) that still pointed at it; managed memory " + Mb(before) + " -> " + Mb(after));
         }
 
+        // Counts for the log line, set by the two Drop steps.
         static int windows, managers;
 
+        // The window roots of GraphHandler are plain objects, not Unity ones, so a destroyed window is recognised by its
+        // handler being gone.
         static void DropDestroyedWindows()
         {
             windows = 0;
@@ -187,6 +197,8 @@ namespace PerformanceFixes
             Drop(typeof(WindowsHandler).GetField("current", PerformanceMod.AnyStatic));
         }
 
+        // Clears the static field only if it holds a destroyed Unity object (== null is true, ReferenceEquals is not).
+        // A live object, as in a menu scene that keeps one, is left alone.
         static void Drop(FieldInfo field)
         {
             if (field == null || !field.IsStatic) return;
@@ -196,12 +208,14 @@ namespace PerformanceFixes
             managers++;
         }
 
+        // Empties a static list the game fills but never clears.
         static void ClearList(FieldInfo field)
         {
             var list = field == null ? null : field.GetValue(null) as System.Collections.IList;
             if (list != null) list.Clear();
         }
 
+        // Isolates one release step; a failure is logged and never reaches the game.
         static void Try(Action step)
         {
             try { step(); }

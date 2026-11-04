@@ -7,6 +7,7 @@ namespace PerformanceFixes
     // either fully on or fully off and the other fixes keep theirs.
     static class PatchRollback
     {
+        // after minus before, without duplicates, in order of appearance.
         public static List<T> Added<T>(ICollection<T> before, IEnumerable<T> after)
         {
             var added = new List<T>();

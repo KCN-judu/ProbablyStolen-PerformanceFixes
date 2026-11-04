@@ -14,8 +14,10 @@ namespace PerformanceFixes
         readonly List<string> names = new List<string>();
         readonly List<double> times = new List<double>();
 
+        // False before Begin and after End; marks outside a trip are ignored.
         public bool Started { get; private set; }
 
+        // Starts a new trip; the button press is time 0 and is left out of the report.
         public void Begin()
         {
             names.Clear();
@@ -35,6 +37,7 @@ namespace PerformanceFixes
 
         public void End() { Started = false; }
 
+        // Sorted by time, ties by order of arrival. Each gap is measured from the previous step, so they add up.
         public string Report()
         {
             var order = new List<int>();

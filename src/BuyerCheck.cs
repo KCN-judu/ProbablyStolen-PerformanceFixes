@@ -19,6 +19,8 @@ namespace PerformanceFixes
     // call; its checks of the items inside come back through this patch, one level down each time.
     static class BuyerCheck
     {
+        // Set only for the duration of one patched call (cleared in finally), so no store object is kept afterwards.
+        // busy stops re-entry: the game's own calls made while the rule runs go through unchanged.
         static StoreClient client;
         static bool busy;
 
@@ -30,6 +32,8 @@ namespace PerformanceFixes
 
         public static bool Enabled = true;
 
+        // Prefixes on both overloads (item, ignoreContents) of the two checks; each skips the original when the rule
+        // has an answer.
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(StoreClient).GetMethod("IsClientBuyingThisItem", PerformanceMod.AnyInstance, null,
@@ -69,6 +73,7 @@ namespace PerformanceFixes
             return false;
         }
 
+        // Mirrors the game's condition for looking inside a container (see the list in the header).
         static bool ContentsChecked(GameItem item)
         {
             return !LockHelper.IsCurrentlyLocked(item) && item.contentWindow != null && !item.IsTag("ADV_GUN_TAG");

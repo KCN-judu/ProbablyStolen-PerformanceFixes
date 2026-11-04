@@ -20,6 +20,7 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // Show is overloaded; the prefix goes on every overload declared in PixelWindow.
         public static void Patch(Harmony harmony)
         {
             // Before Show, so the window is already on its own canvas when it turns visible and even the first
@@ -40,6 +41,8 @@ namespace PerformanceFixes
             Isolate(handler.gameObject);
         }
 
+        // Adds the nested canvas and raycaster once per window; a window already on a canvas is left alone. Also used
+        // by the other window fixes' assumption that the window has its own Canvas (FastHide, KeepAdopted).
         public static void Isolate(GameObject go)
         {
             if (go.GetComponent<Canvas>() != null) return;

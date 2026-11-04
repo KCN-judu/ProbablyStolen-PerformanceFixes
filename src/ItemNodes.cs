@@ -32,11 +32,17 @@ namespace PerformanceFixes
     static class ItemNodes
     {
         public static bool Enabled = true;
+        // Nodes created in place; for the log.
         public static int Built;
 
+        // TreeNodeRender.ApplyLocaleFont, which InstantiateText applies and InstantiateAsRoot does not; found by
+        // reflection as it is not public.
         static MethodInfo applyLocaleFont;
+        // Constructor -> number of create-then-move pairs checked against the game's code. A constructor with a
+        // different count is not changed (a game update changed it, so the check no longer holds).
         static readonly Dictionary<MethodBase, int> expected = new Dictionary<MethodBase, int>();
 
+        // Adds one constructor to the list; null (the game no longer has it) is ignored.
         static void Site(ConstructorInfo ctor, int pairs)
         {
             if (ctor != null) expected[ctor] = pairs;
@@ -81,6 +87,8 @@ namespace PerformanceFixes
             Site(typeof(global::TagElement).GetConstructor(PerformanceMod.AnyInstance, null, new[] { typeof(global::System.Int32), typeof(global::System.Boolean) }, null), 5);
         }
 
+        // Patches each listed constructor on its own; one that fails is reported and left as it is. Throws only when
+        // none could be patched, so TryPatch reports the fix as off.
         public static void Patch(Harmony harmony)
         {
             applyLocaleFont = typeof(TreeNodeRender).GetMethod("ApplyLocaleFont", PerformanceMod.AnyStatic, null, new[] { typeof(TreeNodeRender) }, null);
@@ -99,6 +107,8 @@ namespace PerformanceFixes
                 (skipped.Count > 0 ? "; left as they are: " + string.Join("; ", skipped.ToArray()) : ""));
         }
 
+        // Rewrites each create-then-move pair of a constructor (see the header). Throws on a count that differs from
+        // the list, which makes Harmony leave that constructor unpatched.
         static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, MethodBase original)
         {
             var node = typeof(TreeNodeRender).GetMethod("Instantiate", PerformanceMod.AnyStatic, null, Type.EmptyTypes, null);
@@ -134,6 +144,7 @@ namespace PerformanceFixes
             return code;
         }
 
+        // Classifies one instruction for NodeSites, which finds the pairs on the sequence of kinds.
         static NodeSites.Kind KindOf(CodeInstruction i, MethodInfo node, MethodInfo text, MethodInfo setParent)
         {
             if (i.Calls(node)) return NodeSites.Kind.CreateNode;

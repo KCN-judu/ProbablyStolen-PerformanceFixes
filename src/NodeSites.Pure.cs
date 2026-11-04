@@ -17,12 +17,14 @@ namespace PerformanceFixes
     {
         public enum Kind { Other, CreateNode, CreateText, LoadThis, Getter, ParentField, MoveUnder }
 
+        // One create-then-move pair; Index is where the transpiler removes the create instruction.
         public struct Site
         {
             public int Index;     // of the create instruction
             public bool Text;
         }
 
+        // Non-overlapping sites, left to right. After a match the scan skips its four instructions.
         public static List<Site> Find(IList<Kind> code)
         {
             var sites = new List<Site>();

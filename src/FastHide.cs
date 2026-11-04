@@ -23,8 +23,12 @@ namespace PerformanceFixes
     {
         public static bool Enabled = true;
 
+        // The window root objects hidden by canvas. Only objects of the store's scene go in; Forget and DestroyPrefix
+        // drop the destroyed ones (code_standard: nothing kept after leaving the store).
         static readonly HashSet<GameObject> hidden = new HashSet<GameObject>();
 
+        // Show is patched on every overload declared in PixelWindow, as the game has several and any of them can
+        // bring a hidden window back.
         public static void Patch(Harmony harmony)
         {
             harmony.Patch(typeof(PixelWindow).GetMethod("Hide", PerformanceMod.AnyInstance, null, Type.EmptyTypes, null),
@@ -64,6 +68,7 @@ namespace PerformanceFixes
 
         // The game's Show returns at once for a locked window (a container locked while closed), leaving it hidden;
         // so does this.
+        // Prefix, not postfix: the game's Show calls SetActive(true), which must find the object already active.
         static void ShowPrefix(PixelWindow __instance)
         {
             if (__instance.isLocked) return;
@@ -77,6 +82,7 @@ namespace PerformanceFixes
             if (raycaster != null) raycaster.enabled = true;
         }
 
+        // Keeps the game's view of the window (closed) in line with what the player sees.
         static void IsVisiblePostfix(PixelWindow __instance, ref bool __result)
         {
             if (!__result || hidden.Count == 0) return;
@@ -108,6 +114,7 @@ namespace PerformanceFixes
             hidden.Clear();
         }
 
+        // Shown in the long-frame line.
         public static int Count { get { return hidden.Count; } }
 
         // The store has been left: drop its windows, which are gone.

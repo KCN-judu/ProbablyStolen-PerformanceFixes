@@ -13,11 +13,14 @@ namespace PerformanceFixes
     // skipped.
     sealed class CombinedPass<T> where T : class
     {
+        // listed keeps the order of first request; recorded makes the membership test constant-time.
         readonly List<T> listed = new List<T>();
         readonly HashSet<T> recorded = new HashSet<T>();
+        // The target whose real check is running now: its own re-ask must be let through, not listed again.
         T running;
         int depth;
 
+        // True while Flush walks the list; the game's checks that Flush triggers arrive here again.
         public bool Flushing { get; private set; }
         public int Listed { get { return listed.Count; } }
 

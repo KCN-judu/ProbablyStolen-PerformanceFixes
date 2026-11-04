@@ -18,11 +18,15 @@ namespace PerformanceFixes
     static class ShapeChecks
     {
         public static bool Enabled = true;
+        // Computations and skipped walks, for the save-load log line.
         public static int Computed, WalksSkipped;
 
+        // Shared empty result; safe because the game's caller only enumerates it.
         static readonly List<GameInventory> none = new List<GameInventory>();
+        // GraphUtils.FindChildrenType<T> (generic definition), the call the transpiler looks for.
         static MethodInfo walk;
 
+        // A transpiler on ComputeModifiedShapeState, not a prefix: the rest of that method must still run as before.
         public static void Patch(Harmony harmony)
         {
             walk = typeof(GraphUtils).GetMethod("FindChildrenType", PerformanceMod.AnyStatic);
@@ -50,6 +54,7 @@ namespace PerformanceFixes
         }
 
         // What the walk finds under the node.
+        // Same signature as the walk it replaces. A filter or passthrough means a different walk, which is always run.
         static List<GameInventory> Inventories(GraphNodeStorage node, Func<GameInventory, bool> filter, Func<GameInventory, bool> passthrough)
         {
             Computed++;
