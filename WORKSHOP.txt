@@ -1,14 +1,16 @@
-[h1]⚠ 兼容性警告：其他模组的窗口如果没有按原版方式注册，可能与本模组不兼容。对应选项“瞬间隐藏关闭的窗口”可在模组设置中关闭。本模组不为其他不兼容的窗口注册方式提供优化。[/h1]
-[h1]⚠ Compatibility warning: windows from other mods that are not registered the way the base game does it may not work with this mod. The option involved, Hide closed windows instantly, can be turned off in the mod's settings. This mod does not optimise windows registered in other, incompatible ways.[/h1]
+[h1]⚠ Windows from other mods[/h1]
+With Hide closed windows instantly on, a closed container window is kept switched on but not drawn, instead of being switched off. A mod that checks whether its window is switched on, opens it with SetActive(true) or refreshes it in OnEnable may then fail to open it again, or open it with old contents. If a window from another mod misbehaves, turn that option off in this mod's settings.
+[h1]⚠ 其他模组的窗口[/h1]
+开启「瞬间隐藏关闭的窗口」后，关闭的容器窗口不会被停用，只是不再绘制。如果其他模组检查窗口是否启用、用 SetActive(true) 打开窗口，或在 OnEnable 里刷新窗口，它的窗口可能打不开，或打开后仍是旧内容。遇到这种情况，请在本模组的设置里关闭这个选项。
 
 [h1]Performance Fixes[/h1]
-Smoother shop, same game. Fixes stutters in the base game when you work with big, packed storage.
+Fixes stutters in the base game when you work with big, packed storage.
 
 [h2]What's new in 1.3.1[/h2]
 [list]
 [*]A preventive fix: a locked container window now stays hidden, as in the base game. Nothing else changes.
 [/list]
-1.3.0 made loading a save much faster (8.3 s to 4.6 s on a real tested large store) and frees the store's memory when you leave it.
+1.3.0 made loading a save faster: on a store of 1,342 items, from the click to the first frame, 8.3 s became 4.5 s. It also frees the store's memory when you leave it.
 
 [h2]What it does[/h2]
 [list]
@@ -38,23 +40,23 @@ Bug reports and suggestions are welcome on GitHub or in the comments.
 [hr][/hr]
 
 [h1]性能修复[/h1]
-店铺更流畅，玩法不变。修复原版游戏在处理大型、塞满的存储时的卡顿。
+修复原版游戏在处理大型、塞满的存储时出现的卡顿。
 
 [h2]1.3.1 新内容[/h2]
 [list]
 [*]预防性修复：上锁的容器窗口现在和原版一样保持关闭。其他内容不变。
 [/list]
-1.3.0 大幅加快了读档（在实测的大型店铺上从 8.3 秒缩短到 4.6 秒），并会在离开商店时释放内存。
+1.3.0 加快了读档：在有 1342 件物品的店铺上，从点击到出现第一帧，由 8.3 秒缩短到 4.5 秒。离开商店时，模组还会释放商店占用的内存。
 
 [h2]功能[/h2]
 [list]
 [*][b]窗口。[/b]开关和重新打开满载容器不再卡顿，存储预设打开时动画不会停住。
 [*][b]库存。[/b]大型库存每帧只布局一次，而不是每次变化都布局；选中和拖动大批物品保持流畅。
 [*][b]读档。[/b]读档时少做大量重复工作，离开商店时释放内存。
-[*][b]顾客。[/b]嵌套存储的收货判定对每件物品只执行一次。
+[*][b]顾客。[/b]嵌套存储的收货判定，每件物品只查一次。
 [/list]
 
-[h2]保持不变的[/h2]
+[h2]不会改变的[/h2]
 [list]
 [*]顾客收什么、拒什么与原来完全一致。
 [*]窗口的外观、叠放和拖动与原来一样。

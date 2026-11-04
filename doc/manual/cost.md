@@ -184,7 +184,7 @@ On the 1,342-item store, starting the game fresh before each load and loading th
 
 **Game.** To decide whether a customer buys a container, the game lists every item anywhere inside it and runs the full check on each one, and each of those lists and checks everything inside itself again. An item k levels below the container is reached once for every combination of the containers between them, so it can be checked up to 2^(k−1) times, and every listing builds a new list. For the shallow nesting of most stores this looks roughly quadratic; it grows much faster with depth.
 
-**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep get no answer from this rule, and the game's own check runs for that call instead.
+**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep in the game's item tree get no answer from this rule, and the game's own check runs for that call instead.
 
 **Measured.** Not timed separately. The rule is checked outside the game against a plain version of the game's rule on 2,000 random stores, with the same answer every time (see [Building](building.md)).
 

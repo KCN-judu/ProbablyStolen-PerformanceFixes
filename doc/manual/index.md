@@ -1,6 +1,6 @@
 # Performance Fixes
 
-Smoother shop, same game. This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and only removes wasted work.
+This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and removes only work the game repeats for nothing.
 
 ![Performance Fixes cover](../attachments/cover.png)
 
@@ -31,6 +31,9 @@ Every fix has its own switch in the mod's options: open the Mods menu, select Pe
 | Diagnostics | Profile long frames | off | Breaks frames over 100 ms down by method. Slows the game slightly. |
 
 If anything looks wrong, turn off the option for that area and report what you saw.
+
+> [!NOTE]
+> A window made by another mod can fail to open again while Hide closed windows instantly is on. If one does, turn that option off. See [Disclaimer: windows of other mods](windows.md#disclaimer-windows-of-other-mods).
 
 ## The fixes
 

@@ -1,6 +1,6 @@
 # Windows
 
-Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms.
+Four fixes remove the stutter when full storage windows open and close. The profiler found it: the storage-preset hotkey, which opens four full windows at once, froze the game for about 280 ms.
 
 ## Separate canvas per window
 
@@ -14,7 +14,7 @@ The game finds window bounds through `Canvas.rootCanvas` and positions windows w
 
 **Problem.** When a window opens, the game moves it from its home, the scene's window canvas, under the floating-window canvas (`UIFamilyLayer.Adopt`). When it closes, the game moves it back (`ReleaseWindow`). Moving a hierarchy between canvases makes every graphic and text in it re-register and rebuild, so a full storage window costs tens of milliseconds each way. This was about 140 ms of the 280 ms preset stutter.
 
-**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first as usual.
+**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first, as usual.
 
 ## Hide closed windows instantly
 
@@ -40,6 +40,6 @@ These fixes change how the game's own floating windows (`PixelWindow`) close and
 
 A mod that makes its own `PixelWindow` can be affected in one case. With Hide closed windows instantly on, a closed container window, or one the mod gave its own canvas, stays active with its canvas switched off instead of being deactivated. The game's `IsVisible`, `Show` and `Hide` work as usual on it. A mod that checks `activeSelf` instead of `IsVisible`, opens the window with `SetActive(true)` instead of `Show`, or refreshes it in `OnEnable`, may find that its window does not open again, or opens with old contents. We do not work around that.
 
-If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please tell us which mod it was, so it can be listed here.
+If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please report which mod it was.
 
-To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then works the same with and without this mod.
+To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then behaves the same with and without this mod.

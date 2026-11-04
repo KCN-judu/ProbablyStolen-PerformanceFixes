@@ -9,6 +9,8 @@ On a store of 1,342 items, starting the game fresh before each load and loading 
 | Without this mod | about 7.8 s and 8.2 s |
 | With this mod | 4.64 s and 4.77 s |
 
+The recording at the top of the documentation shows a load on a large store taking 8.3 s without this mod and 4.5 s with it.
+
 The times with this mod come from its own load timeline (see [Diagnostics](diagnostics.md)). Without the mod there is no timeline, so those times come from the game's stall watchdog, which logged the main thread blocked for 7.5 s and 7.9 s, plus the 0.3 s that the two logs differ by on loads where both were written.
 
 ## Lighter store preload

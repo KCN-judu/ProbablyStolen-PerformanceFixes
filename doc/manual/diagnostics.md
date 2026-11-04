@@ -18,7 +18,7 @@ Each step is the time since the one before, starting from the button press: the 
 
 ## Long-frame profiler
 
-**Profile long frames** goes further. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:
+**Profile long frames** times methods. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:
 
 ```
 [PerformanceFixes] profile of a 290 ms frame: scripts and engine 284 ms, UI rebuild and rendering 6 ms; slowest: StoreUIManager.Update 281.8 ms x1, ...

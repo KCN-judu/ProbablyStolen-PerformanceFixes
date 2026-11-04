@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The Windows page ends with a disclaimer about windows of other mods, and the Workshop description opens with a warning. With Hide closed windows instantly on, a closed container window stays switched on with its canvas off, so a mod that checks `activeSelf`, opens its window with `SetActive(true)` or refreshes it in `OnEnable` may find that its window does not open again. Turning the option off restores the base game's behaviour. Nothing in the mod changes.
+
 ## 1.3.1
 
 - Preventive: Hide closed windows instantly leaves a locked window hidden when something asks to show it, as the game does. Before, a container window closed with this option and locked afterwards (for example when its inventory is shown inside a machine slot) could reappear as an empty frame. Nothing else changes.
@@ -7,7 +11,7 @@
 
 ## 1.3.0
 
-- Loading a save is faster again. On a 1,342-item store, from the click to the first frame, a load takes about 4.7 s, against about 8 s without this mod, starting the game fresh each time.
+- Loading a save is faster again. On a 1,342-item store, from the click to the first frame, a load takes 4.5 s, against 8.3 s without this mod, as in the recording at the top of the documentation.
 - Windows, inventories and machine panels are now built in place too, like items: their parts are created where they belong instead of being moved there. The option is now called Build UI in place.
 - Working out an item's shape and state skips the search for inventories under an item that has nothing under it, which is most items while a save loads. This can be turned off in the options.
 - Before a save loads, the game's early look at the store now reads only the upgrades it checks, instead of the whole store, which is nearly the whole save file. This can be turned off in the options.

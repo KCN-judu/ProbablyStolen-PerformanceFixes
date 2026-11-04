@@ -15,116 +15,116 @@ msgstr ""
 msgid "Building"
 msgstr ""
 
-#: manual/building.md:4
+#: manual/building.md:3
 msgid "Requirements"
 msgstr ""
 
-#: manual/building.md:6
+#: manual/building.md:5
 msgid "*Probably Stolen*, game version 0.46D. The build compiles against the game's own assemblies in `Probably Stolen_Data/Managed`."
 msgstr ""
 
-#: manual/building.md:7
+#: manual/building.md:6
 msgid "Git Bash or another POSIX shell on Windows."
 msgstr ""
 
-#: manual/building.md:8
+#: manual/building.md:7
 msgid "The Roslyn C# compiler from Visual Studio Build Tools. The C# 5 compiler that ships with Windows cannot read some of the game's types."
 msgstr ""
 
-#: manual/building.md:10
+#: manual/building.md:9
 msgid "Build"
 msgstr ""
 
-#: manual/building.md:17
+#: manual/building.md:16
 msgid "Two environment variables override the defaults:"
 msgstr ""
 
-#: manual/building.md:19
+#: manual/building.md:18
 msgid "Variable"
 msgstr ""
 
-#: manual/building.md:19
+#: manual/building.md:18
 #: manual/index.md:15
 msgid "Default"
 msgstr ""
 
-#: manual/building.md:22
+#: manual/building.md:21
 msgid "the Roslyn `csc.exe` of Visual Studio 18 Build Tools"
 msgstr ""
 
-#: manual/building.md:24
+#: manual/building.md:23
 msgid "Tests"
 msgstr ""
 
-#: manual/building.md:26
+#: manual/building.md:25
 msgid "The decisions that need neither Unity nor the game live in `src/*.Pure.cs`, and each has a test in `tests/` that compiles with `csc` alone:"
 msgstr ""
 
-#: manual/building.md:32
+#: manual/building.md:31
 msgid "Test"
 msgstr ""
 
-#: manual/building.md:32
+#: manual/building.md:31
 msgid "What it checks"
 msgstr ""
 
-#: manual/building.md:34
+#: manual/building.md:33
 msgid "The buying rule on small stores, nesting past the depth limit (no answer, so the game's own check runs), refusal, each item asked once, and 2,000 random stores against the rule as it reads"
 msgstr ""
 
-#: manual/building.md:35
+#: manual/building.md:34
 msgid "While a save loads: each item is listed once however often it is redrawn, the part ends with one pass that redraws it and its containers once each, and gone items are skipped"
 msgstr ""
 
-#: manual/building.md:36
+#: manual/building.md:35
 msgid "Which UI parts are created in place: exactly the create, load this, getter or field of this, move sequence, nothing in between"
 msgstr ""
 
-#: manual/building.md:37
+#: manual/building.md:36
 msgid "When an inventory layout waits for the end of the frame and when it runs at once"
 msgstr ""
 
-#: manual/building.md:38
+#: manual/building.md:37
 msgid "When the group-drag fit check must run again"
 msgstr ""
 
-#: manual/building.md:39
+#: manual/building.md:38
 msgid "Which highlight squares are switched off after a refresh"
 msgstr ""
 
-#: manual/building.md:40
+#: manual/building.md:39
 msgid "Which patches a fix that fails halfway removes again"
 msgstr ""
 
-#: manual/building.md:41
+#: manual/building.md:40
 msgid "The steps of the load timeline: in time order with the gap since the step before, each kept at its first time, nothing outside a trip"
 msgstr ""
 
-#: manual/building.md:42
+#: manual/building.md:41
 msgid "When the buyer check may be installed, given the game's language"
 msgstr ""
 
-#: manual/building.md:44
+#: manual/building.md:43
 msgid "Each test prints `ok` or `FAIL` per case and exits with a non-zero code if any case fails."
 msgstr ""
 
-#: manual/building.md:46
+#: manual/building.md:45
 msgid "Languages"
 msgstr ""
 
-#: manual/building.md:48
+#: manual/building.md:47
 msgid "The options' text is in `Localization/`, one file per game language, named by the game's locale code: `en`, `zh`, `ja`, `ko`, `de`, `fr`, `es`, `it`, `pl`, `ru` and `ptBR`. A missing line falls back to English."
 msgstr ""
 
-#: manual/building.md:50
+#: manual/building.md:49
 msgid "Install by hand"
 msgstr ""
 
-#: manual/building.md:52
+#: manual/building.md:51
 msgid "Copy the folder `out/performance_fixes` into the game's `Mods` folder, start the game, and enable the mod in the Mods menu. Mods load when the game starts, so restart after enabling or updating one."
 msgstr ""
 
-#: manual/building.md:54
+#: manual/building.md:53
 msgid "The mod declares no capabilities, so the game enables it without a permission prompt."
 msgstr ""
 
@@ -456,7 +456,7 @@ msgstr ""
 #: manual/cost.md:42
 #: manual/cost.md:151
 #: manual/index.md:26
-#: manual/loading.md:14
+#: manual/loading.md:16
 msgid "Lighter store preload"
 msgstr ""
 
@@ -471,7 +471,7 @@ msgstr ""
 #: manual/cost.md:43
 #: manual/cost.md:161
 #: manual/index.md:27
-#: manual/loading.md:20
+#: manual/loading.md:22
 msgid "Skip unchanged settings"
 msgstr ""
 
@@ -486,7 +486,7 @@ msgstr ""
 #: manual/cost.md:44
 #: manual/cost.md:171
 #: manual/index.md:28
-#: manual/loading.md:26
+#: manual/loading.md:28
 msgid "Free the store when leaving"
 msgstr ""
 
@@ -816,7 +816,7 @@ msgid "**Game.** To decide whether a customer buys a container, the game lists e
 msgstr ""
 
 #: manual/cost.md:187
-msgid "**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep get no answer from this rule, and the game's own check runs for that call instead."
+msgid "**Fix.** The same rule is evaluated bottom-up once per item per call: O(N) for N items inside, plus one walk over the contents. Answers are kept only within that one call. Contents nested more than 32 levels deep in the game's item tree get no answer from this rule, and the game's own check runs for that call instead."
 msgstr ""
 
 #: manual/cost.md:189
@@ -852,7 +852,7 @@ msgid "`IsClientBuyingThisItem` and `IsClientRefusingItem`, in the forms that in
 msgstr ""
 
 #: manual/customers.md:16
-msgid "Contents nested more than 32 levels deep get no answer from the rule. For such a call the game's own check runs instead, and its checks of the items inside come back through the fix one level down each time, so even then the answer is the game's."
+msgid "Contents nested more than 32 levels deep in the game's item tree get no answer from the rule. A container's windows count as levels too. For such a call the game's own check runs instead, and its checks of the items inside come back through the fix one level down each time, so even then the answer is the game's."
 msgstr ""
 
 #: manual/customers.md:18
@@ -894,7 +894,7 @@ msgid "Long-frame profiler"
 msgstr ""
 
 #: manual/diagnostics.md:21
-msgid "**Profile long frames** goes further. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:"
+msgid "**Profile long frames** times methods. While it is on, every per-frame callback of the game's MonoBehaviours, every layout pass (`Validate`) and everything the shop's main update calls, four levels deep, is timed, along with Unity's UI rebuild and rendering. Each frame over 100 ms is then logged with its slowest methods:"
 msgstr ""
 
 #: manual/diagnostics.md:27
@@ -934,7 +934,7 @@ msgid "Performance Fixes"
 msgstr ""
 
 #: manual/index.md:3
-msgid "Smoother shop, same game. This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and only removes wasted work."
+msgid "This mod removes stutters from the base game when you work with large, packed storage. Every fix keeps the game's behaviour and removes only work the game repeats for nothing."
 msgstr ""
 
 #: manual/index.md:5
@@ -1063,30 +1063,34 @@ msgid "If anything looks wrong, turn off the option for that area and report wha
 msgstr ""
 
 #: manual/index.md:35
-msgid "The fixes"
-msgstr ""
-
-#: manual/index.md:37
-msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
+msgid "[!NOTE] A window made by another mod can fail to open again while Hide closed windows instantly is on. If one does, turn that option off. See [Disclaimer: windows of other mods](windows.md#disclaimer-windows-of-other-mods)."
 msgstr ""
 
 #: manual/index.md:38
-msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, UI built in place and lighter shape checks."
-msgstr ""
-
-#: manual/index.md:39
-msgid "[Loading](loading.md): the whole load with and without this mod, the lighter store preload, unchanged settings left unwritten, and the store freed when you leave it."
+msgid "The fixes"
 msgstr ""
 
 #: manual/index.md:40
-msgid "[Customers](customers.md): the buying check in one pass."
+msgid "[Windows](windows.md): separate canvases, windows kept in place, instant hiding and staggered presets."
 msgstr ""
 
 #: manual/index.md:41
-msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
+msgid "[Inventories](inventories.md): one layout per inventory per frame, the selection highlight updated in place, each item checked once while a save loads, UI built in place and lighter shape checks."
 msgstr ""
 
 #: manual/index.md:42
+msgid "[Loading](loading.md): the whole load with and without this mod, the lighter store preload, unchanged settings left unwritten, and the store freed when you leave it."
+msgstr ""
+
+#: manual/index.md:43
+msgid "[Customers](customers.md): the buying check in one pass."
+msgstr ""
+
+#: manual/index.md:44
+msgid "[Cost analysis](cost.md): how much work each fix removes, in terms of the sizes involved."
+msgstr ""
+
+#: manual/index.md:45
 msgid "[Diagnostics](diagnostics.md): the long-frame log, the load timeline and the profiler that found all of the above."
 msgstr ""
 
@@ -1179,35 +1183,39 @@ msgid "4.64 s and 4.77 s"
 msgstr ""
 
 #: manual/loading.md:12
+msgid "The recording at the top of the documentation shows a load on a large store taking 8.3 s without this mod and 4.5 s with it."
+msgstr ""
+
+#: manual/loading.md:14
 msgid "The times with this mod come from its own load timeline (see [Diagnostics](diagnostics.md)). Without the mod there is no timeline, so those times come from the game's stall watchdog, which logged the main thread blocked for 7.5 s and 7.9 s, plus the 0.3 s that the two logs differ by on loads where both were written."
 msgstr ""
 
-#: manual/loading.md:16
+#: manual/loading.md:18
 msgid "**Problem.** Almost all of a save is one entry, the store, which holds the contents of every inventory: 13 MB for this store. Before the save loads, the game reads that whole entry once just to see whether the display case and the fixtures are upgraded, and then drops it. The real load reads it again."
 msgstr ""
 
-#: manual/loading.md:18
+#: manual/loading.md:20
 msgid "**Fix.** That early look now reads only the store's upgrades. Easy Save, the game's save system, is told for the moment that the store has only that one field, so it reads the upgrades exactly as before and passes over the rest, as it does with any field it does not know. Nothing else of the early copy was ever read. The real load is not changed."
 msgstr ""
 
-#: manual/loading.md:22
+#: manual/loading.md:24
 msgid "**Problem.** Each time you enter the store, the game writes each of its settings and each key binding to its settings file one at a time: 57 writes. Each write reads the whole file, puts in the one value, writes a new file and swaps it in, and nearly every value written is the one already in the file. This took about half a second of every load."
 msgstr ""
 
-#: manual/loading.md:24
+#: manual/loading.md:26
 msgid "**Fix.** Before each of those writes, the value is read back from the file with the same settings the game writes it with. If the file already holds that value, the write is left out, since it would give the same file. A setting that is missing, different or cannot be read back is written exactly as before. Writes anywhere else, including rebinding a key in the options, are not changed."
 msgstr ""
 
-#: manual/loading.md:28
+#: manual/loading.md:30
 msgid "**Problem.** A store's items, inventories and windows all point at each other, so one reference to any of them kept anywhere keeps the whole store in memory. After leaving the store, for the main menu say, several such references stayed: the lookup tables of the last save, the list of window roots, the game's `current` and `Instance` fields of the store's managers, and some caches. Each load in the same session then started with the previous store still in memory."
 msgstr ""
 
-#: manual/loading.md:30
+#: manual/loading.md:32
 msgid "**Fix.** When another scene replaces the store, these are let go and memory is collected once while the menu is idle. Each reference is cleared only where the game no longer reads it: the save tables are replaced as at the start of every save and load, only windows already destroyed are taken off the list, and a manager field is cleared only while it points at a destroyed manager, which Unity already treats as nothing. `Player.log` gets one line with the memory before and after."
 msgstr ""
 
 #: manual/windows.md:3
-msgid "Four fixes make opening and closing full storage windows smooth. They were found with the profiler: the storage-preset hotkey, which opens four full windows at once, froze the game for about 300 ms."
+msgid "Four fixes remove the stutter when full storage windows open and close. The profiler found it: the storage-preset hotkey, which opens four full windows at once, froze the game for about 280 ms."
 msgstr ""
 
 #: manual/windows.md:7
@@ -1227,7 +1235,7 @@ msgid "**Problem.** When a window opens, the game moves it from its home, the sc
 msgstr ""
 
 #: manual/windows.md:17
-msgid "**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first as usual."
+msgid "**Fix.** A closed window stays under the floating canvas. The next time it opens, the game finds it already in place and only brings it to the front. A window is kept only when its home is in the same scene as the floating canvas, so a scene change destroys it together with its home, exactly as before. A window being destroyed goes home first, as usual."
 msgstr ""
 
 #: manual/windows.md:21
@@ -1275,9 +1283,9 @@ msgid "A mod that makes its own `PixelWindow` can be affected in one case. With 
 msgstr ""
 
 #: manual/windows.md:43
-msgid "If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please tell us which mod it was, so it can be listed here."
+msgid "If a window from another mod misbehaves, turn off Hide closed windows instantly in the options. Every window hidden this way becomes an ordinary hidden window at once, and a window that closes is then deactivated, as in the base game. Please report which mod it was."
 msgstr ""
 
 #: manual/windows.md:45
-msgid "To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then works the same with and without this mod."
+msgid "To mod authors: read a window's state with `PixelWindow.IsVisible()`, open and close it with `Show()` and `Hide()`, as the game itself does, and do not rely on `OnEnable` or `OnDisable` to notice it. Your window then behaves the same with and without this mod."
 msgstr ""
